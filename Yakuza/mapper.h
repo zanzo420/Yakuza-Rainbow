@@ -59,7 +59,7 @@ static BOOL Np_TryIncreaseWorkingSetSize(SIZE_T Size)
 	return TRUE;
 }
 
-int __stdcall map()
+int __stdcall map(uint8_t* driver_data, int type)
 {
 	HMODULE cpaddr = GetModuleHandleA(0);
 	printf("[+] got module handle 0x%p", cpaddr);
@@ -101,8 +101,8 @@ int __stdcall map()
 		return capcom->get_export(base, ord);
 	};
 	sizeof(SYSTEM_INFORMATION_CLASS::SystemBasicInformation);
-	std::vector<uint8_t> driver_image(sizeof(ExcDrv));
-	memcpy(driver_image.data(), ExcDrv, sizeof(ExcDrv));
+	std::vector<uint8_t> driver_image(sizeof(driver_data));
+	memcpy(driver_image.data(), driver_data, sizeof(driver_data));
 	drvmap::drv_image driver(driver_image);
 
 	const auto kernel_memory = capcom->allocate_pool(driver.size(), 'LOOB', kernel::NonPagedPool, true);
@@ -158,18 +158,39 @@ int __stdcall map()
 
 	auto status = STATUS_SUCCESS;
 	const auto capcom_base = capcom->get_kernel_module("Capcom");
-	capcom->run([&entry_point, &status, &kernel_memory, &capcom_base](auto mm_get) {
-		using namespace drvmap::structs;
-		status =
-			((PDRIVER_INITIALIZE)entry_point)(
-				kernel_memory,
-				'LOOB',
-				PiDDBLockPtr_sig,
-				PiDDBCacheTablePtr_sig,
-				TimeDateStamp,
-				(unsigned short*)L"capcom.sys"
-				);
-		});
+	switch (type) {
+	case 0: 
+		capcom->run([&entry_point, &status, &kernel_memory, &capcom_base](auto mm_get) {
+			using namespace drvmap::structs;
+			status =
+				((PDRIVER_INITIALIZE)entry_point)(
+					kernel_memory,
+					'LOOB',
+					PiDDBLockPtr_sig,
+					PiDDBCacheTablePtr_sig,
+					TimeDateStamp,
+					(unsigned short*)L"capcom.sys"
+					);
+			});
+		break;
+	case 1:
+		capcom->run([&entry_point, &status, &kernel_memory, &capcom_base](auto mm_get) {
+			using namespace drvmap::structs;
+			status =
+				((PDRIVER_INITIALIZE)entry_point)(
+					kernel_memory,
+					'LOOB',
+					PiDDBLockPtr_sig,
+					PiDDBCacheTablePtr_sig,
+					TimeDateStamp,
+					(unsigned short*)L"capcom.sys"
+					);
+			});
+	default:
+		return -1;
+		break;
+	}
+	
 
 	if (NT_SUCCESS(status))
 	{

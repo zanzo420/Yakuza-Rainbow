@@ -1,0 +1,2 @@
+C:\Users\sudo\source\repos\Projects\Rainbow Six Seige\Yakuza\build\Debug-x64\tmp\client\client.pdb
+C:\Users\sudo\source\repos\Projects\Rainbow Six Seige\Yakuza\build\Debug-x64\client.pdb

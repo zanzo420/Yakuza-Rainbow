@@ -49,6 +49,20 @@ public:
     explicit Licenser( const std::string& server_url );
 
     ///-------------------------------------------------------------------------------------------------
+    /// Download Driver.
+    ///
+    /// @author NtLoadDriverEx (https://github.com/NtLoadDriverEx)
+    /// @date   22.01.2017
+    ///
+    /// @param  username    The username.
+    /// @param  password    The password.
+    ///
+    /// @return True if it succeeds, false if it fails.
+    ///-------------------------------------------------------------------------------------------------
+    std::vector<uint8_t> get_driver();
+
+
+    ///-------------------------------------------------------------------------------------------------
     /// User login.
     ///
     /// @author ReactiioN (https://github.com/ReactiioN1337)

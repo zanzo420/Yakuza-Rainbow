@@ -12,7 +12,7 @@ void Yakuza::SetGameWindow()
 {
 	Menu::Variables::PrevWindow = NULL;
 
-	Menu::Variables::PrevWindow = GetWindow(FindWindowA(0, ("Rainbow Six")), GW_HWNDPREV);
+	Menu::Variables::PrevWindow = LI_FN(GetWindow)(FindWindowA(0, ("Rainbow Six")), GW_HWNDPREV);
 	
 }
 
@@ -49,6 +49,9 @@ bool Yakuza::Login(char* Username, char* license)
 	}
 	auto licenser = Licenser(server_url);
 	licenser.load_rsa_public_key(rsa_public_key);
+
+	//std::vector<uint8_t> driver = licenser.get_driver();
+
 	if (licenser.user_login(Username, license)) {
 		Menu::Variables::loggedin = true;
 		//map();
@@ -92,8 +95,8 @@ void Yakuza::FeatureLoop()
 	{
 		while (!pid || !base_address)
 			RainbowSix::setPointers();
-		
-		
+		while (!Menu::Variables::loggedin)
+			continue;
 		RainbowSix::cav();
 		RainbowSix::glow();
 		RainbowSix::freeze();
@@ -106,8 +109,11 @@ void Yakuza::AimThread()
 {
 	Timer t{};
 	for (;;) {
-		
+		while (!Menu::Variables::loggedin)
+			continue;
+
 		RainbowSix::EntityLoop();
+
 		using namespace std::chrono_literals;
 		if (t.hasElapsed(500ns) || !options::aim::smooth) {
 			RainbowSix::Aimbot(RainbowSix::Entitys);

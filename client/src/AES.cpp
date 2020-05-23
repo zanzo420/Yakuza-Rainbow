@@ -138,6 +138,44 @@ std::string AES::decrypt( const std::string& cipher,
     }return plain;
 }
 
+std::uint8_t* AES::decrypt(
+    const std::string& cipher,
+    const uint8_t* key,
+    const size_t   key_size,
+    const uint8_t* iv,
+    const size_t   iv_size,
+    const bool     ignored)
+{
+    std::string plain;
+    if (!cipher.empty() && key && key_size > 0 && iv && iv_size > 0) {
+        try {
+            const auto decoded_cipher = base64::decode_binary(cipher);
+            CryptoPP::GCM< CryptoPP::AES >::Decryption dec;
+            dec.SetKeyWithIV(key, key_size, iv, iv_size);
+            CryptoPP::AuthenticatedDecryptionFilter adf(dec, new CryptoPP::StringSink(plain));
+            adf.Put(reinterpret_cast<const unsigned char*>(plain.c_str()), plain.size());
+            adf.MessageEnd();
+        }
+        catch (const CryptoPP::Exception& e) {
+            tfm::printfln("AES::decrypt() throwed an exception from CryptoPP: %s", e.what());
+        }
+    }return (std::uint8_t*)plain.c_str();
+}
+
+std::uint8_t* AES::decrypt(
+    const std::string& cipher,
+    KeyPair& kp,
+    const bool ignored)
+{
+    return decrypt(
+        cipher,
+        kp.key.data(),
+        kp.key.size(),
+        kp.iv.data(),
+        kp.iv.size(),
+        true);
+}
+
 std::string AES::decrypt( const std::string& cipher,
                           KeyPair&          kp )
 {

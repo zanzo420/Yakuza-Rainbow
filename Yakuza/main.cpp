@@ -27,6 +27,7 @@ int main()
     std::thread Menu(Cheat.MenuLoop);
     Menu.detach();
 
+
     std::thread Features(Cheat.FeatureLoop);
     Features.detach();
 

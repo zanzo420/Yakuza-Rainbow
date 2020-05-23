@@ -171,6 +171,17 @@ public:
                                 const uint8_t*     iv,
                                 const size_t       iv_size );
 
+    static std::uint8_t* decrypt( const std::string& cipher,
+                                  const uint8_t* key,
+                                  const size_t   key_size,
+                                  const uint8_t* iv,
+                                  const size_t   iv_size,
+                                  const bool ignored    );
+
+    static std::uint8_t* AES::decrypt(
+        const std::string& cipher,
+        KeyPair& kp,
+        const bool ignored);
     ///-------------------------------------------------------------------------------------------------
     /// Decrypts an AES cipher.
     ///

@@ -82,6 +82,7 @@ namespace RainbowSix
 		uintptr_t addr3 = RPM<uintptr_t>(addr2 + 0x90);
 		uintptr_t addr4 = RPM<uintptr_t>(addr3 + 0xC8);
 		uintptr_t addr5 = RPM<uintptr_t>(addr4 + 0x278);
+
 		WPM<float>(addr5 + 0x58, options::noSpread);
 	}
 

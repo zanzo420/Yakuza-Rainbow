@@ -28,6 +28,8 @@ enum class eRequest : size_t
 {
     Login = 0,
     Register = 1,
+    GetDriver = 2,
+    GetHwidDriver = 3,
 };
 
 class Licenser
@@ -60,6 +62,19 @@ public:
     /// @param  server_url  URL of the server.
     ///-------------------------------------------------------------------------------------------------
     explicit Licenser( const std::string& server_url );
+
+   ///-------------------------------------------------------------------------------------------------
+   /// Download Driver.
+   ///
+   /// @author NtLoadDriverEx (https://github.com/NtLoadDriverEx)
+   /// @date   22.01.2017
+   ///
+   /// @param  username    The username.
+   /// @param  password    The password.
+   ///
+   /// @return True if it succeeds, false if it fails.
+   ///-------------------------------------------------------------------------------------------------
+    std::vector<uint8_t> get_driver();
 
     ///-------------------------------------------------------------------------------------------------
     /// User login.

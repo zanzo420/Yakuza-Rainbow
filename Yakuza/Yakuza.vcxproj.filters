@@ -18,10 +18,10 @@
     <ClCompile Include="RainbowSix.cpp">
       <Filter>Game\R6s</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Game\R6s</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
       <Filter>Menu\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
@@ -162,7 +162,7 @@
       <Filter>Utils\map</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>Game\R6s</Filter>
+      <Filter>Menu\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
