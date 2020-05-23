@@ -164,5 +164,8 @@
     <ClInclude Include="imgui_impl_dx11.h">
       <Filter>Menu\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="bones.h">
+      <Filter>Game\R6s\Features</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

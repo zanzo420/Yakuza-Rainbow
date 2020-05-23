@@ -64,6 +64,8 @@ namespace RainbowSix
 
 	BYTE GetEntityTeamId(uintptr_t entity);
 	int GetEntityCount();
+
+	Vector3 GetEntityBone(DWORD_PTR Entity, __int64 BoneID);
 	PlayerInfo GetAllEntityInfo(uintptr_t entity, int i);
 
 	Vector3 GetViewTranslation();

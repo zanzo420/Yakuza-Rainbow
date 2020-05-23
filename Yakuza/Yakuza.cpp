@@ -47,16 +47,18 @@ bool Yakuza::Login(char* Username, char* license)
 	if (server_url.empty() || rsa_public_key.empty()) {
 		return false;
 	}
-	auto licenser = Licenser(server_url);
-	licenser.load_rsa_public_key(rsa_public_key);
+	//auto licenser = Licenser(server_url);
+	//licenser.load_rsa_public_key(rsa_public_key);
 
 	//std::vector<uint8_t> driver = licenser.get_driver();
 
-	if (licenser.user_login(Username, license)) {
-		Menu::Variables::loggedin = true;
+	//if (licenser.user_login(Username, license)) {
+	//	Menu::Variables::loggedin = true;
 		//map();
-		return true;
-	}
+	//	return true;
+	//}
+	Menu::Variables::loggedin = true;
+	return true;
 	return false;
 }
 

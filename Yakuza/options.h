@@ -17,6 +17,7 @@ namespace options
 	inline bool boxEsp = true;
 	namespace esp 
 	{
+		inline bool skeleton = false;
 		inline bool filled = false;
 		inline bool snaplines = false;
 		inline bool head = false;

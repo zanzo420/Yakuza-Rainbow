@@ -301,6 +301,7 @@ namespace Menu
 			ImGui::Checkbox(xorstr_("Head ESP"), &options::esp::head);
 			ImGui::Checkbox(xorstr_("Filled"), &options::esp::filled);
 			ImGui::Checkbox(xorstr_("Snaplines"), &options::esp::snaplines);
+			ImGui::Checkbox(xorstr_("Skelton ESP"), &options::esp::skeleton);
 			ImGui::Checkbox(xorstr_("Health"), &options::esp::health);
 		}
 		ImGui::Separator();

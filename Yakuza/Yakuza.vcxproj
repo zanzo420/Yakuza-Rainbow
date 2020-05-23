@@ -177,6 +177,7 @@
     <ClCompile Include="Yakuza.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bones.h" />
     <ClInclude Include="esp.h" />
     <ClInclude Include="ImGui\Drawer.h" />
     <ClInclude Include="ImGui\imconfig.h" />

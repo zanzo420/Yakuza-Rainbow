@@ -11,6 +11,9 @@
 #include "Vectors.h"
 #include <xlocbuf>
 #include <codecvt>
+#include <xmmintrin.h>
+#include "bones.h"
+#include <atomic>
 
 #define D3DXToRadian(degree) ((degree) * (M_PI / 180.0f))
 
@@ -147,6 +150,69 @@ namespace RainbowSix
 	}
 
 
+	void TransformsCalculation(__int64 pBones, __m128* ResultPosition, __m128* BoneInfo)
+	{
+		__m128 v5; // xmm2
+		__m128 v6; // xmm3
+		__m128 v7; // xmm0
+		__m128 v8; // xmm4
+		__m128 v9; // xmm1
+
+		__m128 v10 = { 0.500f, 0.500f, 0.500f, 0.500f };
+		__m128 v11 = { 2.000f, 2.000f, 2.000f, 0.000f };
+
+		__m128 v12 = RPM<__m128>(pBones);
+		__m128 v13 = RPM<__m128>(pBones + 0x10);
+
+		v5 = v13;
+
+		v6 = _mm_mul_ps(*(__m128*)BoneInfo, v5);
+		v6.m128_f32[0] = v6.m128_f32[0]
+			+ (float)(_mm_cvtss_f32(_mm_shuffle_ps(v6, v6, 0x55)) + _mm_cvtss_f32(_mm_shuffle_ps(v6, v6, 0xAA)));
+		v7 = _mm_shuffle_ps(v13, v5, 0xFF);
+		v8 = _mm_sub_ps(
+			_mm_mul_ps(_mm_shuffle_ps(v5, v5, 0xD2), *(__m128*)BoneInfo),
+			_mm_mul_ps(_mm_shuffle_ps(*(__m128*)BoneInfo, *(__m128*)BoneInfo, 0xD2), v5));
+		v9 = _mm_shuffle_ps(v12, v12, 0x93);
+		v9.m128_f32[0] = 0.0;
+		*(__m128*)ResultPosition = _mm_add_ps(
+			_mm_shuffle_ps(v9, v9, 0x39),
+			_mm_mul_ps(
+				_mm_add_ps(
+					_mm_add_ps(
+						_mm_mul_ps(_mm_shuffle_ps(v8, v8, 0xD2), v7),
+						_mm_mul_ps(_mm_shuffle_ps(v6, v6, 0), v5)),
+					_mm_mul_ps(
+						_mm_sub_ps(_mm_mul_ps(v7, v7), (__m128)v10),
+						*(__m128*)BoneInfo)),
+				(__m128)v11));
+	}
+
+	Vector3 GetEntityBone(DWORD_PTR Entity, __int64 BoneID)
+	{
+		__m128 Output;
+
+		__int64 pBonesChain1 = RPM<__int64>(Entity + 0x928);
+		__int64 pBonesChain2 = RPM<__int64>(pBonesChain1);
+		__int64 pBones = RPM<__int64>(pBonesChain2 + 0x270);
+		__int64 pBonesData = RPM<__int64>(pBones + 0x58);
+
+		__m128 BoneInfo = RPM<__m128>((0x20 * BoneID) + pBonesData);
+
+		TransformsCalculation(pBones, &Output, &BoneInfo);
+
+		return Vector3(Output.m128_f32[0], Output.m128_f32[1], Output.m128_f32[2]);
+	}
+
+	std::string GetEntityName(uintptr_t Entity) 
+	{
+		BYTE POPCU = RPM<uintptr_t>(Entity + OFFSET_ENTITY_PLAYERINFO);
+		BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
+		BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
+		std::string ThisOperatorName = OperatorName[CTU][OP];
+		return ThisOperatorName;
+	}
+
 	uintptr_t GetCamera() {
 		return lpEngine;
 	}
@@ -178,8 +244,13 @@ namespace RainbowSix
 	}
 
 	Vector3 WorldToScreen(Vector3 position) {
-		int displayWidth = GetSystemMetrics(SM_CXSCREEN);
-		int displayHeight = GetSystemMetrics(SM_CYSCREEN);
+		static int displayWidth;
+		static int displayHeight;
+		if (static std::atomic<bool> ran = false; !ran.exchange(true))
+		{
+			displayWidth = GetSystemMetrics(SM_CXSCREEN);
+			displayHeight = GetSystemMetrics(SM_CYSCREEN);
+		}
 
 		Vector3 temp = position - GetViewTranslation();
 
@@ -195,7 +266,7 @@ namespace RainbowSix
 		return (int)RPM<DWORD>(gamemanager + offset_entity_count) & 0x3fffffff;
 	}
 
-	std::string GetEntityName(uintptr_t entity)
+	std::string GetPlayerName(uintptr_t entity)
 	{
 		wchar_t buf[32];
 		uintptr_t pi;
@@ -229,8 +300,33 @@ namespace RainbowSix
 		return health;
 	}
 
+	//head high_neck low_neck r_shoulder l_shoulder r_elbow l_elbow r_hand l_hand high_stomach low_stomach pelvis r_knee l_knee r_foot l_foot
+
+	enum bone {
+		head		= 0,
+		high_neck	= 1,
+		low_neck	= 2,
+		r_shoulder	= 3,
+		l_shoulder	= 4,
+		r_elbow		= 5,
+		l_elbow		= 6,
+		r_hand		= 7,
+		l_hand		= 8,
+		high_stomach= 9, 
+		low_stomach = 10,
+		pelvis		= 11,
+		r_knee		= 12,
+		l_knee		= 13,
+		r_foot		= 14,
+		l_foot		= 15
+	};
+
 	PlayerInfo GetAllEntityInfo(uintptr_t entity, int i) {
 		PlayerInfo p;
+
+		BYTE POPCU = RPM<uintptr_t>(entity + OFFSET_ENTITY_PLAYERINFO);
+		BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
+		BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
 
 		p.EntHandle = entity;
 		p.id = i;
@@ -240,11 +336,26 @@ namespace RainbowSix
 		p.w2sPos = WorldToScreen(p.Position);
 		p.HeadPos = GetEntityHeadPosition(entity);
 		p.w2sHead = WorldToScreen(p.HeadPos);
-		p.ScrenTop = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.2));
+		p.ScreenTop = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.2));
 		p.Health = GetEntityHealth(GetEntityBase(i));
 		p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.1f));
-		//p.Name = GetEntityName(entity);
-		//p.w2sNeck = ;
+		p.Name = GetEntityName(entity);
+		//p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.1f));
+
+		p.w2sHead = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::head]));
+		p.w2sNeck = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_neck]));
+		p.w2sChest = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::high_stomach]));
+		p.w2sStomach = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_stomach]));
+		p.w2sPelvis = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::pelvis]));
+		p.w2sLelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_elbow]));
+		p.w2sRelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_elbow]));
+		p.w2sLHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_hand]));
+		p.w2sRHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_hand]));
+		p.w2sLfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_foot]));
+		p.w2sRfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_foot]));
+		p.w2sLknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_knee]));
+		p.w2sRknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_knee]));
+
 
 		return p;
 	}
@@ -259,10 +370,9 @@ namespace RainbowSix
 			Entitys = List;
 			return;
 		}
-
-		//entity_count++;
 		for (int i = 0; i < entity_count; i++) {
-
+			if (GetEntityBase(i) == RainbowSix::localplayer)
+				continue;
 			DWORD_PTR Entity = GetEntity(i);
 			if (!Entity) continue;
 			PlayerInfo Player = GetAllEntityInfo(Entity, i);

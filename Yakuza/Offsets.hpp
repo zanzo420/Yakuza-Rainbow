@@ -58,9 +58,10 @@ struct PlayerInfo {
 	float		Health;
 	char		name[20];
 	Vector3		Position;
-	Vector3		ScrenTop;
+	Vector3		ScreenTop;
 	Vector3		w2sPos;
 	Vector3		w2sName;
+
 	std::string Name;
 	Vector3		HeadPos;
 	Vector3		w2sHead;
@@ -70,4 +71,12 @@ struct PlayerInfo {
 	Vector3		w2sChest;
 	Vector3		w2sStomach;
 	Vector3		w2sPelvis;
+	Vector3		w2sLelbow;
+	Vector3		w2sRelbow;
+
+
+	Vector3		w2sLknee;
+	Vector3		w2sRknee;
+	Vector3		w2sLfoot;
+	Vector3		w2sRfoot;
 };
