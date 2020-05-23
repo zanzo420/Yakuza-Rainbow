@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Yakuza.cpp" />
+    <ClCompile Include="md5.cpp">
+      <Filter>Security\StringEncryption</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="RainbowSix.cpp">
+      <Filter>Game\R6s</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>Game\R6s</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Security">
+      <UniqueIdentifier>{e251b25b-a6fc-460d-b866-fc03e3b45c72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{9995a546-ed9a-46a3-a97d-ee928e333b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Security\StringEncryption">
+      <UniqueIdentifier>{a00fc04c-3b37-4929-86fc-dd04a4d4f259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu\ImGui">
+      <UniqueIdentifier>{caa00508-0718-408f-a9c0-7d5570a3a29f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{3e19dc54-d826-4ff7-a706-7f268b5b0de4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{cc05b5a6-d030-4f0f-925c-f88dfadae0ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\R6s">
+      <UniqueIdentifier>{7fe2a869-f660-45bf-8dac-04235deb03c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernel">
+      <UniqueIdentifier>{39afbed6-fd3e-4b4b-b1ff-e69d9a74d011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\R6s\Features">
+      <UniqueIdentifier>{6f4f83b5-4caa-472a-8138-33293418480d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\map">
+      <UniqueIdentifier>{1f6633c1-442f-4010-817a-7a8800698464}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="string.hpp">
+      <Filter>Security\StringEncryption</Filter>
+    </ClInclude>
+    <ClInclude Include="Yakuza.h" />
+    <ClInclude Include="Offsets.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>Security\StringEncryption</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Vectors.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\DrawerSmall.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\graphics.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Imgui_Main.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\imgui_tabs.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\Drawer.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\stb_rect_pack.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\stb_textedit.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\stb_truetype.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Kernel.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="importer.hpp">
+      <Filter>Security</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RainbowSix.h">
+      <Filter>Game\R6s</Filter>
+    </ClInclude>
+    <ClInclude Include="options.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="lists.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="esp.h">
+      <Filter>Game\R6s\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="mapper.h">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\ExcDriver.h">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\loader.hpp">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\native.hpp">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\structs.hpp">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\util.hpp">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\capcomsys.hpp">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\drv_image.hpp">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\capcom.hpp">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map\kernel.hpp">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>Game\R6s</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

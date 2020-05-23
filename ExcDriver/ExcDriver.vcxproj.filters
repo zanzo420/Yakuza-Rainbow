@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DriverEntry.cpp" />
+    <ClCompile Include="Hook.cpp">
+      <Filter>Hook</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ASM">
+      <UniqueIdentifier>{225d57e5-bec1-4c1d-9a5d-f9023a9a59b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hook">
+      <UniqueIdentifier>{67df68a7-7027-477b-a8db-473fc53ff15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module">
+      <UniqueIdentifier>{da24f56f-ccda-4231-b9cd-866807f15a8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{6b28405f-3bd0-4fbd-8b2d-7889bcc40048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HWID">
+      <UniqueIdentifier>{638c94b7-975e-46c7-acbb-c4523e8a0f47}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ExternalFunctions.h" />
+    <ClInclude Include="Hook.h">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="module.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.hpp">
+      <Filter>Memory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="FreeDriver.asm">
+      <Filter>ASM</Filter>
+    </MASM>
+  </ItemGroup>
+</Project>
