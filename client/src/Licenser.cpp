@@ -105,7 +105,7 @@ bool Licenser::user_login( const std::string& username, const std::string& passw
             switch( code ) {
             case eLicenseCode::InvalidUser:
             case eLicenseCode::InvalidPassword:
-                return msg_box( "invalid username or password" );
+                return msg_box( "invalid username or key" );
 
             case eLicenseCode::InvalidHwid:
                 return msg_box( "invalid hardware id" );

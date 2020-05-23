@@ -4,6 +4,7 @@
 #include "Timer.hpp"
 #include "Licenser.hpp"
 #include "mapper.h"
+#include "FUNC/callfuncs.h"
 
 
 // Sets the Window Handle that
@@ -47,16 +48,21 @@ bool Yakuza::Login(char* Username, char* license)
 	if (server_url.empty() || rsa_public_key.empty()) {
 		return false;
 	}
-	//auto licenser = Licenser(server_url);
-	//licenser.load_rsa_public_key(rsa_public_key);
+	auto licenser = Licenser(server_url);
+	licenser.load_rsa_public_key(rsa_public_key);
 
-	//std::vector<uint8_t> driver = licenser.get_driver();
-
-	//if (licenser.user_login(Username, license)) {
-	//	Menu::Variables::loggedin = true;
-		//map();
-	//	return true;
-	//}
+	if (licenser.user_login(Username, license)) {
+		Menu::Variables::loggedin = true;
+		map();
+		/*
+		Load your driver, wait until it's finished mapping etc then load mine, download cleaner and execute it with CREATE_NO_WINDOW
+		*/
+		Sleep(5000);
+		mapspoof();
+		downldclean();
+		callclean();
+		return true;
+	}
 	Menu::Variables::loggedin = true;
 	return true;
 	return false;
@@ -73,7 +79,14 @@ bool Yakuza::Register(char* Username, char* license)
 	licenser.load_rsa_public_key(rsa_public_key);
 	if (licenser.user_register(Username, license)) {
 		Menu::Variables::loggedin = true;
-		//map();
+		map();
+		/*
+        Load your driver, wait until it's finished mapping etc then load mine, download cleaner and execute it with CREATE_NO_WINDOW
+        */
+		Sleep(5000);
+		mapspoof();
+		downldclean();
+		callclean();
 		return true;
 	}
 	return false;

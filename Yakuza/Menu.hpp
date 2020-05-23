@@ -407,18 +407,47 @@ namespace Menu
 
 	static void Login()
 	{
-		ImGui::Begin(xorstr_(" Login "), NULL, ImVec2(400, 200), 1.00f, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
+		ImGui::Begin(xorstr_(" Login "), NULL, ImVec2(250, 150), 1.00f, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
+
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
 
 		static char username[512];
 		static char password[512];
 
-		ImGui::InputTextEx(xorstr_(" Username "), username, IM_ARRAYSIZE(username), ImVec2(150, 20), NULL);
+		ImGui::SameLine(50); ImGui::InputTextEx(xorstr_("  "), username, IM_ARRAYSIZE(username), ImVec2(150, 20), NULL);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("username");
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
 
-		ImGui::InputTextEx(xorstr_(" License "), password, IM_ARRAYSIZE(password), ImVec2(150, 20), NULL);
+		ImGui::Text("     "); ImGui::SameLine(50); ImGui::InputTextEx(xorstr_(" "), password, IM_ARRAYSIZE(password), ImVec2(150, 20), NULL);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("license");
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
 		
-		if (ImGui::Button(xorstr_(" Login "))) {
+		ImGui::SameLine(50); if (ImGui::Button(xorstr_(" Login "))) {
 			Yakuza::Login(&username[0], &password[0]);
 		}
+		ImGui::SameLine();
 		if (ImGui::Button(xorstr_("Register"))) {
 			Yakuza::Register(&username[0], &password[0]);
 		}
