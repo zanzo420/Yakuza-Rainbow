@@ -15,9 +15,6 @@
     <ClCompile Include="ImGui\imgui_draw.cpp">
       <Filter>Menu\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Kernel.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
     <ClCompile Include="RainbowSix.cpp">
       <Filter>Game\R6s</Filter>
     </ClCompile>

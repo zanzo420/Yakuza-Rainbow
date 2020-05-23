@@ -4,6 +4,10 @@
 #include <memory>
 #include <string>
 
+inline uint32_t pid;
+inline uint64_t base_address;
+inline void* driver_control;
+
 enum CommandCodes {
 	ReadPMemory = 1,
 	WritePMemory = 2,
@@ -34,8 +38,18 @@ uint64_t call_driver_control(void* control_function, const A ... arguments)
 
 	return control(arguments ...);
 }
-inline void* driver_control;
-void* KernelFunction();
+
+void* KernelFunction()
+{
+	LoadLibrary("user32.dll");
+	HMODULE hModule = LoadLibrary("win32u.dll");
+
+	if (!hModule)
+		return nullptr;
+
+	return reinterpret_cast<void*>(GetProcAddress(hModule, "NtDxgkGetProcessList"));
+}
+
 uint64_t read_kernel(void* control_function, uint64_t address, void* buffer, std::size_t size);
 
 static ULONG64 GetModuleBaseAddr(const char* moduleName, uint32_t ProcessID, CommandCodes code) {
@@ -47,10 +61,34 @@ static ULONG64 GetModuleBaseAddr(const char* moduleName, uint32_t ProcessID, Com
 	return baseADD;
 }
 
-DWORD GetPID(const std::string& name);
 
-inline uint32_t pid;
-inline uint64_t base_address;
+
+DWORD GetPID(const std::string& name)
+{
+	DWORD pid = 0;
+
+	// Create toolhelp snapshot.
+	HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	PROCESSENTRY32 process;
+	ZeroMemory(&process, sizeof(process));
+	process.dwSize = sizeof(process);
+
+	// Walkthrough all processes.
+	if (Process32First(snapshot, &process))
+	{
+		do
+		{
+			// Compare process.szExeFile based on format of name, i.e., trim file path
+			// trim .exe if necessary, etc.
+			if (std::string(process.szExeFile) == name)
+			{
+				pid = process.th32ProcessID;
+				break;
+			}
+		} while (Process32Next(snapshot, &process));
+	}
+	return pid;
+}
 
 template<typename T>
 T RPM(uintptr_t address)

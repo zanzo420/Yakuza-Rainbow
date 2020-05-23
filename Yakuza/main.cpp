@@ -4,12 +4,11 @@
 #include <cstdio>
 #include "Menu.hpp"
 #include "Timer.hpp"
+
 #pragma comment(lib, "Advapi32.lib")
 #pragma comment(lib, "user32.lib") 
 #pragma comment(lib, "cryptlib.lib")
 #pragma comment(lib, "client.lib")
-
-//
 
 int main()
 {
