@@ -39,7 +39,7 @@ uint64_t call_driver_control(void* control_function, const A ... arguments)
 	return control(arguments ...);
 }
 
-void* KernelFunction()
+inline void* KernelFunction()
 {
 	LoadLibrary("user32.dll");
 	HMODULE hModule = LoadLibrary("win32u.dll");
@@ -50,9 +50,7 @@ void* KernelFunction()
 	return reinterpret_cast<void*>(GetProcAddress(hModule, "NtDxgkGetProcessList"));
 }
 
-uint64_t read_kernel(void* control_function, uint64_t address, void* buffer, std::size_t size);
-
-static ULONG64 GetModuleBaseAddr(const char* moduleName, uint32_t ProcessID, CommandCodes code) {
+inline ULONG64 GetModuleBaseAddr(const char* moduleName, uint32_t ProcessID, CommandCodes code) {
 	driver_control = KernelFunction();
 
 	uintptr_t baseADD = call_driver_control(
@@ -63,7 +61,7 @@ static ULONG64 GetModuleBaseAddr(const char* moduleName, uint32_t ProcessID, Com
 
 
 
-DWORD GetPID(const std::string& name)
+inline DWORD GetPID(const std::string& name)
 {
 	DWORD pid = 0;
 
