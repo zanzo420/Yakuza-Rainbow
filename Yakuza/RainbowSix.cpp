@@ -59,9 +59,15 @@ namespace RainbowSix
 		}
 	}
 
+	int8_t GetGameState() {
+
+		return RPM<int8_t>(round_manager_offset + 0x2E8);
+	}
+
 	void NoRecoil()
 	{
-		if (!options::noRecoil)
+		int8_t GameState = GetGameState();
+		if (!options::noRecoil || GameState == 2 || GameState == 3)
 			return;
 		uintptr_t FOVManager = RPM<uintptr_t>(base_address + fov_manager_offset);
 		if (!FOVManager)
@@ -120,13 +126,7 @@ namespace RainbowSix
 		WPM<BYTE>(FreezeManager + 0x5c, options::freeze);
 	}
 
-	int getGameState() {
-		uintptr_t addr = RPM<uintptr_t>(gamemanager + 0x20);
-		uintptr_t addr1 = RPM<uintptr_t>(addr + 0x260);
-		uintptr_t addr2 = RPM<uintptr_t>(addr1 + 0x50);
-		uintptr_t addr3 = RPM<uintptr_t>(addr2 + 0x0);
-		return RPM<int>(addr3 + 0x128);
-	}
+	
 
 	uintptr_t GetEntity(int i)
 	{
