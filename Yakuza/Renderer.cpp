@@ -5,6 +5,7 @@
 #include "..\Vectors.h"
 
 Renderer* Renderer::m_pInstance;
+extern "C" Vector3 WorldToScreen(Vector3 position);
 
 Renderer::Renderer()
 {
@@ -53,7 +54,7 @@ void Renderer::EndScene()
 	ImGui::PopStyleColor();
 }
 
-float Renderer::DrawMyText(ImFont* pFont, PCHAR text, const DirectX::XMFLOAT2& pos, float size, Vector3 RGB, bool center)
+float Renderer::DrawMyText(ImFont* pFont, PCHAR text, const Vector2& pos, float size, Vector3 RGB, bool center)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
@@ -93,7 +94,7 @@ float Renderer::DrawMyText(ImFont* pFont, PCHAR text, const DirectX::XMFLOAT2& p
 	return y;
 }
 
-void Renderer::DrawLine(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& to, Vector3 RGB, float thickness)
+void Renderer::DrawLine(const Vector2& from, const Vector2& to, Vector3 RGB, float thickness)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
@@ -110,22 +111,22 @@ void Renderer::DrawHealthbars(float PosX, float PosY, float height, float Value1
 	{
 		DrawRect(PosX - 1, PosY - 1, 5, height, Vector3(0, 0, 0));
 		if (Value1 > 80) {
-			DrawBoxFilled(DirectX::XMFLOAT2(PosX, PosY), DirectX::XMFLOAT2(PosX + 3, PosY + Value), Vector3(50, 205, 50), 0);
+			DrawBoxFilled(Vector2(PosX, PosY), Vector2(PosX + 3, PosY + Value), Vector3(50, 205, 50), 0);
 		}
 		else if (Value1 > 60) {
-			DrawBoxFilled(DirectX::XMFLOAT2(PosX, PosY), DirectX::XMFLOAT2(PosX + 3, PosY + Value), Vector3(255, 165, 0), 0);
+			DrawBoxFilled(Vector2(PosX, PosY), Vector2(PosX + 3, PosY + Value), Vector3(255, 165, 0), 0);
 		}
 		else if (Value1 > 40) {
-			DrawBoxFilled(DirectX::XMFLOAT2(PosX, PosY), DirectX::XMFLOAT2(PosX + 3, PosY + Value), Vector3(255, 165, 0), 0);
+			DrawBoxFilled(Vector2(PosX, PosY), Vector2(PosX + 3, PosY + Value), Vector3(255, 165, 0), 0);
 		}
 		else if (Value1 < 40) {
-			DrawBoxFilled(DirectX::XMFLOAT2(PosX, PosY), DirectX::XMFLOAT2(PosX + 3, PosY + Value), Vector3(220, 20, 60), 0);
+			DrawBoxFilled(Vector2(PosX, PosY), Vector2(PosX + 3, PosY + Value), Vector3(220, 20, 60), 0);
 		}
 	}
 
 }
 
-void Renderer::DrawBox(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& size, Vector3 RGB, float rounding, float thickness)
+void Renderer::DrawBox(const Vector2& from, const Vector2& size, Vector3 RGB, float rounding, float thickness)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	//ImGuiContext* window = ImGui::GetCurrentContext();
@@ -133,7 +134,7 @@ void Renderer::DrawBox(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& s
 	window->DrawList->AddRect(ImVec2(from.x, from.y), ImVec2(size.x, size.y), ImGui::GetColorU32(ImVec4(RGB.x / 255, RGB.y / 255, RGB.z / 255, 255 / 255)), rounding, 15, thickness);
 }
 
-void Renderer::DrawBoxFilled(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& size, Vector3 color, float rounding, float opacity)
+void Renderer::DrawBoxFilled(const Vector2& from, const Vector2& size, Vector3 color, float rounding, float opacity)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
@@ -145,7 +146,7 @@ void Renderer::DrawBoxFilled(const DirectX::XMFLOAT2& from, const DirectX::XMFLO
 		rounding, 15);
 }
 
-void Renderer::DrawClearBox(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& size, DirectX::XMFLOAT4 color, float rounding)
+void Renderer::DrawClearBox(const Vector2& from, const Vector2& size, DirectX::XMFLOAT4 color, float rounding)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
@@ -153,7 +154,7 @@ void Renderer::DrawClearBox(const DirectX::XMFLOAT2& from, const DirectX::XMFLOA
 }
 
 
-void Renderer::DrawBoxOutlined(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& size, Vector3 RGB, Vector3 OutlineRGB, float rounding, float thickness)
+void Renderer::DrawBoxOutlined(const Vector2& from, const Vector2& size, Vector3 RGB, Vector3 OutlineRGB, float rounding, float thickness)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	//ImGuiContext* window = ImGui::GetCurrentContext();
@@ -163,14 +164,14 @@ void Renderer::DrawBoxOutlined(const DirectX::XMFLOAT2& from, const DirectX::XMF
 	window->DrawList->AddRect(ImVec2(from.x, from.y), ImVec2(size.x, size.y), ImGui::GetColorU32(ImVec4(OutlineRGB.x / 255, OutlineRGB.y / 255, OutlineRGB.z / 255, 255 / 255)), rounding, 15, thickness * 1.2);
 }
 
-void Renderer::DrawCircl(const DirectX::XMFLOAT2& from, float radius, DirectX::XMFLOAT4 color, float thickness)
+void Renderer::DrawCircl(const Vector2& from, float radius, DirectX::XMFLOAT4 color, float thickness)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
 	window->DrawList->AddCircle(ImVec2(from.x, from.y), radius, ImGui::GetColorU32(ImVec4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)), 180, thickness);
 }
 
-void Renderer::DrawCircleFilled(const DirectX::XMFLOAT2& from, float radius, Vector3 color)
+void Renderer::DrawCircleFilled(const Vector2& from, float radius, Vector3 color)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
@@ -179,10 +180,10 @@ void Renderer::DrawCircleFilled(const DirectX::XMFLOAT2& from, float radius, Vec
 
 void Renderer::DrawRect(float x, float y, float w, float h, Vector3 color)
 {
-	DrawLine(DirectX::XMFLOAT2(x, y), DirectX::XMFLOAT2(x + w, y), color, 1);
-	DrawLine(DirectX::XMFLOAT2(x, y), DirectX::XMFLOAT2(x, y + h), color, 1);
-	DrawLine(DirectX::XMFLOAT2(x + w, y), DirectX::XMFLOAT2(x + w, y + h), color, 1);
-	DrawLine(DirectX::XMFLOAT2(x, y + h), DirectX::XMFLOAT2(x + w + 1, y + h), color, 1);
+	DrawLine(Vector2(x, y), Vector2(x + w, y), color, 1);
+	DrawLine(Vector2(x, y), Vector2(x, y + h), color, 1);
+	DrawLine(Vector2(x + w, y), Vector2(x + w, y + h), color, 1);
+	DrawLine(Vector2(x, y + h), Vector2(x + w + 1, y + h), color, 1);
 }
 
 void Renderer::DrawOutlinedRect(float x, float y, float w, float h, Vector3 color)
@@ -195,8 +196,47 @@ void Renderer::DrawOutlinedRect(float x, float y, float w, float h, Vector3 colo
 void Renderer::DrawFilledRect(float x, float y, float w, float h, Vector3 color)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
-	DrawClearBox(DirectX::XMFLOAT2(x, y), DirectX::XMFLOAT2(x + w, y + h), DirectX::XMFLOAT4(1, 1, 1, 150), 0);
+	DrawClearBox(Vector2(x, y), Vector2(x + w, y + h), DirectX::XMFLOAT4(1, 1, 1, 150), 0);
 }
+
+void Renderer::DrawBox3D(Vector3 positon, Vector4 color, float thickness, Vector3 min, Vector3 max, Vector3 angels)
+{
+	ImGuiWindow* window = ImGui::GetCurrentWindow();
+
+
+	Vector3 corners[8] =
+	{
+		Vector3(min.x,min.y,min.z),
+		Vector3(min.x,max.y,min.z),
+		Vector3(max.x,max.y,min.z),
+		Vector3(max.x,min.y,min.z),
+		Vector3(min.x,min.y,max.z),
+		Vector3(min.x,max.y,max.z),
+		Vector3(max.x,max.y,max.z),
+		Vector3(max.x,min.y,max.z)
+	};
+
+	Vector3 _corners[8];
+
+	for (int i = 0; i <= 7; i++) {
+		corners[i].Rotate2D(angels.x);
+		corners[i].Rotate2D(angels.y);
+	}
+
+	for (int i = 0; i <= 7; i++)
+		_corners[i] = WorldToScreen(positon + corners[i]);
+
+	for (int i = 1; i <= 4; i++)
+	{
+		if (_corners[i].z >= 1.0f) {
+			window->DrawList->AddLine(ImVec2(_corners[i - 1].x, _corners[i - 1].y), ImVec2(_corners[i % 4].x, _corners[i % 4].y), ImGui::GetColorU32(ImVec4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)), thickness);
+			window->DrawList->AddLine(ImVec2(_corners[i - 1].x, _corners[i - 1].y), ImVec2(_corners[i + 3].x, _corners[i + 3].y), ImGui::GetColorU32(ImVec4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)), thickness); // ---
+			window->DrawList->AddLine(ImVec2(_corners[i + 3].x, _corners[i + 3].y), ImVec2(_corners[i % 4 + 4].x, _corners[i % 4 + 4].y), ImGui::GetColorU32(ImVec4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)), thickness);
+		}
+	}
+}
+
+
 
 Renderer* Renderer::GetInstance()
 {

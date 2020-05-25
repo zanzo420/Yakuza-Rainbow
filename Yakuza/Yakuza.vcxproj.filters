@@ -48,6 +48,27 @@
     <ClCompile Include="FUNC\callspooffunc.cpp">
       <Filter>Spoof\FUNC</Filter>
     </ClCompile>
+    <ClCompile Include="Server\server\AES.cpp">
+      <Filter>Security\Server\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Server\server\base64.cpp">
+      <Filter>Security\Server\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Server\server\Licenser.cpp">
+      <Filter>Security\Server\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Server\server\RSA.cpp">
+      <Filter>Security\Server\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Server\server\Socket.cpp">
+      <Filter>Security\Server\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Server\server\WebEncoder.cpp">
+      <Filter>Security\Server\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Server\server\WMICHwid.cpp">
+      <Filter>Security\Server\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Security">
@@ -88,6 +109,27 @@
     </Filter>
     <Filter Include="Spoof\FUNC">
       <UniqueIdentifier>{a5ce0c19-47f4-41fc-8fa2-24bafe63b392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Security\Server">
+      <UniqueIdentifier>{dbff0bc6-031f-4621-b98b-7520a0d9d9e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Security\Server\Headers">
+      <UniqueIdentifier>{c67d86e8-5a94-4499-b6fa-fab8ecbbf0fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Security\Server\Source">
+      <UniqueIdentifier>{2ec3bdbb-f39b-4a16-bb44-49b483fa0421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Security\Server\Headers\crypto">
+      <UniqueIdentifier>{5b06bf2d-9371-4451-98c1-3ebf43d5d8dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Security\Server\Headers\json">
+      <UniqueIdentifier>{92d58506-8dac-4a25-b919-cbf44a41d931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Security\Server\Headers\cxopts">
+      <UniqueIdentifier>{eaec1fc7-0d45-4d42-89a2-2b83b2e403b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Security\Server\Headers\tiny">
+      <UniqueIdentifier>{148e0e7b-9fce-47e3-bbcb-9c0a52d1b8a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +268,42 @@
     </ClInclude>
     <ClInclude Include="FUNC\callfuncs.h">
       <Filter>Spoof\FUNC</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\include\Licenser.hpp">
+      <Filter>Security\Server\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\include\Socket.hpp">
+      <Filter>Security\Server\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\include\stdafx.hpp">
+      <Filter>Security\Server\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\include\WebEncoder.hpp">
+      <Filter>Security\Server\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\include\WMICHwid.hpp">
+      <Filter>Security\Server\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\include\crypto\AES.hpp">
+      <Filter>Security\Server\Headers\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\include\crypto\base64.hpp">
+      <Filter>Security\Server\Headers\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\include\crypto\RSA.hpp">
+      <Filter>Security\Server\Headers\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\contrib\nlohmann\json.hpp">
+      <Filter>Security\Server\Headers\json</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\contrib\tinyformat\tinyformat.hpp">
+      <Filter>Security\Server\Headers\tiny</Filter>
+    </ClInclude>
+    <ClInclude Include="Server\contrib\jarro2783\cxxopts.hpp">
+      <Filter>Security\Server\Headers\cxopts</Filter>
+    </ClInclude>
+    <ClInclude Include="hwid.hpp">
+      <Filter>Security</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

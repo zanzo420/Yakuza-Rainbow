@@ -74,11 +74,24 @@ namespace RainbowSix
 	Vector3 GetViewForward();
 	float GetFOVX();
 	float GetFOVY();
-	Vector3 WorldToScreen(Vector3 position);
+	extern "C" Vector3 WorldToScreen(Vector3 position);
 
-
+	inline Vector3 toVec3(Vector4 data);
 	Vector3 CalcAngle(Vector3 enemypos, Vector3 camerapos);
+	Vector3 getmin(uintptr_t ent);
+	Vector3 getmax(uintptr_t ent);
+	Vector4 GetAngles(uintptr_t entity);
 	Vector4 GetAngles();
 	bool Closest(const PlayerInfo& first, const PlayerInfo& second);
 
+	enum status : int
+	{
+		Loading = 0,
+		MainMenu = 1,
+		Situation = 2,
+		InQueue = 3,
+		Game = 4,
+		Game2 = 5,
+		Thunt = 7,
+	};
 }

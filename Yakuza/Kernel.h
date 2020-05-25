@@ -60,7 +60,6 @@ inline ULONG64 GetModuleBaseAddr(const char* moduleName, uint32_t ProcessID, Com
 }
 
 
-
 inline DWORD GetPID(const std::string& name)
 {
 	DWORD pid = 0;
@@ -88,6 +87,13 @@ inline DWORD GetPID(const std::string& name)
 	return pid;
 }
 
+inline bool IsLoaded()
+{
+	if (GetModuleBaseAddr("explorer.exe", GetPID("explorer.exe"), GetModuleBase) != 0xc00008)
+		return true;
+	return false;
+}
+
 template<typename T>
 T RPM(uintptr_t address)
 {
@@ -101,8 +107,7 @@ T RPM(uintptr_t address)
 	memory_struct.size = sizeof(T);
 	memory_struct.buffer = &buffer;
 
-	NTSTATUS result
-		= (NTSTATUS)(call_driver_control(driver_control, 0xF00DBABE, ReadPMemory, &memory_struct));
+	NTSTATUS result = (NTSTATUS)(call_driver_control(driver_control, 0xF00DBABE, ReadPMemory, &memory_struct));
 
 	return buffer;
 }

@@ -4,10 +4,10 @@
 #include "DrawerSmall.h"
 #include <sstream>
 
-inline std::wstring convert_int(int n)
+inline std::string convert_int(int n)
 {
-	std::wstringstream ss;
-	ss << std::hex << n;
+	std::stringstream ss;
+	ss << "0x" << std::hex << n;
 	return ss.str();
 }
 
@@ -19,94 +19,128 @@ static void BoxEsp(std::vector<PlayerInfo> ents) {
 	if (!options::boxEsp || !RainbowSix::localplayer)
 		return;
 	
+	if (options::esp::rainbow) {
+		options::esp::color[0] = options::esp::rainbowcolor[0];
+		options::esp::color[1] = options::esp::rainbowcolor[1];
+		options::esp::color[2] = options::esp::rainbowcolor[2];
+		options::esp::color[3] = options::esp::rainbowcolor[3];
+	}
 	for (std::vector<PlayerInfo>::iterator it = ents.begin(); it != ents.end(); ++it) {
 		PlayerInfo Player = *it;
 
-		float BoxHeight = Player.w2sPos.y - Player.ScreenTop.y;
-		float BoxWidth = BoxHeight / 2.4;
-
 		// Player is on Screen
-		if (Player.w2sPos.z >= 0.1f) {
+		if ((Player.w2sPos.z >= 0.1f && Player.w2sHead.z >= 0.1f)) {
 			if (options::boxEsp) {
-				if (options::esp::filled) {
-					Renderer::GetInstance()->DrawFilledRect(
-						Player.ScreenTop.x - BoxWidth / 2,
-						Player.ScreenTop.y, 
-						BoxWidth, 
-						BoxHeight, 
-						Vector3(
-						0,
-						0,
-						255));
+				switch (options::esp::type) {
+					default:
+					case 0: //Outline default
+					{
+						Renderer::GetInstance()->DrawOutlinedRect(
+							Player.ScreenTop.x - Player.BoxWidth / 2,
+							Player.ScreenTop.y,
+							Player.BoxWidth, Player.BoxHeight,
+							Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]));
+						break;
+					}
+					case 1: 
+					{
+						Renderer::GetInstance()->DrawFilledRect(
+							Player.ScreenTop.x - Player.BoxWidth / 2,
+							Player.ScreenTop.y,
+							Player.BoxWidth,
+							Player.BoxHeight,
+							Vector3(
+								0,
+								0,
+								255));
+						break;
+					}
+					case 2: 
+					{
+						float shift = 15;
+						Renderer::GetInstance()->DrawLine(Vector2(Player.BottomRight.x, Player.BottomRight.y), Vector2(Player.BottomRight.x + shift, Player.BottomRight.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+						Renderer::GetInstance()->DrawLine(Vector2(Player.BottomLeft.x, Player.BottomLeft.y), Vector2(Player.BottomLeft.x - shift, Player.BottomLeft.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+						Renderer::GetInstance()->DrawLine(Vector2(Player.BottomLeft.x - shift, Player.BottomLeft.y), Vector2(Player.BottomLeft.x - shift, Player.BottomLeft.y - shift), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+						Renderer::GetInstance()->DrawLine(Vector2(Player.BottomRight.x + shift, Player.BottomRight.y), Vector2(Player.BottomRight.x + shift, Player.BottomRight.y - shift), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+
+						Renderer::GetInstance()->DrawLine(Vector2(Player.TopRight.x, Player.TopRight.y), Vector2(Player.TopRight.x + shift, Player.TopRight.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+						Renderer::GetInstance()->DrawLine(Vector2(Player.TopLeft.x, Player.TopLeft.y), Vector2(Player.TopLeft.x - shift, Player.TopLeft.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+						Renderer::GetInstance()->DrawLine(Vector2(Player.TopLeft.x - shift, Player.TopLeft.y), Vector2(Player.TopLeft.x - shift, Player.TopLeft.y + shift), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+						Renderer::GetInstance()->DrawLine(Vector2(Player.TopRight.x + shift, Player.TopRight.y), Vector2(Player.TopRight.x + shift, Player.TopRight.y + shift), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+						break;
+					}
+					case 3:
+					{
+						Vector3 calculated_euler = RainbowSix::toVec3(RainbowSix::GetAngles(Player.EntHandle));
+						Renderer::GetInstance()->DrawBox3D(Player.Position, Vector4(options::esp::color[0], options::esp::color[1], options::esp::color[2], options::esp::color[3]), 0.65f, RainbowSix::getmin(Player.EntHandle), RainbowSix::getmax(Player.EntHandle), calculated_euler);
+						break;
+					}
 				}
-				else {
-					Renderer::GetInstance()->DrawOutlinedRect(
-						Player.ScreenTop.x - BoxWidth / 2, 
-						Player.ScreenTop.y,
-						BoxWidth, BoxHeight,
-						Vector3(0, 167, 226));
-				}
+			
 			}
 
 			if (options::aim::drawFov) {
-				Renderer::GetInstance()->DrawCircl(DirectX::XMFLOAT2(1920 / 2, 1080 / 2), options::aim::fov, DirectX::XMFLOAT4(250, 65, 30, 127), 1);
+				Renderer::GetInstance()->DrawCircl(Vector2(1920 / 2, 1080 / 2), options::aim::fov, DirectX::XMFLOAT4(options::esp::color[0], options::esp::color[1], options::esp::color[2], 255.f), 1);
 			}
 			if (options::esp::snaplines) {
 				Renderer::GetInstance()->DrawLine(
-					DirectX::XMFLOAT2(RainbowSix::screenX / 2, RainbowSix::screenY),
-					DirectX::XMFLOAT2(Player.w2sHead.x,Player.ScreenTop.y + BoxHeight), 
-					Vector3(0,0,0), 
+					Vector2(RainbowSix::screenX / 2, RainbowSix::screenY),
+					Vector2(Player.w2sHead.x,Player.ScreenTop.y + Player.BoxHeight),
+					Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]),
 					1);
 			}
 			if (options::esp::health) {
-				Renderer::GetInstance()->DrawHealthbars((Player.ScreenTop.x - BoxWidth / 2) - 5, Player.ScreenTop.y, BoxHeight, Player.Health, Vector3(250, 65, 30));
+				Renderer::GetInstance()->DrawHealthbars((Player.ScreenTop.x - Player.BoxWidth / 2) - 5, Player.ScreenTop.y, Player.BoxHeight, Player.Health, Vector3(250, 65, 30));
 			}
 			if (options::esp::head) {
 				/*Head*/
 				Renderer::GetInstance()->DrawCircleFilled(
-					DirectX::XMFLOAT2(Player.w2sHead.x, Player.w2sHead.y),
-					BoxHeight / 45.5,
-					Vector3(0, 167, 226));
+					Vector2(Player.w2sHead.x, Player.w2sHead.y),
+					Player.BoxHeight / 45.5,
+					Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]));
 			}
 
 			if (options::esp::skeleton) 
 			{
 				/*Neck-Chest*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sNeck.x, Player.w2sNeck.y), DirectX::XMFLOAT2(Player.w2sChest.x, Player.w2sChest.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sNeck.x, Player.w2sNeck.y), Vector2(Player.w2sChest.x, Player.w2sChest.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*Chest-Stomach*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sChest.x, Player.w2sChest.y), DirectX::XMFLOAT2(Player.w2sStomach.x, Player.w2sStomach.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sChest.x, Player.w2sChest.y), Vector2(Player.w2sStomach.x, Player.w2sStomach.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*Stomach-Pelvis*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sStomach.x, Player.w2sStomach.y), DirectX::XMFLOAT2(Player.w2sPelvis.x, Player.w2sPelvis.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sStomach.x, Player.w2sStomach.y), Vector2(Player.w2sPelvis.x, Player.w2sPelvis.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*Pevlis-LKnee*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sPelvis.x, Player.w2sPelvis.y), DirectX::XMFLOAT2(Player.w2sLknee.x, Player.w2sLknee.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sPelvis.x, Player.w2sPelvis.y), Vector2(Player.w2sLknee.x, Player.w2sLknee.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*Pevlis-RKnee*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sPelvis.x, Player.w2sPelvis.y), DirectX::XMFLOAT2(Player.w2sRknee.x, Player.w2sRknee.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sPelvis.x, Player.w2sPelvis.y), Vector2(Player.w2sRknee.x, Player.w2sRknee.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*RKnee to Right foot*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sRknee.x, Player.w2sRknee.y), DirectX::XMFLOAT2(Player.w2sRfoot.x, Player.w2sRfoot.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sRknee.x, Player.w2sRknee.y), Vector2(Player.w2sRfoot.x, Player.w2sRfoot.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*LKnee to Left foot*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sLknee.x, Player.w2sLknee.y), DirectX::XMFLOAT2(Player.w2sLfoot.x, Player.w2sLfoot.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sLknee.x, Player.w2sLknee.y), Vector2(Player.w2sLfoot.x, Player.w2sLfoot.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*Chest-right elbow*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sChest.x, Player.w2sChest.y), DirectX::XMFLOAT2(Player.w2sRelbow.x, Player.w2sRelbow.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sChest.x, Player.w2sChest.y), Vector2(Player.w2sRelbow.x, Player.w2sRelbow.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*Chest-Left elbow*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sChest.x, Player.w2sChest.y), DirectX::XMFLOAT2(Player.w2sLelbow.x, Player.w2sLelbow.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sChest.x, Player.w2sChest.y), Vector2(Player.w2sLelbow.x, Player.w2sLelbow.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*Left elbow to Lhand*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sLelbow.x, Player.w2sLelbow.y), DirectX::XMFLOAT2(Player.w2sLHand.x, Player.w2sLHand.y), Vector3(0, 167, 226), 2);
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sLelbow.x, Player.w2sLelbow.y), Vector2(Player.w2sLHand.x, Player.w2sLHand.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				/*Right Elbow to right hand*/
-				Renderer::GetInstance()->DrawLine(DirectX::XMFLOAT2(Player.w2sRelbow.x, Player.w2sRelbow.y), DirectX::XMFLOAT2(Player.w2sRHand.x, Player.w2sRHand.y), Vector3(0, 167, 226), 2);
-				static int i = 0x0;
-				if (GetAsyncKeyState(VK_END)) {
+				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sRelbow.x, Player.w2sRelbow.y), Vector2(Player.w2sRHand.x, Player.w2sRHand.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
+				
+				/*for (int i = 0x0; i <= 0xff; i += 0x1) 
+				{*/
+				/*static int i = 0x0;
+				if (GetAsyncKeyState(VK_END)) 
+				{
 					i += 0x1;
-					Sleep(10);
+					Sleep(250);
 				}
 				Vector3 loc = RainbowSix::WorldToScreen(RainbowSix::GetEntityBone(Player.EntHandle, i));
-				const wchar_t* chr = convert_int(i).c_str();
-				Renderer::GetInstance()->DrawMyText(ImGui::GetFont(), (PCHAR)chr, DirectX::XMFLOAT2(loc.x, loc.y), 12.f, Vector3(255, 255, 255), true);
-				
+				Renderer::GetInstance()->DrawMyText(ImGui::GetFont(), (PCHAR)convert_int(i).c_str(), Vector2(loc.x, loc.y), 16.f, Vector3(255, 255, 255), true);
+				*//*}*/
 			}
 
 			if (options::esp::name) 
 			{
-				Renderer::GetInstance()->DrawMyText(ImGui::GetFont(), (PCHAR)Player.Name.c_str(), DirectX::XMFLOAT2(Player.w2sName.x, Player.w2sName.y), 24.f, Vector3(255,255,255), true);
+				Renderer::GetInstance()->DrawMyText(ImGui::GetFont(), (PCHAR)Player.Name.c_str(), Vector2(Player.w2sName.x, Player.w2sName.y), 12.f, Vector3(255,255,255), true);
 			}
 		}
 	}

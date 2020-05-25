@@ -63,6 +63,7 @@ struct PlayerInfo {
 	Vector3		w2sName;
 
 	std::string Name;
+	//Bones ----------------
 	Vector3		HeadPos;
 	Vector3		w2sHead;
 	Vector3		w2sNeck;
@@ -73,10 +74,19 @@ struct PlayerInfo {
 	Vector3		w2sPelvis;
 	Vector3		w2sLelbow;
 	Vector3		w2sRelbow;
-
-
 	Vector3		w2sLknee;
 	Vector3		w2sRknee;
 	Vector3		w2sLfoot;
 	Vector3		w2sRfoot;
+	//Bones ----------------
+
+	float BoxHeight;
+	float BoxWidth;
+
+	Vector2 TopLeft;
+	Vector2 TopRight;
+	Vector2 BottomLeft;
+	Vector2 BottomRight;
+	Vector2 BottomCenter;
+	Vector2 TopCenter;
 };

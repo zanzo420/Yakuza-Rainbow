@@ -66,13 +66,13 @@ public:
 	Renderer();
 	~Renderer();
 
-	float DrawMyText(ImFont* pFont, PCHAR text, const DirectX::XMFLOAT2& pos, float size, Vector3 RGB, bool center);
-	void DrawLine(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& to, Vector3 RGB, float thickness);
-	void DrawBox(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& size, Vector3 RGB, float rounding, float thickness);
-	void DrawBoxOutlined(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& size, Vector3 RGB, Vector3 OutlineRGB, float rounding, float thickness);
-	void DrawBoxFilled(const DirectX::XMFLOAT2& from, const DirectX::XMFLOAT2& size, DirectX::XMFLOAT4 color, float rounding);
-	void DrawCircle(const DirectX::XMFLOAT2& from, float radius, DirectX::XMFLOAT4 color, float thickness = 1.f);
-	void DrawCircleFilled(const DirectX::XMFLOAT2& from, float radius, DirectX::XMFLOAT4 color);
+	float DrawMyText(ImFont* pFont, PCHAR text, const Vector2& pos, float size, Vector3 RGB, bool center);
+	void DrawLine(const Vector2& from, const Vector2& to, Vector3 RGB, float thickness);
+	void DrawBox(const Vector2& from, const Vector2& size, Vector3 RGB, float rounding, float thickness);
+	void DrawBoxOutlined(const Vector2& from, const Vector2& size, Vector3 RGB, Vector3 OutlineRGB, float rounding, float thickness);
+	void DrawBoxFilled(const Vector2& from, const Vector2& size, DirectX::XMFLOAT4 color, float rounding);
+	void DrawCircle(const Vector2& from, float radius, DirectX::XMFLOAT4 color, float thickness = 1.f);
+	void DrawCircleFilled(const Vector2& from, float radius, DirectX::XMFLOAT4 color);
 private:
 	static Renderer* m_pInstance;
 };

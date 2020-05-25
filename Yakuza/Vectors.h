@@ -10,15 +10,17 @@
 class Vector2
 {
 public:
+	Vector2(float xp, float yp) 
+	{
+		x = xp;
+		y = yp;
+	}
+
 	Vector2() : x(0.f), y(0.f)
 	{
 
 	}
 
-	Vector2(float _x, float _y) : x(_x), y(_y)
-	{
-
-	}
 	~Vector2()
 	{
 
@@ -66,6 +68,16 @@ public:
 	inline float Length()
 	{
 		return sqrt((x * x) + (y * y) + (z * z));
+	}
+
+	inline void Rotate2D(double deg) {
+		double theta = deg / 180.0 * 3.14159265358979323846f;
+		double c = cos(theta);
+		double s = sin(theta);
+		double tx = x * c - y * s;
+		double ty = x * s + y * c;
+		x = tx;
+		y = ty;
 	}
 
 	Vector3 operator=(Vector3 v) 

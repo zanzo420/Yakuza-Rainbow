@@ -13,17 +13,21 @@ namespace options
 		inline float alpha = 127.0f;
 		inline float opacity = 255.0f;
 		inline float distance = 1.f;
+		inline bool rainbow = false;
 	}
 	inline bool boxEsp = true;
 	namespace esp 
 	{
 		inline bool skeleton = false;
-		inline bool filled = false;
+		inline int type = 0;
 		inline bool snaplines = false;
 		inline bool head = false;
 		inline bool health = false;
-		inline bool name = true;
-		inline Vector3 color = { 0, 0, 255};
+		inline bool name = false;
+		inline bool rainbow = false;
+		inline float box_width = 2.f;
+		static inline float color[3] = { 255.0f, 0.0f, 0.0f };
+		inline float rainbowcolor[3] = { 255.f, 0.f, 0.f };
 	}
 	inline bool freeze = false;
 	inline bool outline = false;

@@ -8,6 +8,7 @@
 #include "esp.h"
 #include "lists.h"
 #include "imgui_impl_dx11.h"
+#include <random>
 
 #define HI(v)   ImVec4(0.502f, 0.075f, 0.256f, v)
 #define MED(v)  ImVec4(0.455f, 0.198f, 0.301f, v)
@@ -18,7 +19,7 @@
 #define TEXT_i(v) ImVec4(0.860f, 0.930f, 0.890f, v)
 
 namespace Menu
-{
+{	
 	namespace Variables
 	{
 		static float FPSLock = 144.f;
@@ -34,7 +35,6 @@ namespace Menu
 		static inline HWND PrevWindow;
 	}
 
-	
 	static ID3D11Device* g_pd3dDevice = NULL;
 	static ID3D11DeviceContext* g_pd3dDeviceContext = NULL;
 	static IDXGISwapChain* g_pSwapChain = NULL;
@@ -164,10 +164,10 @@ namespace Menu
 			return DefWindowProc(hWnd, msg, wParam, lParam);
 		}
 
-		static Vector2 GetClientsDisplayRes()
+		static Vector3 GetClientsDisplayRes()
 		{
 			RECT Desktop;
-			Vector2 Resolution;
+			Vector3 Resolution;
 			GetWindowRect(GetDesktopWindow(), &Desktop);
 			Resolution.x = Desktop.right;
 			Resolution.y = Desktop.bottom;
@@ -251,12 +251,19 @@ namespace Menu
 				style.WindowBorderSize = 1.0f;
 			
 		}
-
+		static inline std::string window_name;
 		static HWND GetWindowHandle()
 		{
-			Variables::WindowClass = { sizeof(WNDCLASSEX), CS_CLASSDC, LocalImgui::WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, LoadCursor(NULL, IDC_ARROW), NULL, NULL, _T("gsdafghsdjkfgh"), NULL };
+			
+			std::generate_n(std::back_inserter(window_name), 16, []()
+				{
+					thread_local std::mt19937_64 mersenne_generator(std::random_device{ }());
+					const std::uniform_int_distribution<> distribution(97, 122);
+					return static_cast<std::uint8_t>(distribution(mersenne_generator));
+				});
+			Variables::WindowClass = { sizeof(WNDCLASSEX), CS_CLASSDC, LocalImgui::WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, LoadCursor(NULL, IDC_ARROW), NULL, NULL, _T(window_name.c_str()), NULL };
 			RegisterClassEx(&Variables::WindowClass);
-			HWND MenuHandle = CreateWindowEx(WS_EX_TRANSPARENT | WS_EX_NOACTIVATE, _T("gsdafghsdjkfgh"), _T("gsdafghsdjkfgh"), WS_POPUP | WS_CHILD, 0, 0, LocalImgui::GetClientsDisplayRes().x - 1, LocalImgui::GetClientsDisplayRes().y - 1, NULL, NULL, Variables::WindowClass.hInstance, NULL);
+			HWND MenuHandle = CreateWindowEx(WS_EX_TRANSPARENT | WS_EX_NOACTIVATE, _T(window_name.c_str()), _T(window_name.c_str()), WS_POPUP | WS_CHILD, 0, 0, LocalImgui::GetClientsDisplayRes().x - 1, LocalImgui::GetClientsDisplayRes().y - 1, NULL, NULL, Variables::WindowClass.hInstance, NULL);
 
 			MARGINS margins = { -1 };
 			DwmExtendFrameIntoClientArea(MenuHandle, &margins);
@@ -264,7 +271,7 @@ namespace Menu
 			if (LocalImgui::CreateDeviceD3D(MenuHandle) < 0)
 			{
 				LocalImgui::CleanupDeviceD3D();
-				UnregisterClass(_T("gsdafghsdjkfgh"), Variables::WindowClass.hInstance);
+				UnregisterClass(_T(window_name.c_str()), Variables::WindowClass.hInstance);
 				return 0;
 			}
 
@@ -287,8 +294,30 @@ namespace Menu
 			ImGui_ImplDX11_Shutdown();
 			ImGui::DestroyContext();
 			LocalImgui::CleanupDeviceD3D();
-			UnregisterClass(_T("gsdafghsdjkfgh"), Variables::WindowClass.hInstance);
+			UnregisterClass(_T(window_name.c_str()), Variables::WindowClass.hInstance);
 			Menu::Variables::init = false;
+		}
+	}
+
+	void rainbow_color()
+	{
+		if (options::esp::rainbowcolor[0] == 255 && options::esp::rainbowcolor[1] < 255 && options::esp::rainbowcolor[2] == 0) {
+			options::esp::rainbowcolor[1]++;
+		}
+		else if (options::esp::rainbowcolor[0] <= 255 && options::esp::rainbowcolor[0] > 0 && options::esp::rainbowcolor[1] == 255 && options::esp::rainbowcolor[2] == 0) {
+			options::esp::rainbowcolor[0]--;
+		}
+		else if (options::esp::rainbowcolor[0] == 0 && options::esp::rainbowcolor[1] == 255 && options::esp::rainbowcolor[2] >= 0 && options::esp::rainbowcolor[2] < 255) {
+			options::esp::rainbowcolor[2]++;
+		}
+		else if (options::esp::rainbowcolor[0] == 0 && options::esp::rainbowcolor[1] <= 255 && options::esp::rainbowcolor[1] > 0 && options::esp::rainbowcolor[2] == 255) {
+			options::esp::rainbowcolor[1]--;
+		}
+		else if (options::esp::rainbowcolor[0] >= 0 && options::esp::rainbowcolor[0] < 255 && options::esp::rainbowcolor[1] == 0 && options::esp::rainbowcolor[2] == 255) {
+			options::esp::rainbowcolor[0]++;
+		}
+		else if (options::esp::rainbowcolor[0] == 255 && options::esp::rainbowcolor[1] == 0 && options::esp::rainbowcolor[2] > 0 && options::esp::rainbowcolor[2] <= 255) {
+			options::esp::rainbowcolor[2]--;
 		}
 	}
 
@@ -299,10 +328,24 @@ namespace Menu
 		if (options::boxEsp)
 		{
 			ImGui::Checkbox(xorstr_("Head ESP"), &options::esp::head);
-			ImGui::Checkbox(xorstr_("Filled"), &options::esp::filled);
 			ImGui::Checkbox(xorstr_("Snaplines"), &options::esp::snaplines);
 			ImGui::Checkbox(xorstr_("Skelton ESP"), &options::esp::skeleton);
 			ImGui::Checkbox(xorstr_("Health"), &options::esp::health);
+			
+			ImGui::Combo(xorstr_("Box Type"), &options::esp::type, BoxType, IM_ARRAYSIZE(BoxType));
+			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  255.f };
+			bool openPopupEnemyBoxColor = ImGui::ColorButton(("colorButtonEnemyBoxColor"), 
+				options::esp::rainbow ? RainbowCycle_ImColor : ImColor{ options::esp::color[0], options::esp::color[1], options::esp::color[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupEnemyBoxColor)
+				ImGui::OpenPopup(("EnemyBoxColorPopup"));
+			if (ImGui::BeginPopup(("EnemyBoxColorPopup"))) {
+				ImGui::ColorPicker3(xorstr_("Rectangle Color"), options::esp::color, ImGuiColorEditFlags_Float);
+				ImGui::Checkbox(xorstr_("Multicolor##RainbowCylcle_Enemy_BoxESP"), &options::esp::rainbow);
+				ImGui::SameLine();
+				ImGui::SliderFloat(xorstr_("BoxWidth"), &options::esp::box_width, 0.1, 4.0);
+				ImGui::EndPopup();
+			}
+			ImGui::Checkbox(xorstr_("Operator ESP"), &options::esp::name);
 		}
 		ImGui::Separator();
 		ImGui::Checkbox(xorstr_("Cav ESP"), &options::cavEsp);
@@ -329,6 +372,7 @@ namespace Menu
 	{
 		ImGui::BeginGroup();
 		ImGui::Checkbox(xorstr_("Glow"), &options::glowEsp);
+		ImGui::Checkbox(xorstr_("Rainbow"), &options::glow::rainbow);
 		ImGui::SliderFloat(xorstr_(" Glow R "), &options::glow::red, 0.f, 255.f);
 		ImGui::SliderFloat(xorstr_(" Glow G "), &options::glow::green, 0.f, 255.f);
 		ImGui::SliderFloat(xorstr_(" Glow B "), &options::glow::blue, 0.f, 255.f);
@@ -444,7 +488,8 @@ namespace Menu
 		ImGui::Spacing();
 		ImGui::Spacing();
 		
-		ImGui::SameLine(50); if (ImGui::Button(xorstr_(" Login "))) {
+		ImGui::SameLine(50);
+		if (ImGui::Button(xorstr_(" Login "))) {
 			Yakuza::Login(&username[0], &password[0]);
 		}
 		ImGui::SameLine();
@@ -452,6 +497,11 @@ namespace Menu
 			Yakuza::Register(&username[0], &password[0]);
 		}
 		ImGui::SameLine();
+
+#ifdef DEV_MODE
+		if (ImGui::Button(xorstr_("Debug Login")))
+			Menu::Variables::loggedin = true;
+#endif
 
 		if (ImGui::Button(xorstr_("Exit"))) {
 			exit(0);
@@ -487,6 +537,9 @@ namespace Menu
 		}
 
 		ImGui_ImplDX11_NewFrame();
+
+		if (options::esp::rainbow || options::glow::rainbow)
+			rainbow_color();
 
 		if (LI_FN(GetAsyncKeyState)(VK_INSERT))
 		{

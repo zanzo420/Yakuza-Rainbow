@@ -97,6 +97,12 @@ namespace RainbowSix
 		uintptr_t base = RPM<uintptr_t>(base_address + glow_manager_offset);
 		uintptr_t chain = RPM<uintptr_t>(base + glow_base);
 		if (chain) {
+			if (options::glow::rainbow) 
+			{	
+				options::glow::red = options::esp::rainbowcolor[0];
+				options::glow::green = options::esp::rainbowcolor[1];
+				options::glow::blue = options::esp::rainbowcolor[2];
+			}
 			WPM<float>(chain + 0xD0, options::glow::red);
 			WPM<float>(chain + 0xD4, options::glow::green);
 			WPM<float>(chain + 0xD8, options::glow::blue);
@@ -191,7 +197,7 @@ namespace RainbowSix
 	Vector3 GetEntityBone(DWORD_PTR Entity, __int64 BoneID)
 	{
 		__m128 Output;
-
+		//0x938
 		__int64 pBonesChain1 = RPM<__int64>(Entity + 0x928);
 		__int64 pBonesChain2 = RPM<__int64>(pBonesChain1);
 		__int64 pBones = RPM<__int64>(pBonesChain2 + 0x270);
@@ -206,30 +212,39 @@ namespace RainbowSix
 
 	std::string GetEntityName(uintptr_t Entity) 
 	{
-		BYTE POPCU = RPM<uintptr_t>(Entity + OFFSET_ENTITY_PLAYERINFO);
+		uintptr_t POPCU = RPM<uintptr_t>(Entity + OFFSET_ENTITY_PLAYERINFO);
 		BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
 		BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
-		std::string ThisOperatorName = OperatorName[CTU][OP];
-		return ThisOperatorName;
+		if (OP != 0xFF && CTU != 0xFF && CTU != 0xCC && OP != 0xCC) 
+		{
+			std::string ThisOperatorName = OperatorName[CTU][OP];
+			return ThisOperatorName;
+		}
+		return "";
 	}
 
-	uintptr_t GetCamera() {
+	uintptr_t GetCamera()
+	{	
 		return lpEngine;
 	}
 	//Camera pos
-	Vector3 GetViewTranslation() {
+	Vector3 GetViewTranslation() 
+	{
 		return Readclass<Vector3>(GetCamera() + translation);
 	}
 
-	Vector3 GetViewRight() {
+	Vector3 GetViewRight()
+	{
 		return Readclass<Vector3>(GetCamera() + ViewRight);
 	}
 
-	Vector3 GetViewUp() {
+	Vector3 GetViewUp() 
+	{
 		return Readclass<Vector3>(GetCamera() + ViewUp);
 	}
 
-	Vector3 GetViewForward() {
+	Vector3 GetViewForward() 
+	{
 		return Readclass<Vector3>(GetCamera() + ViewForward);
 	}
 
@@ -238,12 +253,14 @@ namespace RainbowSix
 		return RPM<float>(fovLink + fov_x);
 	}
 
-	float GetFOVY() {
+	float GetFOVY() 
+	{
 		uintptr_t fovLink = RPM<uintptr_t>(GetCamera() + 0x420);
 		return RPM<float>(fovLink +  fov_y);
 	}
 
-	Vector3 WorldToScreen(Vector3 position) {
+	extern "C" Vector3 WorldToScreen(Vector3 position)
+	{
 		static int displayWidth;
 		static int displayHeight;
 		if (static std::atomic<bool> ran = false; !ran.exchange(true))
@@ -262,7 +279,8 @@ namespace RainbowSix
 	}
 
 
-	int GetEntityCount() {
+	int GetEntityCount() 
+	{
 		return (int)RPM<DWORD>(gamemanager + offset_entity_count) & 0x3fffffff;
 	}
 
@@ -302,7 +320,8 @@ namespace RainbowSix
 
 	//head high_neck low_neck r_shoulder l_shoulder r_elbow l_elbow r_hand l_hand high_stomach low_stomach pelvis r_knee l_knee r_foot l_foot
 
-	enum bone {
+	enum bone 
+	{
 		head		= 0,
 		high_neck	= 1,
 		low_neck	= 2,
@@ -324,10 +343,6 @@ namespace RainbowSix
 	PlayerInfo GetAllEntityInfo(uintptr_t entity, int i) {
 		PlayerInfo p;
 
-		BYTE POPCU = RPM<uintptr_t>(entity + OFFSET_ENTITY_PLAYERINFO);
-		BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
-		BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
-
 		p.EntHandle = entity;
 		p.id = i;
 		p.teamId = GetEntityTeamId(entity);
@@ -337,25 +352,43 @@ namespace RainbowSix
 		p.HeadPos = GetEntityHeadPosition(entity);
 		p.w2sHead = WorldToScreen(p.HeadPos);
 		p.ScreenTop = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.2));
-		p.Health = GetEntityHealth(GetEntityBase(i));
-		p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.1f));
-		p.Name = GetEntityName(entity);
+		uintptr_t base = GetEntityBase(i);
+		p.Health = GetEntityHealth(base);
+		p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.4f));
+		p.Name = GetEntityName(GetEntityBase(i));
 		//p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.1f));
 
-		p.w2sHead = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::head]));
-		p.w2sNeck = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_neck]));
-		p.w2sChest = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::high_stomach]));
-		p.w2sStomach = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_stomach]));
-		p.w2sPelvis = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::pelvis]));
-		p.w2sLelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_elbow]));
-		p.w2sRelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_elbow]));
-		p.w2sLHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_hand]));
-		p.w2sRHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_hand]));
-		p.w2sLfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_foot]));
-		p.w2sRfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_foot]));
-		p.w2sLknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_knee]));
-		p.w2sRknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_knee]));
+		uintptr_t POPCU = RPM<uintptr_t>(base + OFFSET_ENTITY_PLAYERINFO);
+		BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
+		BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
+		if ((p.w2sPos.z >= 0.1f && p.w2sHead.z >= 0.1f))
+		{
 
+			p.BoxHeight = fabs((p.w2sHead.y - p.w2sPos.y));
+			p.BoxWidth = p.BoxHeight / options::esp::box_width; // Var
+
+			p.TopLeft = Vector2(p.w2sHead.x - (p.BoxWidth / 2), p.w2sHead.y - (p.BoxHeight / 5));
+			p.TopRight = Vector2(p.w2sHead.x + (p.BoxWidth / 2), p.w2sHead.y - (p.BoxHeight / 5));
+			p.BottomLeft = Vector2(p.w2sHead.x - (p.BoxWidth / 2), p.w2sPos.y);
+			p.BottomRight = Vector2(p.w2sHead.x + (p.BoxWidth / 2), p.w2sPos.y);
+			p.BottomCenter = Vector2(p.w2sPos.x, p.w2sPos.y);
+			p.TopCenter = Vector2(p.w2sHead.x, p.w2sHead.y - (p.BoxWidth / 2));
+
+
+			p.w2sHead = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::head]));
+			p.w2sNeck = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_neck]));
+			p.w2sChest = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::high_stomach]));
+			p.w2sStomach = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_stomach]));
+			p.w2sPelvis = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::pelvis]));
+			p.w2sLelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_elbow]));
+			p.w2sRelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_elbow]));
+			p.w2sLHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_hand]));
+			p.w2sRHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_hand]));
+			p.w2sLfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_foot]));
+			p.w2sRfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_foot]));
+			p.w2sLknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_knee]));
+			p.w2sRknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_knee]));
+		}
 
 		return p;
 	}
@@ -416,6 +449,30 @@ namespace RainbowSix
 		float z = sy * cr * cp - cy * sr * sp;
 
 		return Vector4(x, y, z, w);
+	}
+
+	Vector3 getmin(uintptr_t ent)
+	{
+		uint64_t r1 = RPM<uint64_t>(ent + 0xC8);
+		return RPM<Vector3>(r1 + 0x84);
+	}
+
+	Vector3 getmax(uintptr_t ent)
+	{
+		uint64_t r1 = RPM<uint64_t>(ent + 0xC8);
+		return RPM<Vector3>(r1 + 0x90);
+	}
+
+	Vector4 GetAngles(uintptr_t entity)
+	{
+		uint64_t pSkeleton = RPM<uint64_t>(entity + 0x20);
+
+		if (pSkeleton)
+		{
+			uint64_t viewAngle2 = RPM<uint64_t>(pSkeleton + 0x1200);
+			return RPM<Vector4>(viewAngle2 + 0xC0);
+		}
+		return Vector4();
 	}
 
 	Vector4 GetAngles()

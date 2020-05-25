@@ -32,6 +32,13 @@
         std::make_index_sequence<::jm::detail::_buffer_size<sizeof(str)>()>{})
 #define xorstr_(str) xorstr(str).crypt_get()
 
+#define xorstr(str)                                              \
+    ::jm::make_xorstr(                                           \
+        []() { return str; },                                    \
+        ::std::make_index_sequence<sizeof(str) / sizeof(*str)>{},  \
+        ::std::make_index_sequence<::jm::detail::_buffer_size<sizeof(str)>()>{})
+#define xorstr__(str) xorstr(str).crypt_get()
+
 #ifdef _MSC_VER
 #define XORSTR_FORCEINLINE __forceinline
 #else

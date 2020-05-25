@@ -127,3 +127,11 @@ static const char* AllKeys[] =
     "F11",
     "F12"
 };
+
+static const char* BoxType[] =
+{
+    "2D Box",
+    "2D Filled",
+    "2D Cornered",
+    "3D Box"
+};

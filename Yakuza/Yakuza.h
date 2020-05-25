@@ -5,8 +5,6 @@
 #include "string.hpp"
 #include "importer.hpp"
 
-
-
 static class Yakuza
 {
 public:
@@ -25,7 +23,7 @@ public:
 	static bool Login(char* Username, char* license);
 	static bool Register(char* Username, char* license);
 	static void BanUser(const char* reason);
-
+	static bool LoggedIn();
 	//
 	//	Cheat
 	//
@@ -36,5 +34,7 @@ private:
 	static std::string GetHwid();
 
 };
+
+
 
 static Yakuza Cheat;
