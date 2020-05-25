@@ -11,8 +11,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvmap", "drvmap\drvmap.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "capcom", "capcom\capcom.vcxproj", "{329B6895-3CAB-43A7-AA43-6BDFF5072110}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptlib", "client\contrib\cryptopp565\crypto++\cryptlib.vcxproj", "{C39F4B46-6E89-4074-902E-CA57073044D2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -43,8 +41,8 @@ Global
 		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Dev|x86.Build.0 = Release|Win32
 		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Release|ARM.ActiveCfg = Release|Win32
 		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Release|ARM64.ActiveCfg = Release|Win32
-		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Release|x64.ActiveCfg = Dev|x64
-		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Release|x64.Build.0 = Dev|x64
+		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Release|x64.ActiveCfg = Release|x64
+		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Release|x64.Build.0 = Release|x64
 		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Release|x86.ActiveCfg = Release|Win32
 		{5299D8EE-AA60-435B-8B03-C1EE395E77FD}.Release|x86.Build.0 = Release|Win32
 		{F05D851D-8376-448B-911A-C445FE4942B7}.Debug|ARM.ActiveCfg = Debug|ARM
@@ -115,26 +113,6 @@ Global
 		{329B6895-3CAB-43A7-AA43-6BDFF5072110}.Release|x64.ActiveCfg = Release|x64
 		{329B6895-3CAB-43A7-AA43-6BDFF5072110}.Release|x64.Build.0 = Release|x64
 		{329B6895-3CAB-43A7-AA43-6BDFF5072110}.Release|x86.ActiveCfg = Release|x64
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Debug|ARM.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Debug|ARM.Build.0 = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Debug|ARM64.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Debug|ARM64.Build.0 = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Debug|x64.ActiveCfg = Debug|x64
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Debug|x64.Build.0 = Debug|x64
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Debug|x86.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Debug|x86.Build.0 = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Dev|ARM.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Dev|ARM64.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Dev|x64.ActiveCfg = Release|x64
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Dev|x64.Build.0 = Release|x64
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Dev|x86.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Dev|x86.Build.0 = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Release|ARM.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Release|ARM64.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Release|x64.ActiveCfg = Release|x64
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Release|x64.Build.0 = Release|x64
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Release|x86.ActiveCfg = Release|Win32
-		{C39F4B46-6E89-4074-902E-CA57073044D2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

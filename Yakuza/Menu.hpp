@@ -339,13 +339,13 @@ namespace Menu
 			if (openPopupEnemyBoxColor)
 				ImGui::OpenPopup(("EnemyBoxColorPopup"));
 			if (ImGui::BeginPopup(("EnemyBoxColorPopup"))) {
-				ImGui::ColorPicker3(xorstr_("Rectangle Color"), options::esp::color, ImGuiColorEditFlags_Float);
-				ImGui::Checkbox(xorstr_("Multicolor##RainbowCylcle_Enemy_BoxESP"), &options::esp::rainbow);
+				ImGui::ColorPicker3(("Rectangle Color"), options::esp::color, ImGuiColorEditFlags_Float);
+				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_BoxESP"), &options::esp::rainbow);
 				ImGui::SameLine();
-				ImGui::SliderFloat(xorstr_("BoxWidth"), &options::esp::box_width, 0.1, 4.0);
+				ImGui::SliderFloat(("BoxWidth"), &options::esp::box_width, 0.1, 4.0);
 				ImGui::EndPopup();
 			}
-			ImGui::Checkbox(xorstr_("Operator ESP"), &options::esp::name);
+			ImGui::Checkbox(("Operator ESP"), &options::esp::name);
 		}
 		ImGui::Separator();
 		ImGui::Checkbox(xorstr_("Cav ESP"), &options::cavEsp);
@@ -355,7 +355,7 @@ namespace Menu
 	static void Misc() 
 	{
 		ImGui::BeginGroup();
-		ImGui::Checkbox(xorstr_("No Recoil"), &options::noRecoil);
+		ImGui::SliderFloat(xorstr_("No Recoil"), &options::recoil, 0.0f, 0.75000f);
 		ImGui::SliderFloat(xorstr_("Spread"), &options::noSpread, 0.0f, 0.75000f);
 		if (ImGui::Button(xorstr_("Reload")))
 			RainbowSix::setPointers();
@@ -400,7 +400,7 @@ namespace Menu
 		ImGui::Begin(xorstr_("Yakuza"), &Variables::bMenu, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
 
 		ImGui::Spacing();
-		ImGui::BeginChild("##tabs", ImVec2(125, 338));
+		ImGui::BeginChild("##tabs", ImVec2(125, 368));
 		{
 			ImGui::SameLine(18);
 			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.1.2.5"));
@@ -499,8 +499,8 @@ namespace Menu
 		ImGui::SameLine();
 
 #ifdef DEV_MODE
-		if (ImGui::Button(xorstr_("Debug Login")))
-			Menu::Variables::loggedin = true;
+		//if (ImGui::Button(xorstr_("Debug Login")))
+		//	Menu::Variables::loggedin = true;
 #endif
 
 		if (ImGui::Button(xorstr_("Exit"))) {

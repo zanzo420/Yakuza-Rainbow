@@ -15,6 +15,7 @@
 
 #define version 201
 #define SELF_REMOVE_STRING  TEXT("cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q \"%s\"")
+#define DEV_MODE
 
 void DelMe()
 {
@@ -61,6 +62,7 @@ void update()
         download_path.replace(pos, cheat.length() + 16, filename);
     else
         return;
+    
     URLDownloadToFile(NULL, _T("http://auth.yakuza.dev/yakuza.exe"), _T(download_path.c_str()), 0, NULL);
     //TODO use sockets
 
@@ -89,12 +91,12 @@ int main()
 {
     LI_FN(FreeConsole)();
     
-#ifndef DEV_MODE
-    if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
-    {
-        quick_exit(EXIT_FAILURE);
-    }
-#endif // !DEV_MODE
+
+   if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+   {
+      quick_exit(EXIT_FAILURE);
+   }
+ //// !DEV_MODE
 
    
     enum priority_class 
@@ -118,18 +120,17 @@ int main()
 
     std::thread aim(Cheat.AimThread);
     aim.detach();
-#ifndef DEV_MODE
-    for (;; Sleep(5000)) 
+
+    for (;; Sleep(5000))
     {
-       if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
-       {
-          quick_exit(EXIT_FAILURE);
-       }
-    };
-#endif
-    for (;; Sleep(500000))
+        if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+        {
+            quick_exit(EXIT_FAILURE);
+        }
+    }
+   /* for (;; Sleep(500000))
     {
       
-    };
+    };*/
     return 0;
 }

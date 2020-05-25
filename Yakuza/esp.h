@@ -11,6 +11,12 @@ inline std::string convert_int(int n)
 	return ss.str();
 }
 
+Vector3 calculate_euler(Vector4 quaternion) {
+	return Vector3(std::atan2(2.f * (quaternion.w * quaternion.z + quaternion.x * quaternion.y), (1.f - 2.f * (quaternion.y * quaternion.y + quaternion.z * quaternion.z))) * 57.2957795131f,
+		std::atan2(1.9f * (quaternion.w * quaternion.x + quaternion.y * quaternion.z), (1.f - 2.f * (quaternion.x * quaternion.x + quaternion.y * quaternion.y))) * 57.2957795131f,
+		0.f);
+}
+
 static void BoxEsp(std::vector<PlayerInfo> ents) {
 
 	//ImGuiIO& io = ImGui::GetIO();
@@ -71,8 +77,8 @@ static void BoxEsp(std::vector<PlayerInfo> ents) {
 					}
 					case 3:
 					{
-						Vector3 calculated_euler = RainbowSix::toVec3(RainbowSix::GetAngles(Player.EntHandle));
-						Renderer::GetInstance()->DrawBox3D(Player.Position, Vector4(options::esp::color[0], options::esp::color[1], options::esp::color[2], options::esp::color[3]), 0.65f, RainbowSix::getmin(Player.EntHandle), RainbowSix::getmax(Player.EntHandle), calculated_euler);
+						Vector3 calculated_euler = calculate_euler(RainbowSix::GetAngles(Player.EntHandle));
+						Renderer::GetInstance()->DrawBox3D(Player.Position, Vector4(options::esp::color[0], options::esp::color[1], options::esp::color[2], 255.f), 0.65f, RainbowSix::getmin(Player.EntBase), RainbowSix::getmax(Player.EntBase), calculated_euler);
 						break;
 					}
 				}

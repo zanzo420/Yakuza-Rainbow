@@ -50,6 +50,7 @@ constexpr uintptr_t offset_playerinfo_name = 0x1C8;
 
 struct PlayerInfo {
 	uintptr_t	EntHandle;
+	uintptr_t	EntBase;
 	int			id;
 	int			teamId;
 

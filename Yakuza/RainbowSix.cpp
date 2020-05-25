@@ -85,8 +85,12 @@ namespace RainbowSix
 		uintptr_t addr3 = RPM<uintptr_t>(addr2 + 0x90);
 		uintptr_t addr4 = RPM<uintptr_t>(addr3 + 0xC8);
 		uintptr_t addr5 = RPM<uintptr_t>(addr4 + 0x278);
-
-		WPM<float>(addr5 + 0x58, options::noSpread);
+		if (!addr5)
+			return;
+		WPM<BYTE>(addr5 + 0x168, 0x0);
+		WPM<float>(addr5 + 0x15C, options::recoil); //x
+		WPM<float>(addr5 + 0x14C, options::recoil); //y
+		WPM<float>(addr5 + 0x58, options::noSpread); // spread
 	}
 
 	void glow()
@@ -320,7 +324,7 @@ namespace RainbowSix
 
 	//head high_neck low_neck r_shoulder l_shoulder r_elbow l_elbow r_hand l_hand high_stomach low_stomach pelvis r_knee l_knee r_foot l_foot
 
-	enum bone 
+	enum bone : int
 	{
 		head		= 0,
 		high_neck	= 1,
@@ -355,7 +359,8 @@ namespace RainbowSix
 		uintptr_t base = GetEntityBase(i);
 		p.Health = GetEntityHealth(base);
 		p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.4f));
-		p.Name = GetEntityName(GetEntityBase(i));
+		p.EntBase = GetEntityBase(i);
+		p.Name = GetEntityName(p.EntBase);
 		//p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.1f));
 
 		uintptr_t POPCU = RPM<uintptr_t>(base + OFFSET_ENTITY_PLAYERINFO);
