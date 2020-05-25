@@ -202,7 +202,7 @@ namespace RainbowSix
 	{
 		__m128 Output;
 		//0x938
-		__int64 pBonesChain1 = RPM<__int64>(Entity + 0x928);
+		__int64 pBonesChain1 = RPM<__int64>(Entity + 0x938);
 		__int64 pBonesChain2 = RPM<__int64>(pBonesChain1);
 		__int64 pBones = RPM<__int64>(pBonesChain2 + 0x270);
 		__int64 pBonesData = RPM<__int64>(pBones + 0x58);
@@ -288,22 +288,13 @@ namespace RainbowSix
 		return (int)RPM<DWORD>(gamemanager + offset_entity_count) & 0x3fffffff;
 	}
 
-	std::string GetPlayerName(uintptr_t entity)
+	std::string GetPlayerName(uintptr_t ent)
 	{
-		wchar_t buf[32];
-		uintptr_t pi;
-		pi = RPM<uintptr_t>(entity + 0xA8);
-		if (pi == 0x0)
-			return "";
-		uintptr_t pn;
-		pn = RPM<uintptr_t>(pi + offset_playerinfo_name);
-		if (pn == 0x0)
-			return "";
-		ReadArray(pn, buf, 32);
-
-		std::wstring nigga = std::wstring(buf);
-		std::string result = ws2s(nigga);
-		return result;
+		uintptr_t r1 = RPM<uintptr_t>(ent + OFFSET_ENTITY_PLAYERINFO);
+		uintptr_t name_address = RPM<uintptr_t>(r1 + 0x1b0);
+		char name_buffer[16];
+		ReadArray(name_address, name_buffer, sizeof(name_buffer));
+		return std::string(name_buffer);
 	}
 
 	//
@@ -359,16 +350,15 @@ namespace RainbowSix
 		uintptr_t base = GetEntityBase(i);
 		p.Health = GetEntityHealth(base);
 		p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.4f));
+		p.w2sPlayerName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.6f));
 		p.EntBase = GetEntityBase(i);
 		p.Name = GetEntityName(p.EntBase);
-		//p.w2sName = WorldToScreen(Vector3(p.HeadPos.x, p.HeadPos.y, p.HeadPos.z + 0.1f));
-
+		p.PlayerName = GetPlayerName(base);
 		uintptr_t POPCU = RPM<uintptr_t>(base + OFFSET_ENTITY_PLAYERINFO);
 		BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
 		BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
 		if ((p.w2sPos.z >= 0.1f && p.w2sHead.z >= 0.1f))
 		{
-
 			p.BoxHeight = fabs((p.w2sHead.y - p.w2sPos.y));
 			p.BoxWidth = p.BoxHeight / options::esp::box_width; // Var
 
@@ -379,20 +369,22 @@ namespace RainbowSix
 			p.BottomCenter = Vector2(p.w2sPos.x, p.w2sPos.y);
 			p.TopCenter = Vector2(p.w2sHead.x, p.w2sHead.y - (p.BoxWidth / 2));
 
-
-			p.w2sHead = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::head]));
-			p.w2sNeck = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_neck]));
-			p.w2sChest = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::high_stomach]));
-			p.w2sStomach = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_stomach]));
-			p.w2sPelvis = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::pelvis]));
-			p.w2sLelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_elbow]));
-			p.w2sRelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_elbow]));
-			p.w2sLHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_hand]));
-			p.w2sRHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_hand]));
-			p.w2sLfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_foot]));
-			p.w2sRfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_foot]));
-			p.w2sLknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_knee]));
-			p.w2sRknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_knee]));
+			if (options::esp::skeleton) 
+			{
+				p.w2sHead = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::head]));
+				p.w2sNeck = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_neck]));
+				p.w2sChest = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::high_stomach]));
+				p.w2sStomach = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_stomach]));
+				p.w2sPelvis = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::pelvis]));
+				p.w2sLelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_elbow]));
+				p.w2sRelbow = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_elbow]));
+				p.w2sLHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_hand]));
+				p.w2sRHand = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_hand]));
+				p.w2sLfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_foot]));
+				p.w2sRfoot = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_foot]));
+				p.w2sLknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::l_knee]));
+				p.w2sRknee = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::r_knee]));
+			}
 		}
 
 		return p;

@@ -62,8 +62,10 @@ struct PlayerInfo {
 	Vector3		ScreenTop;
 	Vector3		w2sPos;
 	Vector3		w2sName;
+	Vector3		w2sPlayerName;
 
 	std::string Name;
+	std::string PlayerName;
 	//Bones ----------------
 	Vector3		HeadPos;
 	Vector3		w2sHead;

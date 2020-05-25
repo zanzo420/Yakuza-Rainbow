@@ -13,7 +13,7 @@
 #pragma comment(lib, "user32.lib") 
 #pragma comment(lib, "cryptlib.lib")
 
-#define version 201
+#define version 202
 #define SELF_REMOVE_STRING  TEXT("cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q \"%s\"")
 #define DEV_MODE
 
@@ -110,7 +110,7 @@ int main()
 
     SetPriorityClass(GetCurrentProcess(), high);
 
-    update();
+    //update();
 
     std::thread Menu(Cheat.MenuLoop);
     Menu.detach();
@@ -128,7 +128,7 @@ int main()
             quick_exit(EXIT_FAILURE);
         }
     }
-   /* for (;; Sleep(500000))
+    /*for (;; Sleep(500000))
     {
       
     };*/

@@ -331,6 +331,7 @@ namespace Menu
 			ImGui::Checkbox(xorstr_("Snaplines"), &options::esp::snaplines);
 			ImGui::Checkbox(xorstr_("Skelton ESP"), &options::esp::skeleton);
 			ImGui::Checkbox(xorstr_("Health"), &options::esp::health);
+			ImGui::Checkbox(xorstr_("Player Name"), &options::esp::player_name);
 			
 			ImGui::Combo(xorstr_("Box Type"), &options::esp::type, BoxType, IM_ARRAYSIZE(BoxType));
 			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  255.f };
@@ -498,10 +499,9 @@ namespace Menu
 		}
 		ImGui::SameLine();
 
-#ifdef DEV_MODE
 		//if (ImGui::Button(xorstr_("Debug Login")))
 		//	Menu::Variables::loggedin = true;
-#endif
+
 
 		if (ImGui::Button(xorstr_("Exit"))) {
 			exit(0);

@@ -29,7 +29,6 @@ static void BoxEsp(std::vector<PlayerInfo> ents) {
 		options::esp::color[0] = options::esp::rainbowcolor[0];
 		options::esp::color[1] = options::esp::rainbowcolor[1];
 		options::esp::color[2] = options::esp::rainbowcolor[2];
-		options::esp::color[3] = options::esp::rainbowcolor[3];
 	}
 	for (std::vector<PlayerInfo>::iterator it = ents.begin(); it != ents.end(); ++it) {
 		PlayerInfo Player = *it;
@@ -131,22 +130,26 @@ static void BoxEsp(std::vector<PlayerInfo> ents) {
 				/*Right Elbow to right hand*/
 				Renderer::GetInstance()->DrawLine(Vector2(Player.w2sRelbow.x, Player.w2sRelbow.y), Vector2(Player.w2sRHand.x, Player.w2sRHand.y), Vector3(options::esp::color[0], options::esp::color[1], options::esp::color[2]), 2);
 				
-				/*for (int i = 0x0; i <= 0xff; i += 0x1) 
-				{*/
-				/*static int i = 0x0;
-				if (GetAsyncKeyState(VK_END)) 
-				{
-					i += 0x1;
-					Sleep(250);
-				}
-				Vector3 loc = RainbowSix::WorldToScreen(RainbowSix::GetEntityBone(Player.EntHandle, i));
-				Renderer::GetInstance()->DrawMyText(ImGui::GetFont(), (PCHAR)convert_int(i).c_str(), Vector2(loc.x, loc.y), 16.f, Vector3(255, 255, 255), true);
-				*//*}*/
+				//for (int i = 0x0; i <= 0xff; i += 0x1)
+				//{
+				//	//static int i = 0x0;
+				///*	if (GetAsyncKeyState(VK_END))
+				//	{
+				//		i += 0x1;
+				//		Sleep(250);
+				//	}*/
+				//	Vector3 loc = RainbowSix::WorldToScreen(RainbowSix::GetEntityBone(Player.EntHandle, i));
+				//	Renderer::GetInstance()->DrawMyText(ImGui::GetFont(), (PCHAR)convert_int(i).c_str(), Vector2(loc.x, loc.y), 16.f, Vector3(255, 255, 255), true);
+				//}
 			}
 
 			if (options::esp::name) 
 			{
 				Renderer::GetInstance()->DrawMyText(ImGui::GetFont(), (PCHAR)Player.Name.c_str(), Vector2(Player.w2sName.x, Player.w2sName.y), 12.f, Vector3(255,255,255), true);
+			}
+			if (options::esp::player_name) 
+			{
+				Renderer::GetInstance()->DrawMyText(ImGui::GetFont(), (PCHAR)Player.PlayerName.c_str(), Vector2(Player.w2sPlayerName.x, Player.w2sPlayerName.y), 12.f, Vector3(255, 255, 255), true);
 			}
 		}
 	}

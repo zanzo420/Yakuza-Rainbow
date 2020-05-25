@@ -23,6 +23,7 @@ namespace options
 		inline bool snaplines = false;
 		inline bool head = false;
 		inline bool health = false;
+		inline bool player_name = false;
 		inline bool name = false;
 		inline bool rainbow = false;
 		inline float box_width = 2.f;
