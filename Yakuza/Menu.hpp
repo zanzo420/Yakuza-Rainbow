@@ -326,42 +326,92 @@ namespace Menu
 		ImGui::Checkbox(xorstr_("Box ESP"), &options::boxEsp);
 		if (options::boxEsp)
 		{
+			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  0.9f };
+
+			ImGui::Combo(xorstr_("Box Type"), &options::esp::type, BoxType, IM_ARRAYSIZE(BoxType));
+			ImGui::SameLine();
+
+			bool openPopupEnemyBoxColor = ImGui::ColorButton(("colorButtonEnemyBoxColor"),
+				options::esp::RainbowBox ? RainbowCycle_ImColor : ImColor{ options::esp::BoxColor[0], options::esp::BoxColor[1], options::esp::BoxColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupEnemyBoxColor)
+				ImGui::OpenPopup(("EnemyBoxColorPopup"));
+			if (ImGui::BeginPopup(("EnemyBoxColorPopup"))) {
+				ImGui::ColorPicker3(("ESP Box Color"), options::esp::BoxColor, ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_BoxESP"), &options::esp::RainbowBox);
+				ImGui::SameLine();
+				ImGui::SliderFloat(("Box Width"), &options::esp::box_width, 0.1, 4.0);
+				ImGui::EndPopup();
+			}
+
 			ImGui::Checkbox(xorstr_("Head ESP"), &options::esp::head);
 			ImGui::SameLine();
-			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  255.f };
 			bool openPopupEnemyHeadColor = ImGui::ColorButton(("colorButtonEnemyHeadColor"),
-				options::esp::rainbow ? RainbowCycle_ImColor : ImColor{ options::esp::HeadColor[0], options::esp::HeadColor[1], options::esp::HeadColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+				options::esp::HeadRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::HeadColor[0], options::esp::HeadColor[1], options::esp::HeadColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
 			if (openPopupEnemyHeadColor)
 				ImGui::OpenPopup(("EnemyHeadColorPopup"));
 			if (ImGui::BeginPopup(("EnemyHeadColorPopup"))) {
 				ImGui::ColorPicker3(("Head Color"), options::esp::HeadColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_HeadColor"), &options::esp::rainbow);
+				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_HeadColor"), &options::esp::HeadRainbow);
 				ImGui::SameLine();
 				ImGui::SliderFloat(("Head Size"), &options::esp::HeadSize, 50.0, 10.0);
 				ImGui::EndPopup();
 			}
 
 			ImGui::Checkbox(xorstr_("Snaplines"), &options::esp::snaplines);
-			ImGui::Checkbox(xorstr_("Skelton ESP"), &options::esp::skeleton);
-			ImGui::Checkbox(xorstr_("Health"), &options::esp::health);
-			ImGui::Checkbox(xorstr_("Player Name"), &options::esp::player_name);
-			
-			ImGui::Combo(xorstr_("Box Type"), &options::esp::type, BoxType, IM_ARRAYSIZE(BoxType));
 			ImGui::SameLine();
-
-			bool openPopupEnemyBoxColor = ImGui::ColorButton(("colorButtonEnemyBoxColor"), 
-				options::esp::rainbow ? RainbowCycle_ImColor : ImColor{ options::esp::BoxColor[0], options::esp::BoxColor[1], options::esp::BoxColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
-			if (openPopupEnemyBoxColor)
-				ImGui::OpenPopup(("EnemyBoxColorPopup"));
-			if (ImGui::BeginPopup(("EnemyBoxColorPopup"))) {
-				ImGui::ColorPicker3(("ESP Box Color"), options::esp::BoxColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_BoxESP"), &options::esp::rainbow);
-				ImGui::SameLine();
-				ImGui::SliderFloat(("BoxWidth"), &options::esp::box_width, 0.1, 4.0);
+			bool openPopupEnemySnapLineColor = ImGui::ColorButton(("colorButtonEnemySnapLineColor"),
+				options::esp::SnapLineRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::SnapLineColor[0], options::esp::SnapLineColor[1], options::esp::SnapLineColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupEnemySnapLineColor)
+				ImGui::OpenPopup(("EnemySnapLineColorPopup"));
+			if (ImGui::BeginPopup(("EnemySnapLineColorPopup"))) {
+				ImGui::ColorPicker3(("ESP Box Color"), options::esp::SnapLineColor, ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_SnapLine"), &options::esp::SnapLineRainbow);
 				ImGui::EndPopup();
 			}
-			ImGui::Checkbox(("Operator ESP"), &options::esp::name);
+
+			ImGui::Checkbox(xorstr_("Skelton ESP"), &options::esp::skeleton);
+			ImGui::SameLine();
+			bool openPopupEnemySkeletonColor = ImGui::ColorButton(("colorButtonEnemySkeletonColor"),
+				options::esp::SkeletonRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::SkeletonColor[0], options::esp::SkeletonColor[1], options::esp::SkeletonColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupEnemySkeletonColor)
+				ImGui::OpenPopup(("EnemySkeletonColorPopup"));
+			if (ImGui::BeginPopup(("EnemySkeletonColorPopup"))) {
+				ImGui::ColorPicker3(("Skeleton Color"), options::esp::SkeletonColor, ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_Skeleton"), &options::esp::SkeletonRainbow);
+				ImGui::EndPopup();
+			}
+
+			ImGui::Checkbox(xorstr_("Player Names"), &options::esp::player_name);
+			ImGui::SameLine();
+			bool openPopupEnemyPlayerNameColor = ImGui::ColorButton(("colorButtonEnemyPlayerNameColor"),
+				options::esp::PlayerNameRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::PlayerNameColor[0], options::esp::PlayerNameColor[1], options::esp::PlayerNameColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupEnemyPlayerNameColor)
+				ImGui::OpenPopup(("EnemyPlayerNameColorPopup"));
+			if (ImGui::BeginPopup(("EnemyPlayerNameColorPopup"))) {
+				ImGui::ColorPicker3(("Player Name Color"), options::esp::PlayerNameColor, ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_PlayerName"), &options::esp::PlayerNameRainbow);
+				ImGui::SameLine();
+				ImGui::SliderFloat(("Font Size"), &options::esp::PlayerNameSize, 5.0f, 20.0f);
+				ImGui::EndPopup();
+			}
+
+			ImGui::Checkbox(("Operator Names"), &options::esp::name);
+			ImGui::SameLine();
+			bool openPopupEnemyOperatorColor = ImGui::ColorButton(("colorButtonOperatorColor"),
+				options::esp::OperatorRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::OperatorColor[0], options::esp::OperatorColor[1], options::esp::OperatorColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupEnemyOperatorColor)
+				ImGui::OpenPopup(("EnemyOperatorColorPopup"));
+			if (ImGui::BeginPopup(("EnemyOperatorColorPopup"))) {
+				ImGui::ColorPicker3(("Operator Color"), options::esp::OperatorColor, ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_OperatorColor"), &options::esp::OperatorRainbow);
+				ImGui::SameLine();
+				ImGui::SliderFloat(("Font Size"), &options::esp::OperatorNameSize, 5.0f, 20.0f);
+				ImGui::EndPopup();
+			}
+
 		}
+		ImGui::Checkbox(xorstr_("Health"), &options::esp::health);
+
 		ImGui::Separator();
 		ImGui::Checkbox(xorstr_("Cav ESP"), &options::cavEsp);
 		ImGui::EndGroup();
@@ -370,8 +420,21 @@ namespace Menu
 	static void Misc() 
 	{
 		ImGui::BeginGroup();
-		ImGui::SliderFloat(xorstr_("No Recoil"), &options::recoil, 0.0f, 0.75000f);
-		ImGui::SliderFloat(xorstr_("Spread"), &options::noSpread, 0.0f, 0.75000f);
+
+		ImGui::Checkbox(xorstr_("No Recoil"), &options::noRecoilEnabled);
+		if (options::noRecoilEnabled)
+		{
+
+			ImGui::SliderFloat(xorstr_("No Recoil"), &options::recoil, 0.0f, 0.75000f);
+		}
+
+		ImGui::Checkbox(xorstr_("No Spread"), &options::noSpreadEnabled);
+
+		if (options::noSpreadEnabled)
+		{
+
+			ImGui::SliderFloat(xorstr_("Spread"), &options::noSpread, 0.0f, 0.75000f);
+		}
 		if (ImGui::Button(xorstr_("Reload")))
 			RainbowSix::setPointers();
 		ImGui::Separator();
@@ -387,7 +450,7 @@ namespace Menu
 	{
 		ImGui::BeginGroup();
 		ImGui::Checkbox(xorstr_("Glow"), &options::glowEsp);
-		ImGui::Checkbox(xorstr_("Rainbow"), &options::glow::rainbow);
+		ImGui::Checkbox(xorstr_("Rainbow"), &options::glow::GlowRainbow);
 		ImGui::SliderFloat(xorstr_(" Glow R "), &options::glow::red, 0.f, 255.f);
 		ImGui::SliderFloat(xorstr_(" Glow G "), &options::glow::green, 0.f, 255.f);
 		ImGui::SliderFloat(xorstr_(" Glow B "), &options::glow::blue, 0.f, 255.f);
@@ -402,6 +465,20 @@ namespace Menu
 		{
 			ImGui::SliderFloat(xorstr_("Fov"), &options::aim::fov, 0.f, 100.f);
 			ImGui::Checkbox(xorstr_("Draw Fov"), &options::aim::drawFov);
+			ImGui::SameLine();
+			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  255.f };
+
+			bool openPopupFOVColor = ImGui::ColorButton(("colorButtonFOVColor"),
+				options::aim::RainbowFov ? RainbowCycle_ImColor : ImColor{ options::aim::FovColor[0], options::aim::FovColor[1], options::aim::FovColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupFOVColor)
+				ImGui::OpenPopup(("FOVColorPopup"));
+			if (ImGui::BeginPopup(("FOVColorPopup"))) {
+				ImGui::ColorPicker3(("FOV Color"), options::aim::FovColor, ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Multicolor##RainbowCylcle_FOVColor"), &options::aim::RainbowFov);
+				ImGui::EndPopup();
+			}
+			ImGui::Checkbox(("Operator ESP"), &options::esp::name);
+
 			ImGui::SliderInt(xorstr_("Smooth"), &options::aim::smooth, 1, 100);
 			ImGui::Combo(xorstr_("Aim Key"), &options::aim::key, AllKeys, IM_ARRAYSIZE(AllKeys));
 		}
@@ -513,8 +590,8 @@ namespace Menu
 		}
 		ImGui::SameLine();
 
-		//	Menu::Variables::loggedin = true;
-			Menu::Variables::loggedin = true;
+		//if (ImGui::Button(xorstr_("Debug Login")))
+		//Menu::Variables::loggedin = true;
 
 
 		if (ImGui::Button(xorstr_("Exit"))) {
@@ -552,7 +629,7 @@ namespace Menu
 
 		ImGui_ImplDX11_NewFrame();
 
-		if (options::esp::rainbow || options::glow::rainbow)
+		if (options::esp::RainbowBox || options::glow::rainbow || options::esp::HeadRainbow || options::aim::RainbowFov || options::esp::SnapLineRainbow || options::esp::SkeletonRainbow || options::esp::OperatorRainbow || options::esp::PlayerNameRainbow)
 			rainbow_color();
 
 		if (LI_FN(GetAsyncKeyState)(VK_INSERT))
