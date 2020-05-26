@@ -597,6 +597,15 @@ namespace Menu
 		if (ImGui::Button(xorstr_("Exit"))) {
 			exit(0);
 		}
+
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::SameLine(50);
+		ImGui::Checkbox(xorstr_("  Spoof HWID"), &options::mapSpoof);
+
 		ImGui::End();
 	}
 

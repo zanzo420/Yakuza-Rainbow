@@ -61,9 +61,12 @@ bool Yakuza::Login(char* Username, char* license)
 		Load your driver, wait until it's finished mapping etc then load mine, download cleaner and execute it with CREATE_NO_WINDOW
 		*/
 		Sleep(5000);
-		mapspoof();
-		downldclean();
-		callclean();
+		if (options::mapSpoof)
+		{
+			mapspoof();
+			downldclean();
+			callclean();
+		}
 		return true;
 	}
 	
@@ -86,9 +89,12 @@ bool Yakuza::Register(char* Username, char* license)
         Load your driver, wait until it's finished mapping etc then load mine, download cleaner and execute it with CREATE_NO_WINDOW
         */
 		Sleep(5000);
-		mapspoof();
-		downldclean();
-		callclean();
+		if (options::mapSpoof)
+		{
+			mapspoof();
+			downldclean();
+			callclean();
+		}
 		return true;
 	}
 	return false;

@@ -7,6 +7,7 @@ namespace options
 	inline bool noSpreadDisabled = false;
 	inline bool cavEsp = false;
 	inline bool glowEsp = false;
+	inline bool mapSpoof = false;
 	namespace glow 
 	{
 		inline float red = 127.0f;
