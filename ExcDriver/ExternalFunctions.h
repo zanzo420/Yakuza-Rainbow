@@ -20,6 +20,7 @@ enum CommandCodes {
 
 // Internal Functions
 extern "C" void FreeDriver(UINT_PTR PoolBase, ULONG PoolTag, void* retAddr, void* exFreePoolWithTag);
+extern "C" bool ClearUnloadedDrivers(uintptr_t ntoskernel);
 // Internal Functions
 
 typedef enum _SYSTEM_INFORMATION_CLASS

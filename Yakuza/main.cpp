@@ -92,10 +92,10 @@ int main()
     LI_FN(FreeConsole)();
     
 
-   if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+  /* if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
    {
       quick_exit(EXIT_FAILURE);
-   }
+   }*/
  //// !DEV_MODE
 
    
@@ -121,12 +121,12 @@ int main()
     std::thread aim(Cheat.AimThread);
     aim.detach();
 
-    for (;; Sleep(5000))
+    for (;; Sleep(5000000))
     {
-        if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+        /*if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
         {
             quick_exit(EXIT_FAILURE);
-        }
+        }*/
     }
     /*for (;; Sleep(500000))
     {

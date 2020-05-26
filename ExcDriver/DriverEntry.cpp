@@ -2,7 +2,7 @@
 #include "Hook.h"
 #include "module.h"
 #include <wdm.h>
-#include "drv.h"
+
 
 namespace Driver
 {
@@ -29,16 +29,6 @@ extern "C" _declspec(dllexport) UINT_PTR Handler(UINT_PTR CheckCode, UINT_PTR uC
 		//Return Orginal function return.
 		return returnVal;
 	}
-
-	/*static const auto ValidateHwnd = reinterpret_cast<nt::tag_wnd * (*)(uint64_t)>(
-		::wnd_hjk::find_export("win32kbase.sys", "ValidateHwnd")
-		);*/
-
-	/*if (!ValidateHwnd)
-	{
-		DbgPrint("[!] Can't find ValidateHwnd export, catastrophic error\n");
-		return STATUS_UNSUCCESSFUL;
-	}*/
 
 	switch (uCode) 
 	{
@@ -79,42 +69,6 @@ extern "C" _declspec(dllexport) UINT_PTR Handler(UINT_PTR CheckCode, UINT_PTR uC
 			&ExFreePoolWithTag
 		);
 		break;
-	/*case GetThread: {
-		const auto request_g = reinterpret_cast<PThreadId>(Param);
-
-		if (!request_g->window_handle || !ValidateHwnd) {
-			DbgPrint("[X] Error Failed to get export ValidateHwnd");
-			return STATUS_SUCCESS;
-		}
-
-		nt::tag_wnd* WindowHandle = ValidateHwnd(request_g->window_handle);
-		if (!WindowHandle || !WindowHandle->thread_info)
-		{
-			DbgPrint("[X] Error ValidateHwnd Call failed :(");
-			return STATUS_SUCCESS;
-		}
-
-		request_g->thread_pointer = reinterpret_cast<uint64_t>(WindowHandle->thread_info->owning_thread);
-		return STATUS_SUCCESS;
-		break;
-	}
-	case SetThread: {
-		const auto request_s = reinterpret_cast<PThreadId>(Param);
-
-		if (!request_s->window_handle || !request_s->thread_pointer || !ValidateHwnd) {
-			DbgPrint("[X] Error Failed to get export ValidateHwnd");
-			return STATUS_SUCCESS ;
-		}
-		nt::tag_wnd* WindowHandle = ValidateHwnd(request_s->window_handle);
-		if (!WindowHandle || !WindowHandle->thread_info)
-		{
-			DbgPrint("[X] Error ValidateHwnd Call failed :(");
-			return STATUS_SUCCESS;
-		}
-		WindowHandle->thread_info->owning_thread = reinterpret_cast<PETHREAD>(request_s->thread_pointer);
-		return STATUS_SUCCESS;
-		break;
-	}*/
 	default:
 		break;
 	
@@ -150,7 +104,7 @@ extern "C" NTSTATUS DriverEntry(
 	
 	// Clearing PiDDB before we hook
 	ClearPiDDB(DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
-
+	ClearUnloadedDrivers((uintptr_t)GetNtoskrnlBase());
 	// Init the hook class and Install the hook
 	Driver::dxgkrnlHook.HookInit(&Handler, Driver::HookedFunctionAddr);
 

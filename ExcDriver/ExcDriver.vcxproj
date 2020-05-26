@@ -197,7 +197,6 @@
     <ClCompile Include="Hook.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="drv.h" />
     <ClInclude Include="ExternalFunctions.h" />
     <ClInclude Include="Hook.h" />
     <ClInclude Include="Memory.hpp" />
@@ -205,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <MASM Include="FreeDriver.asm" />
+    <MASM Include="MmUnloadedDrivers.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

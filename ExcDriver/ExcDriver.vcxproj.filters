@@ -34,10 +34,12 @@
     <ClInclude Include="Memory.hpp">
       <Filter>Memory</Filter>
     </ClInclude>
-    <ClInclude Include="drv.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="FreeDriver.asm">
+      <Filter>ASM</Filter>
+    </MASM>
+    <MASM Include="MmUnloadedDrivers.asm">
       <Filter>ASM</Filter>
     </MASM>
   </ItemGroup>

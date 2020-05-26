@@ -1,5 +1,6 @@
 #pragma once
 #include <ntimage.h>
+#include "ExternalFunctions.h"
 
 PVOID GetSystemRoutineAddress(LPCWSTR routine_name)
 {
