@@ -92,10 +92,10 @@ int main()
     LI_FN(FreeConsole)();
     
 
-  /* if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
-   {
-      quick_exit(EXIT_FAILURE);
-   }*/
+    if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+    {
+        quick_exit(EXIT_FAILURE);
+    }
  //// !DEV_MODE
 
    
@@ -123,10 +123,10 @@ int main()
 
     for (;; Sleep(5000000))
     {
-        /*if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+        if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
         {
             quick_exit(EXIT_FAILURE);
-        }*/
+        }
     }
     /*for (;; Sleep(500000))
     {

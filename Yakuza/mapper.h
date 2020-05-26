@@ -7,7 +7,7 @@
 #include "map/structs.hpp"
 #include "map/loader.hpp"
 #include "map/capcomsys.hpp"
-#include "map/ExcDriver.h"
+#include "map/ExcDrv.h"
 #include <cassert>
 #pragma comment(lib, "capcom.lib")
 #pragma comment(lib, "drvmap.lib")

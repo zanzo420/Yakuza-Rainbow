@@ -206,9 +206,6 @@
     <ClInclude Include="mapper.h">
       <Filter>Utils\map</Filter>
     </ClInclude>
-    <ClInclude Include="map\ExcDriver.h">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
     <ClInclude Include="map\loader.hpp">
       <Filter>Utils\map</Filter>
     </ClInclude>
@@ -301,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="hwid.hpp">
       <Filter>Security</Filter>
+    </ClInclude>
+    <ClInclude Include="map\ExcDrv.h">
+      <Filter>Utils\map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

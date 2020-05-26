@@ -303,7 +303,7 @@
     <ClInclude Include="map\capcom.hpp" />
     <ClInclude Include="map\capcomsys.hpp" />
     <ClInclude Include="map\drv_image.hpp" />
-    <ClInclude Include="map\ExcDriver.h" />
+    <ClInclude Include="map\ExcDrv.h" />
     <ClInclude Include="map\kernel.hpp" />
     <ClInclude Include="map\loader.hpp" />
     <ClInclude Include="map\native.hpp" />
