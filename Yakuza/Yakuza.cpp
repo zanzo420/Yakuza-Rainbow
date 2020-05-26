@@ -56,14 +56,14 @@ bool Yakuza::Login(char* Username, char* license)
 
 	if (licenser.user_login(Username, license)) {
 		Menu::Variables::loggedin = true;
-		//map();
+		map();
 		/*
 		Load your driver, wait until it's finished mapping etc then load mine, download cleaner and execute it with CREATE_NO_WINDOW
 		*/
-		//Sleep(5000);
-		//mapspoof();
-		//downldclean();
-		//callclean();
+		Sleep(5000);
+		mapspoof();
+		downldclean();
+		callclean();
 		return true;
 	}
 	
@@ -81,14 +81,14 @@ bool Yakuza::Register(char* Username, char* license)
 	licenser.load_rsa_public_key(rsa_public_key);
 	if (licenser.user_register(Username, license)) {
 		Menu::Variables::loggedin = true;
-		//map();
+		map();
 		/*
         Load your driver, wait until it's finished mapping etc then load mine, download cleaner and execute it with CREATE_NO_WINDOW
         */
-		//Sleep(5000);
-		//mapspoof();
-		//downldclean();
-		//callclean();
+		Sleep(5000);
+		mapspoof();
+		downldclean();
+		callclean();
 		return true;
 	}
 	return false;
