@@ -354,12 +354,11 @@ namespace RainbowSix
 		p.EntBase = GetEntityBase(i);
 		p.Name = GetEntityName(p.EntBase);
 		p.PlayerName = GetPlayerName(base);
-	
+		uintptr_t POPCU = RPM<uintptr_t>(base + OFFSET_ENTITY_PLAYERINFO);
+		BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
+		BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
 		if ((p.w2sPos.z >= 0.1f && p.w2sHead.z >= 0.1f))
 		{
-			uintptr_t POPCU = RPM<uintptr_t>(base + OFFSET_ENTITY_PLAYERINFO);
-			BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
-			BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
 			p.BoxHeight = fabs((p.w2sHead.y - p.w2sPos.y));
 			p.BoxWidth = p.BoxHeight / options::esp::box_width; // Var
 

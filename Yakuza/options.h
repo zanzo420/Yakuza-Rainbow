@@ -27,7 +27,7 @@ namespace options
 		inline bool name = false;
 		inline bool rainbow = false;
 		inline float box_width = 2.f;			
-		inline float color[3] = { 255.0f, 0.0f, 0.0f };
+	 inline float color[3] = { 255.0f, 0.0f, 0.0f };
 		inline float rainbowcolor[3] = { 255.f, 0.f, 0.f };
 	}
 	inline bool freeze = false;

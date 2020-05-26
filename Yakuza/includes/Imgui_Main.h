@@ -1,6 +1,6 @@
 #pragma once
-#include "ImGui\imgui.h"
-#include "ImGui\imgui_internal.h"
+#include "..\ImGui\imgui.h"
+#include "..\ImGui\imgui_internal.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <d3d11.h>
@@ -34,3 +34,15 @@
 #pragma comment(lib, "psapi.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3dcompiler.lib")
+
+struct Stats
+{
+    int    uniform_triangle_pixels = 0;
+    int    textured_triangle_pixels = 0;
+    int    gradient_triangle_pixels = 0;
+    int    font_pixels = 0;
+    double uniform_rectangle_pixels = 0;
+    double textured_rectangle_pixels = 0;
+    double gradient_rectangle_pixels = 0;
+    double gradient_textured_rectangle_pixels = 0;
+};

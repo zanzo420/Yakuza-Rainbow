@@ -1,7 +1,7 @@
 #pragma once
 #include "DrawerSmall.h"
-#include "imgui.h"
-#include "imgui_internal.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_internal.h"
 #include "..\Vectors.h"
 
 Renderer* Renderer::m_pInstance;
@@ -22,20 +22,16 @@ void Renderer::Initialize()
 	// This is my example of font initializing
 	// First font used for UI
 	// Second for rendering, 32.0f is pixel size, not font size.
-	m_pFont = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\l_10646.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesDefault());
+	m_pFont = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\l_10646.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesChinese());
 }
 
 void Renderer::BeginScene()
 {
-	ImGuiIO& io = ImGui::GetIO();
-
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
-	ImGui::SetNextWindowBgAlpha(0.f);
-	ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x - 1, io.DisplaySize.y - 1));
-	ImGui::Begin("BUFFERNAME", reinterpret_cast<bool*>(true), ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoInputs);
+	ImGui::Begin("BUFFERNAME", reinterpret_cast<bool*>(true), ImVec2(0, 0), 0.0f, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoInputs);
 
-	ImGui::SetWindowPos(ImVec2(0, 0), ImGuiCond_Always);
-	ImGui::SetWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y), ImGuiCond_Always);
+	ImGui::SetWindowPos(ImVec2(0, 0), ImGuiSetCond_Always);
+	ImGui::SetWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y), ImGuiSetCond_Always);
 
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	//window->DrawList->AddRectFilled(ImVec2(0, 0), ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y), ImGui::GetColorU32(ImVec4(.1f, .1f, .1f, 0.1f)));
