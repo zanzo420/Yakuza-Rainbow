@@ -6,20 +6,8 @@
     <ClCompile Include="md5.cpp">
       <Filter>Security\StringEncryption</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>Menu\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>Menu\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Menu\ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="RainbowSix.cpp">
       <Filter>Game\R6s</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Menu\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_dx11.cpp">
       <Filter>Menu\ImGui</Filter>
@@ -68,6 +56,21 @@
     </ClCompile>
     <ClCompile Include="Server\server\WMICHwid.cpp">
       <Filter>Security\Server\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui_demo.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui_draw.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui_widgets.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Menu\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,34 +155,7 @@
     <ClInclude Include="includes\DrawerSmall.h">
       <Filter>Menu</Filter>
     </ClInclude>
-    <ClInclude Include="includes\graphics.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\Imgui_Main.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui_tabs.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
     <ClInclude Include="ImGui\Drawer.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\stb_rect_pack.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\stb_textedit.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\stb_truetype.h">
       <Filter>Menu\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="Kernel.h">
@@ -304,6 +280,21 @@
     </ClInclude>
     <ClInclude Include="hwid.hpp">
       <Filter>Security</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\imgui.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\imgui_internal.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\imstb_rectpack.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\imstb_textedit.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\imstb_truetype.h">
+      <Filter>Menu\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

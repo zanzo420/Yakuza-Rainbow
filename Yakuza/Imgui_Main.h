@@ -1,6 +1,6 @@
 #pragma once
-#include "ImGui\imgui.h"
-#include "ImGui\imgui_internal.h"
+#include "imgui.h"
+#include "imgui_internal.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <d3d11.h>
