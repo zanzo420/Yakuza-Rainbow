@@ -62,11 +62,8 @@ bool Yakuza::Login(char* Username, char* license)
 		*/
 		Sleep(5000);
 		if (options::mapSpoof)
-		{
 			mapspoof();
-			downldclean();
-			callclean();
-		}
+
 		return true;
 	}
 	
@@ -90,11 +87,8 @@ bool Yakuza::Register(char* Username, char* license)
         */
 		Sleep(5000);
 		if (options::mapSpoof)
-		{
 			mapspoof();
-			downldclean();
-			callclean();
-		}
+
 		return true;
 	}
 	return false;

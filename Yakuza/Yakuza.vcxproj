@@ -247,7 +247,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FUNC\callclean.cpp" />
     <ClCompile Include="FUNC\callresetdisks.cpp" />
     <ClCompile Include="FUNC\callspooffunc.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />

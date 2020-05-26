@@ -1,13 +1,6 @@
 #pragma once
 
 //
-// Cleaner
-//
-
-void downldclean();
-void callclean();
-
-//
 // PowerShell
 //
 

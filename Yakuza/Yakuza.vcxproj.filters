@@ -39,9 +39,6 @@
     <ClCompile Include="KDMOD\utils.cpp">
       <Filter>Spoof\KDMOD</Filter>
     </ClCompile>
-    <ClCompile Include="FUNC\callclean.cpp">
-      <Filter>Spoof\FUNC</Filter>
-    </ClCompile>
     <ClCompile Include="FUNC\callresetdisks.cpp">
       <Filter>Spoof\FUNC</Filter>
     </ClCompile>
