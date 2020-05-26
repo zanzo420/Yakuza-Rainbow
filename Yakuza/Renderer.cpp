@@ -164,7 +164,7 @@ void Renderer::DrawBoxOutlined(const Vector2& from, const Vector2& size, Vector3
 	window->DrawList->AddRect(ImVec2(from.x, from.y), ImVec2(size.x, size.y), ImGui::GetColorU32(ImVec4(OutlineRGB.x / 255, OutlineRGB.y / 255, OutlineRGB.z / 255, 255 / 255)), rounding, 15, thickness * 1.2);
 }
 
-void Renderer::DrawCircl(const Vector2& from, float radius, DirectX::XMFLOAT4 color, float thickness)
+void Renderer::DrawCircle(const Vector2& from, float radius, DirectX::XMFLOAT4 color, float thickness)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 

@@ -34,7 +34,7 @@ public:
 	void DrawBoxFilled(const Vector2& from, const Vector2& size, Vector3 color, float rounding, float opacity = 255);
 	void DrawClearBox(const Vector2& from, const Vector2& size, DirectX::XMFLOAT4 color, float rounding);
 	void DrawBoxOutlined(const Vector2& from, const Vector2& size, Vector3 RGB, Vector3 OutlineRGB, float rounding, float thickness);
-	void DrawCircl(const Vector2& from, float radius, DirectX::XMFLOAT4 color, float thickness);
+	void DrawCircle(const Vector2& from, float radius, DirectX::XMFLOAT4 color, float thickness);
 	void DrawCircleFilled(const Vector2& from, float radius, Vector3 color);
 	void DrawRect(float x, float y, float w, float h, Vector3 color);
 	void DrawOutlinedRect(float x, float y, float w, float h, Vector3 color);

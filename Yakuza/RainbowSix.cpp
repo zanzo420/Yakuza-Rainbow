@@ -66,42 +66,81 @@ namespace RainbowSix
 
 	void NoRecoil()
 	{
-		int8_t GameState = GetGameState();
-		if (!options::noRecoil || GameState == 2 || GameState == 3)
-			return;
-		uintptr_t FOVManager = RPM<uintptr_t>(base_address + fov_manager_offset);
-		if (!FOVManager)
-			return;
+		if (options::noRecoilEnabled)
+		{
+			int8_t GameState = GetGameState();
+			if (!options::noRecoilEnabled || GameState == 2 || GameState == 3)
+				return;
+			uintptr_t FOVManager = RPM<uintptr_t>(base_address + fov_manager_offset);
+			if (!FOVManager)
+				return;
 
-		uintptr_t Recoil1 = RPM<uintptr_t>(FOVManager + 0x110); //110
-		if (!Recoil1)
-			return;
+			uintptr_t Recoil1 = RPM<uintptr_t>(FOVManager + 0x110); //110
+			if (!Recoil1)
+				return;
 
-		uintptr_t Recoil2 = RPM<uintptr_t>(Recoil1); //Deref
-		if (!Recoil2)
-			return;
-		//(BYTE)(0.1f)
-		WPM<BYTE>(Recoil2 + 0xE2D, options::recoil); // E2D
+			uintptr_t Recoil2 = RPM<uintptr_t>(Recoil1); //Deref
+			if (!Recoil2)
+				return;
+			//(BYTE)(0.1f)
+			WPM<BYTE>(Recoil2 + 0xE2D, options::recoil); // E2D
+			options::noRecoilDisabled = false;
+		}
+		if (!options::noRecoilDisabled && !options::noRecoilEnabled)
+		{ 
+			int8_t GameState = GetGameState();
+			if ( GameState == 2 || GameState == 3)
+				return;
+			uintptr_t FOVManager = RPM<uintptr_t>(base_address + fov_manager_offset);
+			if (!FOVManager)
+				return;
+
+			uintptr_t Recoil1 = RPM<uintptr_t>(FOVManager + 0x110); //110
+			if (!Recoil1)
+				return;
+
+			uintptr_t Recoil2 = RPM<uintptr_t>(Recoil1); //Deref
+			if (!Recoil2)
+				return;
+			//(BYTE)(0.1f)
+			WPM<BYTE>(Recoil2 + 0xE2D, 1); // E2D
+			options::noRecoilDisabled = true;
+		}
 	}
 
-	void NoSpread() 
+	void NoSpread()
 	{
-		int8_t GameState = GetGameState();
-		if (GameState == 2 || GameState == 3)
-			return;
-		uintptr_t addr1 = RPM<uintptr_t>(gamemanager + 0xC8);
-		uintptr_t addr2 = RPM<uintptr_t>(addr1 + 0x0);
-		uintptr_t addr3 = RPM<uintptr_t>(addr2 + 0x90);
-		uintptr_t addr4 = RPM<uintptr_t>(addr3 + 0xC8);
-		uintptr_t addr5 = RPM<uintptr_t>(addr4 + 0x278);
-		if (!addr5)
-			return;
-		WPM<BYTE>(addr5 + 0x168, 0x0);
-		WPM<float>(addr5 + 0x15C, options::recoil); //x
-		WPM<float>(addr5 + 0x14C, options::recoil); //y
-		WPM<float>(addr5 + 0x58, options::noSpread); // spread
+		if (options::noSpreadEnabled)
+		{
+			uintptr_t addr1 = RPM<uintptr_t>(gamemanager + 0xC8);
+			uintptr_t addr2 = RPM<uintptr_t>(addr1 + 0x0);
+			uintptr_t addr3 = RPM<uintptr_t>(addr2 + 0x90);
+			uintptr_t addr4 = RPM<uintptr_t>(addr3 + 0xC8);
+			uintptr_t addr5 = RPM<uintptr_t>(addr4 + 0x278);
+			if (!addr5)
+				return;
+			WPM<BYTE>(addr5 + 0x168, 0x0);
+			WPM<float>(addr5 + 0x15C, options::recoil); //x
+			WPM<float>(addr5 + 0x14C, options::recoil); //y
+			WPM<float>(addr5 + 0x58, options::noSpread); // spread
+			options::noSpreadDisabled = false;
+		}
+		if (!options::noSpreadDisabled && !options::noSpreadEnabled)
+		{
+			uintptr_t addr1 = RPM<uintptr_t>(gamemanager + 0xC8);
+			uintptr_t addr2 = RPM<uintptr_t>(addr1 + 0x0);
+			uintptr_t addr3 = RPM<uintptr_t>(addr2 + 0x90);
+			uintptr_t addr4 = RPM<uintptr_t>(addr3 + 0xC8);
+			uintptr_t addr5 = RPM<uintptr_t>(addr4 + 0x278);
+			if (!addr5)
+				return;
+			WPM<BYTE>(addr5 + 0x168, 0x0);
+			WPM<float>(addr5 + 0x15C, 1); //x
+			WPM<float>(addr5 + 0x14C, 1); //y
+			WPM<float>(addr5 + 0x58, 1); // spread
+			options::noSpreadDisabled = true;
+		}
 	}
-
 	void glow()
 	{
 		if (!options::glowEsp)
@@ -110,7 +149,7 @@ namespace RainbowSix
 		uintptr_t base = RPM<uintptr_t>(base_address + glow_manager_offset);
 		uintptr_t chain = RPM<uintptr_t>(base + glow_base);
 		if (chain) {
-			if (options::glow::rainbow) 
+			if (options::glow::GlowRainbow)
 			{	
 				options::glow::red = options::esp::rainbowcolor[0];
 				options::glow::green = options::esp::rainbowcolor[1];
@@ -357,13 +396,11 @@ namespace RainbowSix
 		p.EntBase = GetEntityBase(i);
 		p.Name = GetEntityName(p.EntBase);
 		p.PlayerName = GetPlayerName(base);
-	
+		uintptr_t POPCU = RPM<uintptr_t>(base + OFFSET_ENTITY_PLAYERINFO);
+		BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
+		BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
 		if ((p.w2sPos.z >= 0.1f && p.w2sHead.z >= 0.1f))
 		{
-			uintptr_t POPCU = RPM<uintptr_t>(base + OFFSET_ENTITY_PLAYERINFO);
-			BYTE OP = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_OP);
-			BYTE CTU = RPM<BYTE>(POPCU + OFFSET_PLAYERINFO_CTU);
-
 			p.BoxHeight = fabs((p.w2sHead.y - p.w2sPos.y));
 			p.BoxWidth = p.BoxHeight / options::esp::box_width; // Var
 
