@@ -386,7 +386,8 @@ namespace Menu
 
 			Renderer::GetInstance()->Initialize();
 			ImGuiIO& io = ImGui::GetIO();
-			ImFont* imFont = io.Fonts->AddFontDefault();
+			io.Fonts->AddFontFromFileTTF("C:\\Users\\Adminx\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Yakuza-Regular.ttf", 20.0f, NULL, io.Fonts->GetGlyphRangesDefault ());
+
 			Style();
 
 			Menu::Variables::init = true;
