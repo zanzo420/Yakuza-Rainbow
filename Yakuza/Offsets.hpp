@@ -53,7 +53,7 @@ struct PlayerInfo {
 	uintptr_t	EntBase;
 	int			id;
 	int			teamId;
-
+	bool		onTeam;
 	
 	float		distanceFromPlayer;
 	float		Health;

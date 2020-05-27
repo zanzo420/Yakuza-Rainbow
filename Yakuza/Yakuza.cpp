@@ -127,6 +127,14 @@ void Yakuza::FeatureLoop()
 		RainbowSix::freeze();
 		RainbowSix::NoRecoil();
 		RainbowSix::NoSpread();
+		if(options::menu::custom)
+		Menu::LocalImgui::Style();
+
+		if (!options::menu::custom && !options::menu::RestCustom)
+		{
+			// resets and calls once
+			Menu::LocalImgui::Style();
+		}
 	}
 }
 

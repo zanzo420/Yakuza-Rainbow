@@ -134,3 +134,9 @@ static const char* BoxType[] =
     "2D Filled",
     "2D Cornered"
 };
+
+static const char* EspTeams[] =
+{
+    "Enemy",
+    "Team"
+};
