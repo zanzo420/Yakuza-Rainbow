@@ -19,8 +19,8 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{6b28405f-3bd0-4fbd-8b2d-7889bcc40048}</UniqueIdentifier>
     </Filter>
-    <Filter Include="HWID">
-      <UniqueIdentifier>{638c94b7-975e-46c7-acbb-c4523e8a0f47}</UniqueIdentifier>
+    <Filter Include="Watermark">
+      <UniqueIdentifier>{bb40ec40-0e7d-40a6-9bfe-e4ef88c62ed7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +33,21 @@
     </ClInclude>
     <ClInclude Include="Memory.hpp">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="watermark\mem_defs.hpp">
+      <Filter>Watermark</Filter>
+    </ClInclude>
+    <ClInclude Include="watermark\mem_iter.hpp">
+      <Filter>Watermark</Filter>
+    </ClInclude>
+    <ClInclude Include="watermark\mem_scan.hpp">
+      <Filter>Watermark</Filter>
+    </ClInclude>
+    <ClInclude Include="watermark\mem_util.hpp">
+      <Filter>Watermark</Filter>
+    </ClInclude>
+    <ClInclude Include="watermark\util_raii.hpp">
+      <Filter>Watermark</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

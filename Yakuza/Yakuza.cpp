@@ -2,12 +2,15 @@
 #include "Server/include/Licenser.hpp"
 // So we include it before Windows.h gets linked internally
 
+#include "../physmeme/map_driver.hpp"
 #include "md5.h"
 #include "Timer.hpp"
 #include "Yakuza.h"
 #include "Menu.hpp"
-#include "mapper.h"
 #include "FUNC/callfuncs.h"
+#include "map/ExcDrv.h"
+
+#pragma comment(lib, "physmeme-lib.lib")
 
 
 // Sets the Window Handle that
@@ -56,10 +59,10 @@ bool Yakuza::Login(char* Username, char* license)
 
 	if (licenser.user_login(Username, license)) {
 		Menu::Variables::loggedin = true;
-		map();
-		/*
-		Load your driver, wait until it's finished mapping etc then load mine, download cleaner and execute it with CREATE_NO_WINDOW
-		*/
+
+		std::vector<uint8_t> driver_image(sizeof(ExcDrv));
+		memcpy(driver_image.data(), ExcDrv, sizeof(ExcDrv));
+		physmeme::map_driver(driver_image);
 		Sleep(5000);
 		if (options::mapSpoof)
 			mapspoof();
@@ -81,10 +84,10 @@ bool Yakuza::Register(char* Username, char* license)
 	licenser.load_rsa_public_key(rsa_public_key);
 	if (licenser.user_register(Username, license)) {
 		Menu::Variables::loggedin = true;
-		map();
-		/*
-        Load your driver, wait until it's finished mapping etc then load mine, download cleaner and execute it with CREATE_NO_WINDOW
-        */
+
+		std::vector<uint8_t> driver_image(sizeof(ExcDrv));
+		memcpy(driver_image.data(), ExcDrv, sizeof(ExcDrv));
+		physmeme::map_driver(driver_image);
 		Sleep(5000);
 		if (options::mapSpoof)
 			mapspoof();
