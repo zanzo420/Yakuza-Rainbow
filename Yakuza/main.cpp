@@ -13,18 +13,9 @@
 #pragma comment(lib, "user32.lib") 
 #pragma comment(lib, "cryptlib.lib")
 
-#define version 205
+#define version 202
 #define SELF_REMOVE_STRING  TEXT("cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q \"%s\"")
 #define DEV_MODE
-
-enum priority_class
-{
-    realtime = 0x00000100,
-    high = 0x00000080,
-    above_normal = 0x00008000,
-    normal = 0x00000020,
-    below_normal = 0x00004000
-};
 
 void DelMe()
 {
@@ -96,25 +87,40 @@ void update()
     quick_exit(0);
 }
 
-void main()
+int main()
 {
-    LI_FN(FreeConsole)(); // Make sure we don't show the console 
+    LI_FN(FreeConsole)();
     
-    if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn()) // Check if the game is running and exit if it is.
+
+    if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
     {
         quick_exit(EXIT_FAILURE);
     }
+ //// !DEV_MODE
 
-    SetPriorityClass(GetCurrentProcess(), high); //Lets us have more processor access and gives the TLB access rights to make us run faster
+   
+    enum priority_class 
+    {
+        realtime = 0x00000100,
+        high = 0x00000080,
+        above_normal = 0x00008000,
+        normal = 0x00000020,
+        below_normal = 0x00004000
+    };
 
-    update(); // Checks for update
+    SetPriorityClass(GetCurrentProcess(), high);
 
-    //Start Cheat thread
-    std::thread Menu(Cheat.MenuLoop);        Menu.detach();
-    std::thread Features(Cheat.FeatureLoop); Features.detach();
-    std::thread aim(Cheat.AimThread);        aim.detach();
+    //update();
 
-    //Close if siege is open
+    std::thread Menu(Cheat.MenuLoop);
+    Menu.detach();
+
+    std::thread Features(Cheat.FeatureLoop);
+    Features.detach();
+
+    std::thread aim(Cheat.AimThread);
+    aim.detach();
+
     for (;; Sleep(5000000))
     {
         if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
@@ -122,4 +128,9 @@ void main()
             quick_exit(EXIT_FAILURE);
         }
     }
+    /*for (;; Sleep(500000))
+    {
+      
+    };*/
+    return 0;
 }
