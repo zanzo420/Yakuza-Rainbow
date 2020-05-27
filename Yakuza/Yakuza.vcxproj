@@ -119,6 +119,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)$(Platform)\$(Configuration)\</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dev|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -272,6 +273,7 @@
     <ClCompile Include="Yakuza.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\physmeme\map_driver.hpp" />
     <ClInclude Include="bones.h" />
     <ClInclude Include="esp.h" />
     <ClInclude Include="FUNC\callfuncs.h" />
@@ -299,16 +301,7 @@
     <ClInclude Include="KDMOD\utils.hpp" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="lists.h" />
-    <ClInclude Include="mapper.h" />
-    <ClInclude Include="map\capcom.hpp" />
-    <ClInclude Include="map\capcomsys.hpp" />
-    <ClInclude Include="map\drv_image.hpp" />
     <ClInclude Include="map\ExcDrv.h" />
-    <ClInclude Include="map\kernel.hpp" />
-    <ClInclude Include="map\loader.hpp" />
-    <ClInclude Include="map\native.hpp" />
-    <ClInclude Include="map\structs.hpp" />
-    <ClInclude Include="map\util.hpp" />
     <ClInclude Include="md5.h" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Offsets.hpp" />

@@ -203,33 +203,6 @@
     <ClInclude Include="esp.h">
       <Filter>Game\R6s\Features</Filter>
     </ClInclude>
-    <ClInclude Include="mapper.h">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map\loader.hpp">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map\native.hpp">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map\structs.hpp">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map\util.hpp">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map\capcomsys.hpp">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map\drv_image.hpp">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map\capcom.hpp">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map\kernel.hpp">
-      <Filter>Utils\map</Filter>
-    </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
       <Filter>Menu\ImGui</Filter>
     </ClInclude>
@@ -300,6 +273,9 @@
       <Filter>Security</Filter>
     </ClInclude>
     <ClInclude Include="map\ExcDrv.h">
+      <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\physmeme\map_driver.hpp">
       <Filter>Utils\map</Filter>
     </ClInclude>
   </ItemGroup>
