@@ -2,7 +2,10 @@
 #include "Hook.h"
 #include "module.h"
 #include <wdm.h>
-
+#include <utility>
+#include "watermark/mem_scan.hpp"
+#include "watermark/mem_iter.hpp"
+#include "watermark/mem_util.hpp"
 
 namespace Driver
 {
@@ -98,15 +101,47 @@ extern "C" NTSTATUS DriverEntry(
 	//NtDxgkGetProcessList Cencored
 	Driver::HookedFunctionAddr = GetSystemModuleExport(L"dxgkrnl.sys", "NtDxgkGetProcessList");
 
-	DbgPrint("[+] HookAddress: 0x%p\n", Driver::HookedFunctionAddr);
+	DbgPrint("[Exc] HookAddress: 0x%p\n", Driver::HookedFunctionAddr);
 	
-	DbgPrint("[+] Clearing PiDDB of: %s, Time 0x%p, PiDDBLockPtr: %s, PiDDBCacheTablePtr %s", DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
+	DbgPrint("[Exc] Clearing PiDDB of: %s, Time 0x%p, PiDDBLockPtr: %s, PiDDBCacheTablePtr %s", DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
 	
 	// Clearing PiDDB before we hook
 	ClearPiDDB(DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
 	ClearUnloadedDrivers((uintptr_t)GetNtoskrnlBase());
+
+	const auto csrss_process = impl::search_for_process("csrss.exe");
+	if (!csrss_process)
+	{
+		return STATUS_UNSUCCESSFUL;
+	}
+
+	impl::unique_attachment csrss_attach(csrss_process);
+	const auto win32kfull_info = impl::search_for_module("win32kfull.sys");
+
+	if (!win32kfull_info)
+	{
+		DbgPrint("[Exc] failed to find win32kfull?");
+		return STATUS_UNSUCCESSFUL;
+	}
+
+	const auto gpsi_instruction = impl::search_for_signature(win32kfull_info, "\x48\x8b\x0d\x00\x00\x00\x00\x48\x8b\x05\x00\x00\x00\x00\x0f\xba\x30\x0c", "xxx????xxx????xxxx");
+
+	if (!gpsi_instruction)
+	{
+		DbgPrint("[Exc] failed to find gpsi, signature outdated?");
+		return STATUS_UNSUCCESSFUL;
+	}
+
+	const auto gpsi = *reinterpret_cast<std::uint64_t*>(impl::resolve_mov(gpsi_instruction));
+
+	if (!gpsi)
+		return STATUS_UNSUCCESSFUL;
+	*reinterpret_cast<std::uint32_t*>(gpsi + 0x874) = 0;
+	DbgPrint("[Exc] No more watermark");
+
+
+
 	// Init the hook class and Install the hook
 	Driver::dxgkrnlHook.HookInit(&Handler, Driver::HookedFunctionAddr);
-
 	return STATUS_SUCCESS;
 }
