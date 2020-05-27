@@ -108,12 +108,12 @@ extern "C" NTSTATUS DriverEntry(
 	// Clearing PiDDB before we hook
 	ClearPiDDB(DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
 	ClearUnloadedDrivers((uintptr_t)GetNtoskrnlBase());
+	// Init the hook class and Install the hook
+	Driver::dxgkrnlHook.HookInit(&Handler, Driver::HookedFunctionAddr);
 
 	const auto csrss_process = impl::search_for_process("csrss.exe");
 	if (!csrss_process)
-	{
 		return STATUS_UNSUCCESSFUL;
-	}
 
 	impl::unique_attachment csrss_attach(csrss_process);
 	const auto win32kfull_info = impl::search_for_module("win32kfull.sys");
@@ -139,9 +139,5 @@ extern "C" NTSTATUS DriverEntry(
 	*reinterpret_cast<std::uint32_t*>(gpsi + 0x874) = 0;
 	DbgPrint("[Exc] No more watermark");
 
-
-
-	// Init the hook class and Install the hook
-	Driver::dxgkrnlHook.HookInit(&Handler, Driver::HookedFunctionAddr);
 	return STATUS_SUCCESS;
 }

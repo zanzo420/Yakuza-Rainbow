@@ -21,8 +21,9 @@ namespace impl
 
 		~unique_attachment( )
 		{
-			KeUnstackDetachProcess( &apc_state );
-			ObfDereferenceObject( process );
+			KeUnstackDetachProcess(&apc_state);
+			if(MmIsAddressValid(process))
+				ObfDereferenceObject(process);
 		}
 	};
 
