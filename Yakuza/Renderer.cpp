@@ -54,14 +54,14 @@ void Renderer::EndScene()
 	ImGui::PopStyleColor();
 }
 
-float Renderer::DrawMyText(ImFont* pFont, PCHAR text, const Vector2& pos, float size, Vector3 RGB, bool center)
+float Renderer::DrawMyText(ImFont* pFont, PCHAR text, const Vector2& pos, float size, Vector4 RGB, bool center)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
-	float a = 255;
 	float r = RGB.x;
 	float g = RGB.y;
 	float b = RGB.z;
+	float a = RGB.w;
 
 	float y = 0.0f;
 	int i = 0;
@@ -94,11 +94,11 @@ float Renderer::DrawMyText(ImFont* pFont, PCHAR text, const Vector2& pos, float 
 	return y;
 }
 
-void Renderer::DrawLine(const Vector2& from, const Vector2& to, Vector3 RGB, float thickness)
+void Renderer::DrawLine(const Vector2& from, const Vector2& to, Vector4 RGB, float thickness)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
-	window->DrawList->AddLine(ImVec2(from.x, from.y), ImVec2(to.x, to.y), ImGui::GetColorU32(ImVec4(RGB.x / 255, RGB.y / 255, RGB.z / 255, 255 / 255)), thickness);
+	window->DrawList->AddLine(ImVec2(from.x, from.y), ImVec2(to.x, to.y), ImGui::GetColorU32(ImVec4(RGB.x / 255, RGB.y / 255, RGB.z / 255, RGB.w / 255)), thickness);
 }
 
 void Renderer::DrawHealthbars(float PosX, float PosY, float height, float Value1, Vector3 color) {
@@ -109,7 +109,7 @@ void Renderer::DrawHealthbars(float PosX, float PosY, float height, float Value1
 
 	if (Value1 > 0 && Value1 < 101) // if Value is greater then 75 and not greater then 90 draw the health has a darker shade of green.
 	{
-		DrawRect(PosX - 1, PosY - 1, 5, height, Vector3(0, 0, 0));
+		DrawRect(PosX - 1, PosY - 1, 5, height, Vector4(0, 0, 0, 1));
 		if (Value1 > 80) {
 			DrawBoxFilled(Vector2(PosX, PosY), Vector2(PosX + 3, PosY + Value), Vector3(50, 205, 50), 0);
 		}
@@ -171,14 +171,14 @@ void Renderer::DrawCircle(const Vector2& from, float radius, DirectX::XMFLOAT4 c
 	window->DrawList->AddCircle(ImVec2(from.x, from.y), radius, ImGui::GetColorU32(ImVec4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)), 180, thickness);
 }
 
-void Renderer::DrawCircleFilled(const Vector2& from, float radius, Vector3 color)
+void Renderer::DrawCircleFilled(const Vector2& from, float radius, Vector4 color)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
-	window->DrawList->AddCircleFilled(ImVec2(from.x, from.y), radius, ImGui::GetColorU32(ImVec4(color.x / 255, color.y / 255, color.z / 255, 255 / 255)), 180);
+	window->DrawList->AddCircleFilled(ImVec2(from.x, from.y), radius, ImGui::GetColorU32(ImVec4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)), 180);
 }
 
-void Renderer::DrawRect(float x, float y, float w, float h, Vector3 color)
+void Renderer::DrawRect(float x, float y, float w, float h, Vector4 color)
 {
 	DrawLine(Vector2(x, y), Vector2(x + w, y), color, 1);
 	DrawLine(Vector2(x, y), Vector2(x, y + h), color, 1);
@@ -186,17 +186,17 @@ void Renderer::DrawRect(float x, float y, float w, float h, Vector3 color)
 	DrawLine(Vector2(x, y + h), Vector2(x + w + 1, y + h), color, 1);
 }
 
-void Renderer::DrawOutlinedRect(float x, float y, float w, float h, Vector3 color)
+void Renderer::DrawOutlinedRect(float x, float y, float w, float h, Vector4 color)
 {
 	//DrawRect(x - 1, y - 1, w + 2, h + 2, Vector3(1, 1, 1));
 	//DrawRect(x + 1, y + 1, w - 2, h - 2, Vector3(1, 1, 1));
 	DrawRect(x, y, w, h, color);
 }
 
-void Renderer::DrawFilledRect(float x, float y, float w, float h, Vector3 color)
+void Renderer::DrawFilledRect(float x, float y, float w, float h, DirectX::XMFLOAT4 color)
 {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
-	DrawClearBox(Vector2(x, y), Vector2(x + w, y + h), DirectX::XMFLOAT4(1, 1, 1, 150), 0);
+	DrawClearBox(Vector2(x, y), Vector2(x + w, y + h), DirectX::XMFLOAT4(color), 0);
 }
 
 void Renderer::DrawBox3D(Vector3 positon, Vector4 color, float thickness, Vector3 min, Vector3 max, Vector3 angels)

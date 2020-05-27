@@ -178,61 +178,167 @@ namespace Menu
 		static void Style() {
 			ImVec4* colors = ImGui::GetStyle().Colors;
 			ImGuiStyle& style = ImGui::GetStyle();
-			colors[ImGuiCol_Text] = ImVec4(255.f, 255.f, 255.f, 1.00f);
-			colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
-			colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
+			if (!options::menu::custom )
+			{
+				colors[ImGuiCol_Text] = ImVec4(255.f, 255.f, 255.f, 1.00f);
+				colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
+				colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
 
-			colors[ImGuiCol_WindowBg] = ImVec4(0.125f, 0.125f, 0.149f, 1.00f);
-			colors[ImGuiCol_ChildWindowBg] = ImVec4(0.105f, 0.105f, 0.133f, 1.00f);
-			colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
-			colors[ImGuiCol_Border] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-			colors[ImGuiCol_BorderShadow] = ImVec4(0.070f, 0.070f, 0.101f, 1.00f);
+				colors[ImGuiCol_WindowBg] = ImVec4(0.125f, 0.125f, 0.149f, 1.00f);
+				colors[ImGuiCol_ChildWindowBg] = ImVec4(0.105f, 0.105f, 0.133f, 1.00f);
+				colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+				colors[ImGuiCol_Border] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_BorderShadow] = ImVec4(0.070f, 0.070f, 0.101f, 1.00f);
 
-			colors[ImGuiCol_FrameBg] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-			colors[ImGuiCol_FrameBgHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
-			colors[ImGuiCol_FrameBgActive] = ImVec4(0.862f, 0.862f, 0.862f, .50f);
+				colors[ImGuiCol_FrameBg] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_FrameBgHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				colors[ImGuiCol_FrameBgActive] = ImVec4(0.862f, 0.862f, 0.862f, .50f);
 
-			colors[ImGuiCol_TitleBg] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
-			colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
-			colors[ImGuiCol_TitleBgActive] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
-			colors[ImGuiCol_MenuBarBg] = ImVec4(0.40f, 0.40f, 0.55f, 0.80f);
+				colors[ImGuiCol_TitleBg] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+				colors[ImGuiCol_TitleBgActive] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				colors[ImGuiCol_MenuBarBg] = ImVec4(0.40f, 0.40f, 0.55f, 0.80f);
 
-			colors[ImGuiCol_ScrollbarBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
-			colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.917, 0.223, 0.223, .25);
-			colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.917, 0.223, 0.223, .25);
-			colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.10, 0.10, 0.10, 1.00);
+				colors[ImGuiCol_ScrollbarBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+				colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.917, 0.223, 0.223, .25);
+				colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.917, 0.223, 0.223, .25);
+				colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.10, 0.10, 0.10, 1.00);
 
-			colors[ImGuiCol_Separator] = ImVec4(0.917, 0.223, 0.223, .25f);
-			colors[ImGuiCol_SeparatorActive] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
-			colors[ImGuiCol_SeparatorHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				colors[ImGuiCol_Separator] = ImVec4(0.917, 0.223, 0.223, .25f);
+				colors[ImGuiCol_SeparatorActive] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				colors[ImGuiCol_SeparatorHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
 
-			colors[ImGuiCol_CheckMark] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
-			colors[ImGuiCol_SliderGrab] = ImVec4(0.862f, 0.862f, 0.862f, .90f);
-			colors[ImGuiCol_SliderGrabActive] = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
+				colors[ImGuiCol_SliderGrab] = ImVec4(0.862f, 0.862f, 0.862f, .90f);
+				colors[ImGuiCol_SliderGrabActive] = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
 
-			colors[ImGuiCol_Button] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-			colors[ImGuiCol_ButtonHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
-			colors[ImGuiCol_ButtonActive] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_Button] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_ButtonHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				colors[ImGuiCol_ButtonActive] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
 
-			// List Box
+				// List Box
 
-			colors[ImGuiCol_Header] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-			colors[ImGuiCol_HeaderHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f); 
-			colors[ImGuiCol_HeaderActive] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_Header] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_HeaderHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_HeaderActive] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
 
-			colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
-			colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
-			colors[ImGuiCol_ResizeGripActive] = ImVec4(0.862f, 0.862f, 0.862f, .90f);
+				colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
+				colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
+				colors[ImGuiCol_ResizeGripActive] = ImVec4(0.862f, 0.862f, 0.862f, .90f);
 
-			colors[ImGuiCol_CloseButton]          = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-			colors[ImGuiCol_CloseButtonHovered]   = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-			colors[ImGuiCol_CloseButtonActive]    = ImVec4(0.70f, 0.20f, 0.00f, 0.83f);
-			colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
-			colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
-			colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
-			colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
-			colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
+				colors[ImGuiCol_CloseButton] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_CloseButtonHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_CloseButtonActive] = ImVec4(0.70f, 0.20f, 0.00f, 0.83f);
+				colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+				colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+				colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+				colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
+				colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
+				options::menu::RestCustom = true;
+			}
+			else
+			{
+				colors[ImGuiCol_Text] = ImVec4(255.f, 255.f, 255.f, 1.00f);
+				colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
+				colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
+				if (options::menu::windowbg)
+				{
+					colors[ImGuiCol_WindowBg] = !options::menu::RainbowWindowBg ? ImVec4(options::menu::ImGuiCol_WindowBg[0], options::menu::ImGuiCol_WindowBg[1], options::menu::ImGuiCol_WindowBg[2], options::menu::ImGuiCol_WindowBg[3]) :
+						ImVec4(options::esp::rainbowcolor[0] / 255, options::esp::rainbowcolor[1] / 255, options::esp::rainbowcolor[2] / 255, 1.00f);
+				}
+				else
+				{
+					colors[ImGuiCol_WindowBg] = ImVec4(0.125f, 0.125f, 0.149f, 1.00f);
+				}
 
+				if (options::menu::windowbgchild)
+				{
+					colors[ImGuiCol_ChildWindowBg] = !options::menu::RainbowWindowChildBg ? ImVec4(options::menu::ImGuiCol_ChildWindowBg[0], options::menu::ImGuiCol_ChildWindowBg[1], options::menu::ImGuiCol_ChildWindowBg[2], options::menu::ImGuiCol_ChildWindowBg[3]) :
+						ImVec4(options::esp::rainbowcolor[0] / 255, options::esp::rainbowcolor[1] / 255, options::esp::rainbowcolor[2] / 255, 1.00f);
+				}
+				else
+				{
+					colors[ImGuiCol_ChildWindowBg] = ImVec4(0.105f, 0.105f, 0.133f, 1.00f);
+				}
+				colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+				colors[ImGuiCol_Border] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_BorderShadow] = ImVec4(0.070f, 0.070f, 0.101f, 1.00f);
+
+				colors[ImGuiCol_FrameBg] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_FrameBgActive] = ImVec4(0.862f, 0.862f, 0.862f, .50f);
+
+				if (options::menu::windowbar)
+				{
+					colors[ImGuiCol_TitleBg] = !options::menu::RainbowWindowBar ? ImVec4(options::menu::ImGuiCol_TitleBg[0], options::menu::ImGuiCol_TitleBg[1], options::menu::ImGuiCol_TitleBg[2], options::menu::ImGuiCol_TitleBg[3]) :
+						ImVec4(options::esp::rainbowcolor[0] / 255, options::esp::rainbowcolor[1] / 255, options::esp::rainbowcolor[2] / 255, options::menu::ImGuiCol_WindowBg[3]);
+					colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+
+					colors[ImGuiCol_TitleBgActive] = !options::menu::RainbowWindowBar ? ImVec4(options::menu::ImGuiCol_TitleBg[0], options::menu::ImGuiCol_TitleBg[1], options::menu::ImGuiCol_TitleBg[2], options::menu::ImGuiCol_TitleBg[3]) :
+						ImVec4(options::esp::rainbowcolor[0] / 255, options::esp::rainbowcolor[1] / 255, options::esp::rainbowcolor[2] / 255, options::menu::ImGuiCol_WindowBg[3]);
+					colors[ImGuiCol_MenuBarBg] = ImVec4(0.40f, 0.40f, 0.55f, 0.80f);
+				}
+				else
+				{
+					colors[ImGuiCol_TitleBg] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+					colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+					colors[ImGuiCol_TitleBgActive] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				}
+
+				colors[ImGuiCol_ScrollbarBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+				colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.917, 0.223, 0.223, .25);
+				colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.917, 0.223, 0.223, .25);
+				colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.10, 0.10, 0.10, 1.00);
+
+				colors[ImGuiCol_Separator] = ImVec4(0.917, 0.223, 0.223, .25f);
+				colors[ImGuiCol_SeparatorActive] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				colors[ImGuiCol_SeparatorHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+
+				if (options::menu::CheckMark)
+				{
+					colors[ImGuiCol_CheckMark] = !options::menu::RainbowCheckMark ? ImVec4(options::menu::ImGuiCol_CheckMark[0], options::menu::ImGuiCol_CheckMark[1], options::menu::ImGuiCol_CheckMark[2], options::menu::ImGuiCol_CheckMark[3]) :
+						ImVec4(options::esp::rainbowcolor[0] / 255, options::esp::rainbowcolor[1] / 255, options::esp::rainbowcolor[2] / 255, 1.00f);
+				}
+				else
+				{
+					colors[ImGuiCol_CheckMark] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				}
+				colors[ImGuiCol_SliderGrab] = ImVec4(0.862f, 0.862f, 0.862f, .90f);
+				colors[ImGuiCol_SliderGrabActive] = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
+
+				colors[ImGuiCol_Button] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				if (options::menu::Hover)
+				{
+					colors[ImGuiCol_ButtonHovered] = !options::menu::RainbowHover ? ImVec4(options::menu::ImGuiCol_ButtonHovered[0], options::menu::ImGuiCol_ButtonHovered[1], options::menu::ImGuiCol_ButtonHovered[2], options::menu::ImGuiCol_ButtonHovered[3]) :
+						ImVec4(options::esp::rainbowcolor[0] / 255, options::esp::rainbowcolor[1] / 255, options::esp::rainbowcolor[2] / 255, 1.00f);
+
+					colors[ImGuiCol_FrameBgHovered] = !options::menu::RainbowHover ? ImVec4(options::menu::ImGuiCol_ButtonHovered[0], options::menu::ImGuiCol_ButtonHovered[1], options::menu::ImGuiCol_ButtonHovered[2], options::menu::ImGuiCol_ButtonHovered[3]) :
+						ImVec4(options::esp::rainbowcolor[0] / 255, options::esp::rainbowcolor[1] / 255, options::esp::rainbowcolor[2] / 255, 1.00f);
+				}
+				else
+				{
+					colors[ImGuiCol_ButtonHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+					colors[ImGuiCol_FrameBgHovered] = ImVec4(0.929f, 0.290f, 0.290f, 1.00f);
+				}
+
+				// List Box
+
+				colors[ImGuiCol_Header] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_HeaderHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_HeaderActive] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+
+				colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
+				colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
+				colors[ImGuiCol_ResizeGripActive] = ImVec4(0.862f, 0.862f, 0.862f, .90f);
+
+				colors[ImGuiCol_CloseButton] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_CloseButtonHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_CloseButtonActive] = ImVec4(0.70f, 0.20f, 0.00f, 0.83f);
+				colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+				colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+				colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+				colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
+				colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
+				options::menu::RestCustom = false;
+			}
 
 
 			style.WindowPadding = ImVec2(6, 4);
@@ -323,97 +429,232 @@ namespace Menu
 	static void Esp()
 	{
 		ImGui::BeginGroup();
-		ImGui::Checkbox(xorstr_("Box ESP"), &options::boxEsp);
-		if (options::boxEsp)
+
+		//Space to left Top Tab
+		ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();
+		ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();ImGui::Spacing();
+
+
+		ImGui::Combo(xorstr_(" Team Selector"), &options::esp::EspTeams, EspTeams, IM_ARRAYSIZE(EspTeams));
+		if (options::esp::EspTeams == 0)
 		{
-			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  0.9f };
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+			ImGui::Checkbox(xorstr_(" Enemy"), &options::EnemyEsp);
+			if (options::EnemyEsp)
+			{
+				static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  0.9f };
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
 
-			ImGui::Combo(xorstr_("Box Type"), &options::esp::type, BoxType, IM_ARRAYSIZE(BoxType));
-			ImGui::SameLine();
+				ImGui::Combo(xorstr_(" Box Type"), &options::esp::EnemyType, BoxType, IM_ARRAYSIZE(BoxType));
 
-			bool openPopupEnemyBoxColor = ImGui::ColorButton(("colorButtonEnemyBoxColor"),
-				options::esp::RainbowBox ? RainbowCycle_ImColor : ImColor{ options::esp::BoxColor[0], options::esp::BoxColor[1], options::esp::BoxColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
-			if (openPopupEnemyBoxColor)
-				ImGui::OpenPopup(("EnemyBoxColorPopup"));
-			if (ImGui::BeginPopup(("EnemyBoxColorPopup"))) {
-				ImGui::ColorPicker3(("ESP Box Color"), options::esp::BoxColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_BoxESP"), &options::esp::RainbowBox);
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupEnemyBoxColor = ImGui::ColorButton(("colorButtonEnemyBoxColor"),
+					options::esp::EnemyRainbowBox ? RainbowCycle_ImColor : ImColor{ options::esp::EnemyBoxColor[0], options::esp::EnemyBoxColor[1], options::esp::EnemyBoxColor[2], options::esp::EnemyBoxColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupEnemyBoxColor)
+					ImGui::OpenPopup(("EnemyBoxColorPopup"));
+				if (ImGui::BeginPopup(("EnemyBoxColorPopup"))) {
+					ImGui::ColorPicker4(("ESP Box Color"), options::esp::EnemyBoxColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Enemy_BoxESP"), &options::esp::EnemyRainbowBox);
+					ImGui::SameLine();
+					ImGui::SliderFloat(("Box Width"), &options::esp::EnemyBox_width, 0.1, 4.0);
+					ImGui::EndPopup();
+				}
 				ImGui::SameLine();
-				ImGui::SliderFloat(("Box Width"), &options::esp::box_width, 0.1, 4.0);
-				ImGui::EndPopup();
-			}
+				ImGui::Checkbox(xorstr_(" Enemy ESP"), &options::EnemyEspBox);
 
-			ImGui::Checkbox(xorstr_("Head ESP"), &options::esp::head);
-			ImGui::SameLine();
-			bool openPopupEnemyHeadColor = ImGui::ColorButton(("colorButtonEnemyHeadColor"),
-				options::esp::HeadRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::HeadColor[0], options::esp::HeadColor[1], options::esp::HeadColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
-			if (openPopupEnemyHeadColor)
-				ImGui::OpenPopup(("EnemyHeadColorPopup"));
-			if (ImGui::BeginPopup(("EnemyHeadColorPopup"))) {
-				ImGui::ColorPicker3(("Head Color"), options::esp::HeadColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_HeadColor"), &options::esp::HeadRainbow);
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupEnemyHeadColor = ImGui::ColorButton(("colorButtonEnemyHeadColor"),
+					options::esp::EnemyHeadRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::EnemyHeadColor[0], options::esp::EnemyHeadColor[1], options::esp::EnemyHeadColor[2], options::esp::EnemyHeadColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupEnemyHeadColor)
+					ImGui::OpenPopup(("EnemyHeadColorPopup"));
+				if (ImGui::BeginPopup(("EnemyHeadColorPopup"))) {
+					ImGui::ColorPicker4(("Head Color"), options::esp::EnemyHeadColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Enemy_HeadColor"), &options::esp::EnemyHeadRainbow);
+					ImGui::SameLine();
+					ImGui::SliderFloat(("Head Size"), &options::esp::EnemyHeadSize, 50.0, 10.0);
+					ImGui::EndPopup();
+				}
 				ImGui::SameLine();
-				ImGui::SliderFloat(("Head Size"), &options::esp::HeadSize, 50.0, 10.0);
-				ImGui::EndPopup();
-			}
+				ImGui::Checkbox(xorstr_(" Head ESP"), &options::esp::EnemyHead);
 
-			ImGui::Checkbox(xorstr_("Snaplines"), &options::esp::snaplines);
-			ImGui::SameLine();
-			bool openPopupEnemySnapLineColor = ImGui::ColorButton(("colorButtonEnemySnapLineColor"),
-				options::esp::SnapLineRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::SnapLineColor[0], options::esp::SnapLineColor[1], options::esp::SnapLineColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
-			if (openPopupEnemySnapLineColor)
-				ImGui::OpenPopup(("EnemySnapLineColorPopup"));
-			if (ImGui::BeginPopup(("EnemySnapLineColorPopup"))) {
-				ImGui::ColorPicker3(("ESP Box Color"), options::esp::SnapLineColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_SnapLine"), &options::esp::SnapLineRainbow);
-				ImGui::EndPopup();
-			}
-
-			ImGui::Checkbox(xorstr_("Skelton ESP"), &options::esp::skeleton);
-			ImGui::SameLine();
-			bool openPopupEnemySkeletonColor = ImGui::ColorButton(("colorButtonEnemySkeletonColor"),
-				options::esp::SkeletonRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::SkeletonColor[0], options::esp::SkeletonColor[1], options::esp::SkeletonColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
-			if (openPopupEnemySkeletonColor)
-				ImGui::OpenPopup(("EnemySkeletonColorPopup"));
-			if (ImGui::BeginPopup(("EnemySkeletonColorPopup"))) {
-				ImGui::ColorPicker3(("Skeleton Color"), options::esp::SkeletonColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_Skeleton"), &options::esp::SkeletonRainbow);
-				ImGui::EndPopup();
-			}
-
-			ImGui::Checkbox(xorstr_("Player Names"), &options::esp::player_name);
-			ImGui::SameLine();
-			bool openPopupEnemyPlayerNameColor = ImGui::ColorButton(("colorButtonEnemyPlayerNameColor"),
-				options::esp::PlayerNameRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::PlayerNameColor[0], options::esp::PlayerNameColor[1], options::esp::PlayerNameColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
-			if (openPopupEnemyPlayerNameColor)
-				ImGui::OpenPopup(("EnemyPlayerNameColorPopup"));
-			if (ImGui::BeginPopup(("EnemyPlayerNameColorPopup"))) {
-				ImGui::ColorPicker3(("Player Name Color"), options::esp::PlayerNameColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_PlayerName"), &options::esp::PlayerNameRainbow);
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupEnemySnapLineColor = ImGui::ColorButton(("colorButtonEnemySnapLineColor"),
+					options::esp::EnemySnapLineRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::EnemySnapLineColor[0], options::esp::EnemySnapLineColor[1], options::esp::EnemySnapLineColor[2], options::esp::EnemySnapLineColor[3]}, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupEnemySnapLineColor)
+					ImGui::OpenPopup(("EnemySnapLineColorPopup"));
+				if (ImGui::BeginPopup(("EnemySnapLineColorPopup"))) {
+					ImGui::ColorPicker4(("ESP Box Color"), options::esp::EnemySnapLineColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Enemy_SnapLine"), &options::esp::EnemySnapLineRainbow);
+					ImGui::EndPopup();
+				}
 				ImGui::SameLine();
-				ImGui::SliderFloat(("Font Size"), &options::esp::PlayerNameSize, 5.0f, 20.0f);
-				ImGui::EndPopup();
-			}
+				ImGui::Checkbox(xorstr_(" Snaplines"), &options::esp::EnemySnaplines);
 
-			ImGui::Checkbox(("Operator Names"), &options::esp::name);
-			ImGui::SameLine();
-			bool openPopupEnemyOperatorColor = ImGui::ColorButton(("colorButtonOperatorColor"),
-				options::esp::OperatorRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::OperatorColor[0], options::esp::OperatorColor[1], options::esp::OperatorColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
-			if (openPopupEnemyOperatorColor)
-				ImGui::OpenPopup(("EnemyOperatorColorPopup"));
-			if (ImGui::BeginPopup(("EnemyOperatorColorPopup"))) {
-				ImGui::ColorPicker3(("Operator Color"), options::esp::OperatorColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_Enemy_OperatorColor"), &options::esp::OperatorRainbow);
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupEnemySkeletonColor = ImGui::ColorButton(("colorButtonEnemySkeletonColor"),
+					options::esp::EnemySkeletonRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::EnemySkeletonColor[0], options::esp::EnemySkeletonColor[1], options::esp::EnemySkeletonColor[2], options::esp::EnemySkeletonColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupEnemySkeletonColor)
+					ImGui::OpenPopup(("EnemySkeletonColorPopup"));
+				if (ImGui::BeginPopup(("EnemySkeletonColorPopup"))) {
+					ImGui::ColorPicker4(("Skeleton Color"), options::esp::EnemySkeletonColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Enemy_Skeleton"), &options::esp::EnemySkeletonRainbow);
+					ImGui::EndPopup();
+				}
 				ImGui::SameLine();
-				ImGui::SliderFloat(("Font Size"), &options::esp::OperatorNameSize, 5.0f, 20.0f);
-				ImGui::EndPopup();
-			}
+				ImGui::Checkbox(xorstr_(" Skelton ESP"), &options::esp::EnemySkeleton);
 
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupEnemyPlayerNameColor = ImGui::ColorButton(("colorButtonEnemyPlayerNameColor"),
+					options::esp::EnemyPlayerNameRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::EnemyPlayerNameColor[0], options::esp::EnemyPlayerNameColor[1], options::esp::EnemyPlayerNameColor[2], options::esp::EnemyPlayerNameColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupEnemyPlayerNameColor)
+					ImGui::OpenPopup(("EnemyPlayerNameColorPopup"));
+				if (ImGui::BeginPopup(("EnemyPlayerNameColorPopup"))) {
+					ImGui::ColorPicker4(("Player Name Color"), options::esp::EnemyPlayerNameColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Enemy_PlayerName"), &options::esp::EnemyPlayerNameRainbow);
+					ImGui::SameLine();
+					ImGui::SliderFloat(("Font Size"), &options::esp::EnemyPlayerNameSize, 5.0f, 20.0f);
+					ImGui::EndPopup();
+				}
+				ImGui::SameLine();
+				ImGui::Checkbox(xorstr_(" Player Names"), &options::esp::EnemyPlayer_name);
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupEnemyOperatorColor = ImGui::ColorButton(("colorButtonOperatorColor"),
+					options::esp::EnemyOperatorRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::EnemyOperatorColor[0], options::esp::EnemyOperatorColor[1], options::esp::EnemyOperatorColor[2], options::esp::EnemyOperatorColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupEnemyOperatorColor)
+					ImGui::OpenPopup(("EnemyOperatorColorPopup"));
+				if (ImGui::BeginPopup(("EnemyOperatorColorPopup"))) {
+					ImGui::ColorPicker4(("Operator Color"), options::esp::EnemyOperatorColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Enemy_OperatorColor"), &options::esp::EnemyOperatorRainbow);
+					ImGui::SameLine();
+					ImGui::SliderFloat(("Font Size"), &options::esp::EnemyOperatorNameSize, 5.0f, 20.0f);
+					ImGui::EndPopup();
+				}
+				ImGui::SameLine();
+				ImGui::Checkbox((" Operator Names"), &options::esp::EnemyOperatorName);
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+				ImGui::SameLine(29);
+				ImGui::Checkbox(xorstr_(" Health"), &options::esp::EnemyHealth);
+
+			}
 		}
-		ImGui::Checkbox(xorstr_("Health"), &options::esp::health);
+		if (options::esp::EspTeams == 1)
+		{
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+			ImGui::Checkbox(xorstr_(" Team ESP"), &options::TeamEsp);
+			if (options::TeamEsp)
+			{
+				static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  0.9f };
 
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				ImGui::Combo(xorstr_(" Box Type"), &options::esp::TeamType, BoxType, IM_ARRAYSIZE(BoxType));
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupTeamBoxColor = ImGui::ColorButton(("colorButtonTeamBoxColor"),
+					options::esp::TeamRainbowBox ? RainbowCycle_ImColor : ImColor{ options::esp::TeamBoxColor[0], options::esp::TeamBoxColor[1], options::esp::TeamBoxColor[2], options::esp::TeamBoxColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupTeamBoxColor)
+					ImGui::OpenPopup(("TeamBoxColorPopup"));
+				if (ImGui::BeginPopup(("TeamBoxColorPopup"))) {
+					ImGui::ColorPicker4(("ESP Box Color"), options::esp::TeamBoxColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Team_BoxESP"), &options::esp::TeamRainbowBox);
+					ImGui::SameLine();
+					ImGui::SliderFloat(("Box Width"), &options::esp::TeamBox_width, 0.1, 4.0);
+					ImGui::EndPopup();
+				}
+				ImGui::SameLine();
+				ImGui::Checkbox(xorstr_(" Team ESP"), &options::TeamEspBox);
+
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupTeamHeadColor = ImGui::ColorButton(("colorButtonTeamHeadColor"),
+					options::esp::TeamHeadRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::TeamHeadColor[0], options::esp::TeamHeadColor[1], options::esp::TeamHeadColor[2], options::esp::TeamHeadColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupTeamHeadColor)
+					ImGui::OpenPopup(("TeamHeadColorPopup"));
+				if (ImGui::BeginPopup(("TeamHeadColorPopup"))) {
+					ImGui::ColorPicker4(("Head Color"), options::esp::TeamHeadColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Team_HeadColor"), &options::esp::TeamHeadRainbow);
+					ImGui::SameLine();
+					ImGui::SliderFloat(("Head Size"), &options::esp::TeamHeadSize, 50.0, 10.0);
+					ImGui::EndPopup();
+				}
+				ImGui::SameLine();
+				ImGui::Checkbox(xorstr_(" Head ESP"), &options::esp::TeamHead);
+
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupTeamSnapLineColor = ImGui::ColorButton(("colorButtonTeamSnapLineColor"),
+					options::esp::TeamSnapLineRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::TeamSnapLineColor[0], options::esp::TeamSnapLineColor[1], options::esp::TeamSnapLineColor[2], options::esp::TeamSnapLineColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupTeamSnapLineColor)
+					ImGui::OpenPopup(("TeamSnapLineColorPopup"));
+				if (ImGui::BeginPopup(("TeamSnapLineColorPopup"))) {
+					ImGui::ColorPicker4(("ESP Box Color"), options::esp::TeamSnapLineColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Team_SnapLine"), &options::esp::TeamSnapLineRainbow);
+					ImGui::EndPopup();
+				}
+				ImGui::SameLine();
+				ImGui::Checkbox(xorstr_(" Snaplines"), &options::esp::TeamSnaplines);
+
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupTeamSkeletonColor = ImGui::ColorButton(("colorButtonTeamSkeletonColor"),
+					options::esp::TeamSkeletonRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::TeamSkeletonColor[0], options::esp::TeamSkeletonColor[1], options::esp::TeamSkeletonColor[2], options::esp::TeamSkeletonColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupTeamSkeletonColor)
+					ImGui::OpenPopup(("TeamSkeletonColorPopup"));
+				if (ImGui::BeginPopup(("TeamSkeletonColorPopup"))) {
+					ImGui::ColorPicker4(("Skeleton Color"), options::esp::TeamSkeletonColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Team_Skeleton"), &options::esp::TeamSkeletonRainbow);
+					ImGui::EndPopup();
+				}
+				ImGui::SameLine();
+				ImGui::Checkbox(xorstr_(" Skelton ESP"), &options::esp::TeamSkeleton);
+
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupTeamPlayerNameColor = ImGui::ColorButton(("colorButtonTeamPlayerNameColor"),
+					options::esp::TeamPlayerNameRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::TeamPlayerNameColor[0], options::esp::TeamPlayerNameColor[1], options::esp::TeamPlayerNameColor[2], options::esp::TeamPlayerNameColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupTeamPlayerNameColor)
+					ImGui::OpenPopup(("TeamPlayerNameColorPopup"));
+				if (ImGui::BeginPopup(("TeamPlayerNameColorPopup"))) {
+					ImGui::ColorPicker4(("Player Name Color"), options::esp::TeamPlayerNameColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Team_PlayerName"), &options::esp::TeamPlayerNameRainbow);
+					ImGui::SameLine();
+					ImGui::SliderFloat(("Font Size"), &options::esp::TeamPlayerNameSize, 5.0f, 20.0f);
+					ImGui::EndPopup();
+				}
+				ImGui::SameLine();
+				ImGui::Checkbox(xorstr_(" Player Names"), &options::esp::TeamPlayer_name);
+
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+				bool openPopupTeamOperatorColor = ImGui::ColorButton(("colorButtonOperatorColor"),
+					options::esp::TeamOperatorRainbow ? RainbowCycle_ImColor : ImColor{ options::esp::TeamOperatorColor[0], options::esp::TeamOperatorColor[1], options::esp::TeamOperatorColor[2], options::esp::TeamOperatorColor[3] }, ImGuiColorEditFlags_NoTooltip);
+				if (openPopupTeamOperatorColor)
+					ImGui::OpenPopup(("TeamOperatorColorPopup"));
+				if (ImGui::BeginPopup(("TeamOperatorColorPopup"))) {
+					ImGui::ColorPicker4(("Operator Color"), options::esp::TeamOperatorColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+					ImGui::Checkbox(("Rainbow##RainbowCylcle_Team_OperatorColor"), &options::esp::TeamOperatorRainbow);
+					ImGui::SameLine();
+					ImGui::SliderFloat(("Font Size"), &options::esp::TeamOperatorNameSize, 5.0f, 20.0f);
+					ImGui::EndPopup();
+				}
+				ImGui::SameLine();
+				ImGui::Checkbox((" Operator Names"), &options::esp::TeamOperatorName);
+
+				ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+				ImGui::SameLine(29);
+				ImGui::Checkbox(xorstr_(" Health"), &options::esp::TeamHealth);
+
+			}
+		}
+
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
 		ImGui::Separator();
-		ImGui::Checkbox(xorstr_("Cav ESP"), &options::cavEsp);
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+		ImGui::Checkbox(xorstr_(" Cav ESP"), &options::cavEsp);
 		ImGui::EndGroup();
 	}
 
@@ -421,25 +662,36 @@ namespace Menu
 	{
 		ImGui::BeginGroup();
 
-		ImGui::Checkbox(xorstr_("No Recoil"), &options::noRecoilEnabled);
+		//Space to left Top Tab
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+		ImGui::Checkbox(xorstr_(" No Recoil"), &options::noRecoilEnabled);
 		if (options::noRecoilEnabled)
 		{
 
-			ImGui::SliderFloat(xorstr_("No Recoil"), &options::recoil, 0.0f, 0.75000f);
+			ImGui::SliderFloat(xorstr_( "No Recoil"), &options::recoil, 0.0f, 0.75000f);
 		}
 
-		ImGui::Checkbox(xorstr_("No Spread"), &options::noSpreadEnabled);
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+		ImGui::Checkbox(xorstr_(" No Spread"), &options::noSpreadEnabled);
 
 		if (options::noSpreadEnabled)
 		{
-
-			ImGui::SliderFloat(xorstr_("Spread"), &options::noSpread, 0.0f, 0.75000f);
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+			ImGui::SliderFloat(xorstr_(" Spread"), &options::noSpread, 0.0f, 0.75000f);
 		}
-		if (ImGui::Button(xorstr_("Reload")))
+
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+		if (ImGui::Button(xorstr_(" Reload")))
 			RainbowSix::setPointers();
+
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
 		ImGui::Separator();
 		//ImGui::Checkbox(xorstr_("Freeze"), &options::freeze);
 
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
 		if (ImGui::Button(xorstr_("Exit"))) {
 			LI_FN(exit)(0);
 		}
@@ -449,42 +701,152 @@ namespace Menu
 	static void Glow() 
 	{
 		ImGui::BeginGroup();
-		ImGui::Checkbox(xorstr_("Glow"), &options::glowEsp);
-		ImGui::Checkbox(xorstr_("Rainbow"), &options::glow::GlowRainbow);
+		//Space to left Top Tab
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+		ImGui::Checkbox(xorstr_(" Glow"), &options::glowEsp);
+
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+		ImGui::Checkbox(xorstr_(" Rainbow"), &options::glow::GlowRainbow);
+
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
 		ImGui::SliderFloat(xorstr_(" Glow R "), &options::glow::red, 0.f, 255.f);
+
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
 		ImGui::SliderFloat(xorstr_(" Glow G "), &options::glow::green, 0.f, 255.f);
+
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
 		ImGui::SliderFloat(xorstr_(" Glow B "), &options::glow::blue, 0.f, 255.f);
+
+
 		ImGui::EndGroup();
 	}
 
 	static void Aim() 
 	{
 		ImGui::BeginGroup();
-		ImGui::Checkbox(xorstr_("Aimbot"), &options::aimbot);
+		//Space to left Top Tab
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+		ImGui::Checkbox(xorstr_(" Aimbot"), &options::aimbot);
 		if (options::aimbot)
 		{
-			ImGui::SliderFloat(xorstr_("Fov"), &options::aim::fov, 0.f, 100.f);
-			ImGui::Checkbox(xorstr_("Draw Fov"), &options::aim::drawFov);
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+			ImGui::SliderFloat(xorstr_(" Fov"), &options::aim::fov, 0.f, 100.f);
+
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+			ImGui::Checkbox(xorstr_(" Draw Fov"), &options::aim::drawFov);
+
 			ImGui::SameLine();
-			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  255.f };
+			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  0.9f };
 
 			bool openPopupFOVColor = ImGui::ColorButton(("colorButtonFOVColor"),
-				options::aim::RainbowFov ? RainbowCycle_ImColor : ImColor{ options::aim::FovColor[0], options::aim::FovColor[1], options::aim::FovColor[2], 0.9f }, ImGuiColorEditFlags_NoTooltip);
+				options::aim::RainbowFov ? RainbowCycle_ImColor : ImColor{ options::aim::FovColor[0], options::aim::FovColor[1], options::aim::FovColor[2], options::aim::FovColor[3]}, ImGuiColorEditFlags_NoTooltip);
 			if (openPopupFOVColor)
 				ImGui::OpenPopup(("FOVColorPopup"));
 			if (ImGui::BeginPopup(("FOVColorPopup"))) {
-				ImGui::ColorPicker3(("FOV Color"), options::aim::FovColor, ImGuiColorEditFlags_RGB);
-				ImGui::Checkbox(("Multicolor##RainbowCylcle_FOVColor"), &options::aim::RainbowFov);
+				ImGui::ColorPicker4(("FOV Color"), options::aim::FovColor, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Rainbow##RainbowCylcle_FOVColor"), &options::aim::RainbowFov);
 				ImGui::EndPopup();
 			}
-			ImGui::Checkbox(("Operator ESP"), &options::esp::name);
 
-			ImGui::SliderInt(xorstr_("Smooth"), &options::aim::smooth, 1, 100);
-			ImGui::Combo(xorstr_("Aim Key"), &options::aim::key, AllKeys, IM_ARRAYSIZE(AllKeys));
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+			ImGui::SliderInt(xorstr_(" Smooth"), &options::aim::smooth, 1, 100);
+
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+			ImGui::Combo(xorstr_(" Aim Key"), &options::aim::key, AllKeys, IM_ARRAYSIZE(AllKeys));
 		}
 
 		ImGui::EndGroup();
 	}
+
+	static void MenuSettings()
+	{
+		ImGui::BeginGroup();
+		//Space to left Top Tab
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+		ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+		ImGui::Checkbox(xorstr_(" Customize"), &options::menu::custom);
+		if (options::menu::custom)
+		{
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+			static ImColor RainbowCycle_ImColor = ImColor{ options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],  255.f };
+
+			bool openPopupWindowBarColor = ImGui::ColorButton(("colorButtonMenuWindowColor"),
+				options::menu::RainbowWindowBar ? RainbowCycle_ImColor : ImColor{ options::menu::ImGuiCol_TitleBg[0], options::menu::ImGuiCol_TitleBg[1], options::menu::ImGuiCol_TitleBg[2],options::menu::ImGuiCol_TitleBg[3]}, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupWindowBarColor)
+				ImGui::OpenPopup(("WindowBarColorPopup"));
+			if (ImGui::BeginPopup(("WindowBarColorPopup"))) {
+				ImGui::ColorPicker4(("Window Bar Color"), options::menu::ImGuiCol_TitleBg, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Rainbow##RainbowCylcle_WindowBar"), &options::menu::RainbowWindowBar);
+				ImGui::EndPopup();
+			}
+			ImGui::SameLine();
+			ImGui::Checkbox(xorstr_(" Menu Bar Color"), &options::menu::windowbar);
+
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+			bool openPopupWindowBGColor = ImGui::ColorButton(("colorButtonMenuWindowBGColor"),
+				options::menu::RainbowWindowBg ? RainbowCycle_ImColor : ImColor{ options::menu::ImGuiCol_WindowBg[0], options::menu::ImGuiCol_WindowBg[1], options::menu::ImGuiCol_WindowBg[2],options::menu::ImGuiCol_WindowBg[3]}, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupWindowBGColor)
+				ImGui::OpenPopup(("WindowBGColorPopup"));
+			if (ImGui::BeginPopup(("WindowBGColorPopup"))) {
+				ImGui::ColorPicker4(("Window BG Color"), options::menu::ImGuiCol_WindowBg, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Rainbow##RainbowCylcle_WindowBG"), &options::menu::RainbowWindowBg);
+				ImGui::EndPopup();
+			}
+			ImGui::SameLine();
+			ImGui::Checkbox(xorstr_(" Menu Bg Color"), &options::menu::windowbg);
+
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+			bool openPopupWindowBGChildColor = ImGui::ColorButton(("colorButtonMenuWindowBG2Color"),
+				options::menu::RainbowWindowChildBg ? RainbowCycle_ImColor : ImColor{ options::menu::ImGuiCol_ChildWindowBg[0], options::menu::ImGuiCol_ChildWindowBg[1], options::menu::ImGuiCol_ChildWindowBg[2],options::menu::ImGuiCol_ChildWindowBg[3] }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupWindowBGChildColor)
+				ImGui::OpenPopup(("WindowBGChildColorPopup"));
+			if (ImGui::BeginPopup(("WindowBGChildColorPopup"))) {
+				ImGui::ColorPicker4(("Window BG Color 2"), options::menu::ImGuiCol_ChildWindowBg, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Rainbow##RainbowCylcle_WindowBGChild"), &options::menu::RainbowWindowChildBg);
+				ImGui::EndPopup();
+			}
+			ImGui::SameLine();
+			ImGui::Checkbox(xorstr_(" Menu BG 2 Color"), &options::menu::windowbgchild);
+
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+			bool openPopupMenuHoverColor = ImGui::ColorButton(("colorButtonMenuHoverColor"),
+				options::menu::RainbowHover ? RainbowCycle_ImColor : ImColor{ options::menu::ImGuiCol_ButtonHovered[0], options::menu::ImGuiCol_ButtonHovered[1], options::menu::ImGuiCol_ButtonHovered[2],options::menu::ImGuiCol_ButtonHovered[3] }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupMenuHoverColor)
+				ImGui::OpenPopup(("MenuHoverColorPopup"));
+			if (ImGui::BeginPopup(("MenuHoverColorPopup"))) {
+				ImGui::ColorPicker4(("Menu Hover Color"), options::menu::ImGuiCol_ButtonHovered, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Rainbow##RainbowCylcle_MenuHover"), &options::menu::RainbowHover);
+				ImGui::EndPopup();
+			}
+			ImGui::SameLine();
+			ImGui::Checkbox(xorstr_(" Hover Color"), &options::menu::Hover);
+			ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
+
+			bool openPopupMenuCheckMarkColor = ImGui::ColorButton(("colorButtonMenuCheckMarkColor"),
+				options::menu::RainbowCheckMark ? RainbowCycle_ImColor : ImColor{ options::menu::ImGuiCol_CheckMark[0], options::menu::ImGuiCol_CheckMark[1], options::menu::ImGuiCol_CheckMark[2],options::menu::ImGuiCol_CheckMark[3] }, ImGuiColorEditFlags_NoTooltip);
+			if (openPopupMenuCheckMarkColor)
+				ImGui::OpenPopup(("MenuCheckMarkColorPopup"));
+			if (ImGui::BeginPopup(("MenuCheckMarkColorPopup"))) {
+				ImGui::ColorPicker4(("Menu Text Color"), options::menu::ImGuiCol_CheckMark, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB);
+				ImGui::Checkbox(("Rainbow##RainbowCylcle_MenuCheckMark"), &options::menu::RainbowCheckMark);
+				ImGui::EndPopup();
+			}
+			ImGui::SameLine();
+			ImGui::Checkbox(xorstr_(" Check Mark Color"), &options::menu::CheckMark);
+		}
+
+		ImGui::EndGroup();
+	}
+
 
 	static void Menu()
 	{
@@ -495,7 +857,7 @@ namespace Menu
 		ImGui::BeginChild("##tabs", ImVec2(130, 368));
 		{
 			ImGui::SameLine(18);
-			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.1.2.5"));
+			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.2.0.2"));
 
 			ImGui::Dummy(ImVec2(0, 0));
 
@@ -511,8 +873,8 @@ namespace Menu
 			if (ImGui::Button(xorstr_("Misc"), ImVec2(130, 40)))
 				Variables::selected = 3;
 			ImGui::NewLine();
-		/*	if (ImGui::Button(xorstr_("Skins"), ImVec2(130, 40)))
-				Variables::selected = 4;*/
+			if (ImGui::Button(xorstr_("Menu"), ImVec2(130, 40)))
+				Variables::selected = 4;
 		}
 		ImGui::EndChild();
 
@@ -532,6 +894,9 @@ namespace Menu
 				break;
 			case 3:
 				Misc();
+				break;
+			case 4:
+				MenuSettings();
 				break;
 			}
 		}
@@ -638,7 +1003,16 @@ namespace Menu
 
 		ImGui_ImplDX11_NewFrame();
 
-		if (options::esp::RainbowBox || options::glow::rainbow || options::esp::HeadRainbow || options::aim::RainbowFov || options::esp::SnapLineRainbow || options::esp::SkeletonRainbow || options::esp::OperatorRainbow || options::esp::PlayerNameRainbow)
+		if (
+				//Menu Customizations
+				options::menu::RainbowWindowBg || options::menu::RainbowWindowBar || options::menu::RainbowWindowChildBg || options::menu::RainbowCheckMark || options::menu::RainbowHover ||
+				//Glow RainBow  bool Start
+				options::glow::rainbow ||
+				//EnemyRainBow bool Start
+				options::esp::EnemyRainbowBox || options::esp::EnemyHeadRainbow || options::aim::RainbowFov || options::esp::EnemySnapLineRainbow || options::esp::EnemySkeletonRainbow || options::esp::EnemyOperatorRainbow || options::esp::EnemyPlayerNameRainbow ||
+				//TeamRainBow bool Start
+				options::esp::TeamRainbowBox  || options::esp::TeamHeadRainbow || options::aim::RainbowFov || options::esp::TeamSnapLineRainbow || options::esp::TeamSkeletonRainbow || options::esp::TeamOperatorRainbow || options::esp::TeamPlayerNameRainbow
+			)
 			rainbow_color();
 
 		if (LI_FN(GetAsyncKeyState)(VK_INSERT))

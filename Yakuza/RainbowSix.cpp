@@ -383,6 +383,7 @@ namespace RainbowSix
 		p.EntHandle = entity;
 		p.id = i;
 		p.teamId = GetEntityTeamId(entity);
+		p.onTeam = (GetEntityTeamId(localplayer) == p.teamId);
 		p.distanceFromPlayer = GetEntityFeetPosition(GetEntity(0)).Distance(GetEntityFeetPosition(entity));
 		p.Position = GetEntityFeetPosition(entity);
 		p.w2sPos = WorldToScreen(p.Position);
@@ -402,7 +403,7 @@ namespace RainbowSix
 		if ((p.w2sPos.z >= 0.1f && p.w2sHead.z >= 0.1f))
 		{
 			p.BoxHeight = fabs((p.w2sHead.y - p.w2sPos.y));
-			p.BoxWidth = p.BoxHeight / options::esp::box_width; // Var
+			p.BoxWidth = p.BoxHeight / options::esp::EnemyBox_width; // Var
 
 			p.TopLeft = Vector2(p.w2sHead.x - (p.BoxWidth / 2), p.w2sHead.y - (p.BoxHeight / 5));
 			p.TopRight = Vector2(p.w2sHead.x + (p.BoxWidth / 2), p.w2sHead.y - (p.BoxHeight / 5));
@@ -411,7 +412,7 @@ namespace RainbowSix
 			p.BottomCenter = Vector2(p.w2sPos.x, p.w2sPos.y);
 			p.TopCenter = Vector2(p.w2sHead.x, p.w2sHead.y - (p.BoxWidth / 2));
 
-			if (options::esp::skeleton) 
+			if (options::esp::EnemySkeleton) 
 			{
 				p.w2sHead = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::head]));
 				p.w2sNeck = WorldToScreen(GetEntityBone(entity, BoneId[CTU][OP][bone::low_neck]));

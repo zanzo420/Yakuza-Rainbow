@@ -26,8 +26,8 @@ public:
 	Renderer();
 	~Renderer();
 
-	float DrawMyText(ImFont* pFont, PCHAR text, const Vector2& pos, float size, Vector3 RGB, bool center);
-	void DrawLine(const Vector2& from, const Vector2& to, Vector3 RGB, float thickness);
+	float DrawMyText(ImFont* pFont, PCHAR text, const Vector2& pos, float size, Vector4 RGB, bool center);
+	void DrawLine(const Vector2& from, const Vector2& to, Vector4 RGB, float thickness);
 	void DrawHealthbars(float PosX, float PosY, float height, float Value1, Vector3 color);
 	void DrawBox(const Vector2& from, const Vector2& size, Vector3 RGB, float rounding, float thickness);
 	//void DrawBoxFilled(const Vector2& from, const Vector2& size, Vector3 color, float rounding);
@@ -35,10 +35,10 @@ public:
 	void DrawClearBox(const Vector2& from, const Vector2& size, DirectX::XMFLOAT4 color, float rounding);
 	void DrawBoxOutlined(const Vector2& from, const Vector2& size, Vector3 RGB, Vector3 OutlineRGB, float rounding, float thickness);
 	void DrawCircle(const Vector2& from, float radius, DirectX::XMFLOAT4 color, float thickness);
-	void DrawCircleFilled(const Vector2& from, float radius, Vector3 color);
-	void DrawRect(float x, float y, float w, float h, Vector3 color);
-	void DrawOutlinedRect(float x, float y, float w, float h, Vector3 color);
-	void DrawFilledRect(float x, float y, float w, float h, Vector3 color);
+	void DrawCircleFilled(const Vector2& from, float radius, Vector4 color);
+	void DrawRect(float x, float y, float w, float h, Vector4 color);
+	void DrawOutlinedRect(float x, float y, float w, float h, Vector4 color);
+	void DrawFilledRect(float x, float y, float w, float h, DirectX::XMFLOAT4 color);
 	void DrawBox3D(Vector3 positon, Vector4 color, float thickness, Vector3 min, Vector3 max, Vector3 angels);
 private:
 	static Renderer* m_pInstance;
