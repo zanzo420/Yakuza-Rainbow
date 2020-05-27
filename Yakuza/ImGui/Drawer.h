@@ -62,6 +62,8 @@ public:
 	static Renderer* GetInstance();
 
 	ImFont* m_pFont;
+	ImFont* q_pFont;
+	ImFont* l_pFont;
 
 	Renderer();
 	~Renderer();

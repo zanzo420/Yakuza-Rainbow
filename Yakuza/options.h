@@ -9,6 +9,7 @@ namespace options
 	inline bool glowEsp = false;
 	inline bool mapSpoof = false;
 
+
 	namespace menu
 	{
 		inline bool custom = false;

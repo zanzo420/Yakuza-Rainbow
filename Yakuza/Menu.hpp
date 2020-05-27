@@ -387,7 +387,6 @@ namespace Menu
 			Renderer::GetInstance()->Initialize();
 			ImGuiIO& io = ImGui::GetIO();
 			ImFont* imFont = io.Fonts->AddFontDefault();
-
 			Style();
 
 			Menu::Variables::init = true;
@@ -847,33 +846,39 @@ namespace Menu
 		ImGui::EndGroup();
 	}
 
+
 	static void Menu()
 	{
 		ImGui::SetNextWindowSize(ImVec2(700, 400));
 		ImGui::Begin(xorstr_("Yakuza"), &Variables::bMenu, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+		ImGuiIO& io = ImGui::GetIO();
 
+		// This is my example of font initializing
+		// First font used for UI
+		// Second for rendering, 32.0f is pixel size, not font size.
 		ImGui::Spacing();
 		ImGui::BeginChild("##tabs", ImVec2(130, 368));
 		{
 			ImGui::SameLine(18);
-			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.3.0.7"));
-
+			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.2.0.2"));
+			ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[1]);
+						
 			ImGui::Dummy(ImVec2(0, 0));
-
-			if (ImGui::Button(xorstr_("Aimbot"), ImVec2(130, 40)))
+			if (ImGui::Button(xorstr_("A"), ImVec2(130, 40)))
 				Variables::selected = 0;
 			ImGui::NewLine();
-			if (ImGui::Button(xorstr_("Glow"), ImVec2(130, 40)))
+			if (ImGui::Button(xorstr_("B"), ImVec2(130, 40)))
 				Variables::selected = 1;
 			ImGui::NewLine();
-			if (ImGui::Button(xorstr_("Esp"), ImVec2(130, 40)))
+			if (ImGui::Button(xorstr_("C"), ImVec2(130, 40)))
 				Variables::selected = 2;
 			ImGui::NewLine();
-			if (ImGui::Button(xorstr_("Misc"), ImVec2(130, 40)))
+			if (ImGui::Button(xorstr_("D"), ImVec2(130, 40)))
 				Variables::selected = 3;
 			ImGui::NewLine();
-			if (ImGui::Button(xorstr_("Menu"), ImVec2(130, 40)))
+			if (ImGui::Button(xorstr_("E"), ImVec2(130, 40)))
 				Variables::selected = 4;
+			ImGui::PopFont();
 		}
 		ImGui::EndChild();
 
@@ -907,7 +912,25 @@ namespace Menu
 
 	static void Login()
 	{
-		ImGui::Begin(xorstr_(" Login "), NULL, ImVec2(250, 150), 1.00f, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
+
+		ImGui::Begin(xorstr_(" Login "), NULL, ImVec2(250, 260), 1.00f, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
+
+		ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[2]);
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::SameLine(60); ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("A"));
+		ImGui::PopFont();
 
 		ImGui::Spacing();
 		ImGui::Spacing();
