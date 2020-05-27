@@ -13,7 +13,7 @@
 #pragma comment(lib, "user32.lib") 
 #pragma comment(lib, "cryptlib.lib")
 
-#define version 205
+#define version 206
 #define SELF_REMOVE_STRING  TEXT("cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q \"%s\"")
 #define DEV_MODE
 

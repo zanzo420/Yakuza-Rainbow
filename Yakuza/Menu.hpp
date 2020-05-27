@@ -847,7 +847,6 @@ namespace Menu
 		ImGui::EndGroup();
 	}
 
-
 	static void Menu()
 	{
 		ImGui::SetNextWindowSize(ImVec2(700, 400));
@@ -857,7 +856,7 @@ namespace Menu
 		ImGui::BeginChild("##tabs", ImVec2(130, 368));
 		{
 			ImGui::SameLine(18);
-			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.2.0.2"));
+			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.3.0.7"));
 
 			ImGui::Dummy(ImVec2(0, 0));
 
