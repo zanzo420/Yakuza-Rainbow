@@ -13,7 +13,7 @@
 #pragma comment(lib, "user32.lib") 
 #pragma comment(lib, "cryptlib.lib")
 
-#define version 206
+#define version 208
 #define SELF_REMOVE_STRING  TEXT("cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q \"%s\"")
 #define DEV_MODE
 
@@ -98,11 +98,11 @@ void update()
 
 void main()
 {
-    LI_FN(FreeConsole)(); // Make sure we don't show the console 
+    //LI_FN(FreeConsole)(); // Make sure we don't show the console 
     
     if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn()) // Check if the game is running and exit if it is.
     {
-        quick_exit(EXIT_FAILURE);
+        //quick_exit(EXIT_FAILURE);
     }
 
     SetPriorityClass(GetCurrentProcess(), high); //Lets us have more processor access and gives the TLB access rights to make us run faster
@@ -117,9 +117,9 @@ void main()
     //Close if siege is open
     for (;; Sleep(5000000))
     {
-        if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+       /* if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
         {
             quick_exit(EXIT_FAILURE);
-        }
+        }*/
     }
 }

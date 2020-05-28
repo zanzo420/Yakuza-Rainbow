@@ -6,15 +6,6 @@
     <ClCompile Include="md5.cpp">
       <Filter>Security\StringEncryption</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>Menu\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>Menu\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Menu\ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="RainbowSix.cpp">
       <Filter>Game\R6s</Filter>
     </ClCompile>
@@ -65,6 +56,15 @@
     </ClCompile>
     <ClCompile Include="Server\server\WMICHwid.cpp">
       <Filter>Security\Server\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Menu\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>Menu\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,34 +149,10 @@
     <ClInclude Include="includes\DrawerSmall.h">
       <Filter>Menu</Filter>
     </ClInclude>
-    <ClInclude Include="includes\graphics.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
     <ClInclude Include="includes\Imgui_Main.h">
       <Filter>Menu\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="includes\imgui_tabs.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
     <ClInclude Include="ImGui\Drawer.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\stb_rect_pack.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\stb_textedit.h">
-      <Filter>Menu\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\stb_truetype.h">
       <Filter>Menu\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="Kernel.h">
@@ -277,6 +253,24 @@
     </ClInclude>
     <ClInclude Include="..\physmeme\map_driver.hpp">
       <Filter>Utils\map</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>Menu\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>Menu\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -58,7 +58,10 @@
     <ClInclude Include="physmeme\physmeme.hpp">
       <Filter>Header Files\physmeme</Filter>
     </ClInclude>
-    <ClInclude Include="physmeme\gdrv.h">
+    <ClInclude Include="physmeme\pmdll64.h">
+      <Filter>Header Files\physmeme</Filter>
+    </ClInclude>
+    <ClInclude Include="physmeme\physmem64.h">
       <Filter>Header Files\physmeme</Filter>
     </ClInclude>
   </ItemGroup>

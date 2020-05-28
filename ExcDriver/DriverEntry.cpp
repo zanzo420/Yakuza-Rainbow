@@ -2,10 +2,11 @@
 #include "Hook.h"
 #include "module.h"
 #include <wdm.h>
-#include <utility>
-#include "watermark/mem_scan.hpp"
-#include "watermark/mem_iter.hpp"
-#include "watermark/mem_util.hpp"
+#define Log(...) DbgPrintEx( DPFLTR_SYSTEM_ID, DPFLTR_ERROR_LEVEL, "[Exc] " __VA_ARGS__ )
+//#include <utility>
+//#include "watermark/mem_scan.hpp"
+//#include "watermark/mem_iter.hpp"
+//#include "watermark/mem_util.hpp"
 
 namespace Driver
 {
@@ -62,7 +63,7 @@ extern "C" _declspec(dllexport) UINT_PTR Handler(UINT_PTR CheckCode, UINT_PTR uC
 
 		Driver::dxgkrnlHook.Uninstall();
 
-		DbgPrint("[+] Driver Memory Freed");
+		Log(" Driver Memory Freed");
 
 		FreeDriver
 		(
@@ -84,12 +85,12 @@ extern "C" NTSTATUS DriverEntry(
 	ULONG PoolTag, 
 	PUCHAR PiDDBLockPtr, 
 	PUCHAR PiDDBCacheTablePtr, 
-	ULONG TimeDateStamp, 
+	ULONG TimeDateStamp,
 	PCWSTR DriverName
 	)
 {
 	// Print what Entry is called with
-	DbgPrint("[+] PoolAddress 0x%p\n PoolTag %d\n", PoolAddress, PoolTag);
+	Log(" PoolAddress 0x%p\n PoolTag %d\n", PoolAddress, PoolTag);
 	// Setup to be able to FreeDriver
 	//wnd_hjk::PoolTag = PoolTag;
 	Driver::PoolTag = PoolTag;
@@ -101,15 +102,24 @@ extern "C" NTSTATUS DriverEntry(
 	//NtDxgkGetProcessList Cencored
 	Driver::HookedFunctionAddr = GetSystemModuleExport(L"dxgkrnl.sys", "NtDxgkGetProcessList");
 
-	DbgPrint("[Exc] HookAddress: 0x%p\n", Driver::HookedFunctionAddr);
+	Log(" HookAddress: 0x%p\n", Driver::HookedFunctionAddr);
 	
-	DbgPrint("[Exc] Clearing PiDDB of: %s, Time 0x%p, PiDDBLockPtr: %s, PiDDBCacheTablePtr %s", DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
+	Log(" Clearing PiDDB of: Time 0x%p, PiDDBLockPtr: %s, PiDDBCacheTablePtr %s", TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
 	
 	// Clearing PiDDB before we hook
 	ClearPiDDB(DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
-	ClearUnloadedDrivers((uintptr_t)GetNtoskrnlBase());
+	if (ClearUnloadedDrivers((uintptr_t)GetNtoskrnlBase()))
+		Log(" Clearing Unloaded Drivers Failed 1");
+	if (CleanUnloadedDrivers())
+		Log(" Clearing Unloaded Drivers Failed 2");
 	// Init the hook class and Install the hook
 	Driver::dxgkrnlHook.HookInit(&Handler, Driver::HookedFunctionAddr);
+
+
+	return STATUS_SUCCESS;
+}
+
+/*
 
 	const auto csrss_process = impl::search_for_process("csrss.exe");
 	if (!csrss_process)
@@ -138,6 +148,4 @@ extern "C" NTSTATUS DriverEntry(
 		return STATUS_UNSUCCESSFUL;
 	*reinterpret_cast<std::uint32_t*>(gpsi + 0x874) = 0;
 	DbgPrint("[Exc] No more watermark");
-
-	return STATUS_SUCCESS;
-}
+*/

@@ -185,7 +185,7 @@ namespace Menu
 				colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
 
 				colors[ImGuiCol_WindowBg] = ImVec4(0.125f, 0.125f, 0.149f, 1.00f);
-				colors[ImGuiCol_ChildWindowBg] = ImVec4(0.105f, 0.105f, 0.133f, 1.00f);
+				colors[ImGuiCol_ChildBg] = ImVec4(0.105f, 0.105f, 0.133f, 1.00f);
 				colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
 				colors[ImGuiCol_Border] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
 				colors[ImGuiCol_BorderShadow] = ImVec4(0.070f, 0.070f, 0.101f, 1.00f);
@@ -225,9 +225,9 @@ namespace Menu
 				colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
 				colors[ImGuiCol_ResizeGripActive] = ImVec4(0.862f, 0.862f, 0.862f, .90f);
 
-				colors[ImGuiCol_CloseButton] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-				colors[ImGuiCol_CloseButtonHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-				colors[ImGuiCol_CloseButtonActive] = ImVec4(0.70f, 0.20f, 0.00f, 0.83f);
+				colors[ImGuiCol_Button] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_ButtonHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_ButtonActive] = ImVec4(0.70f, 0.20f, 0.00f, 0.83f);
 				colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
 				colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
 				colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
@@ -252,12 +252,12 @@ namespace Menu
 
 				if (options::menu::windowbgchild)
 				{
-					colors[ImGuiCol_ChildWindowBg] = !options::menu::RainbowWindowChildBg ? ImVec4(options::menu::ImGuiCol_ChildWindowBg[0], options::menu::ImGuiCol_ChildWindowBg[1], options::menu::ImGuiCol_ChildWindowBg[2], options::menu::ImGuiCol_ChildWindowBg[3]) :
+					colors[ImGuiCol_ChildBg] = !options::menu::RainbowWindowChildBg ? ImVec4(options::menu::ImGuiCol_ChildWindowBg[0], options::menu::ImGuiCol_ChildWindowBg[1], options::menu::ImGuiCol_ChildWindowBg[2], options::menu::ImGuiCol_ChildWindowBg[3]) :
 						ImVec4(options::esp::rainbowcolor[0] / 255, options::esp::rainbowcolor[1] / 255, options::esp::rainbowcolor[2] / 255, 1.00f);
 				}
 				else
 				{
-					colors[ImGuiCol_ChildWindowBg] = ImVec4(0.105f, 0.105f, 0.133f, 1.00f);
+					colors[ImGuiCol_ChildBg] = ImVec4(0.105f, 0.105f, 0.133f, 1.00f);
 				}
 				colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
 				colors[ImGuiCol_Border] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
@@ -329,9 +329,9 @@ namespace Menu
 				colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
 				colors[ImGuiCol_ResizeGripActive] = ImVec4(0.862f, 0.862f, 0.862f, .90f);
 
-				colors[ImGuiCol_CloseButton] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-				colors[ImGuiCol_CloseButtonHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
-				colors[ImGuiCol_CloseButtonActive] = ImVec4(0.70f, 0.20f, 0.00f, 0.83f);
+				colors[ImGuiCol_Button] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_ButtonHovered] = ImVec4(0.2f, 0.2f, 0.231f, 1.00f);
+				colors[ImGuiCol_ButtonActive] = ImVec4(0.70f, 0.20f, 0.00f, 0.83f);
 				colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
 				colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
 				colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
@@ -860,7 +860,7 @@ namespace Menu
 		ImGui::BeginChild("##tabs", ImVec2(130, 368));
 		{
 			ImGui::SameLine(18);
-			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.2.0.2"));
+			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.4.0.2"));
 			ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[1]);
 						
 			ImGui::Dummy(ImVec2(0, 0));
@@ -912,8 +912,8 @@ namespace Menu
 
 	static void Login()
 	{
-
-		ImGui::Begin(xorstr_(" Login "), NULL, ImVec2(250, 260), 1.00f, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
+		ImGui::SetNextWindowSize(ImVec2(250, 260));
+		ImGui::Begin(xorstr_(" Login "), NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
 
 		ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[2]);
 		ImGui::Spacing();
@@ -949,7 +949,7 @@ namespace Menu
 		static char username[512];
 		static char password[512];
 
-		ImGui::SameLine(50); ImGui::InputTextEx(xorstr_("  "), username, IM_ARRAYSIZE(username), ImVec2(150, 20), NULL);
+		ImGui::SameLine(50); ImGui::InputTextEx(xorstr_("  "), "", username, IM_ARRAYSIZE(username), ImVec2(150, 20), NULL);
 		if (ImGui::IsItemHovered())
 			ImGui::SetTooltip("username");
 		ImGui::Spacing();
@@ -958,7 +958,7 @@ namespace Menu
 		ImGui::Spacing();
 		ImGui::Spacing();
 
-		ImGui::Text("     "); ImGui::SameLine(50); ImGui::InputTextEx(xorstr_(" "), password, IM_ARRAYSIZE(password), ImVec2(150, 20), NULL);
+		ImGui::Text("     "); ImGui::SameLine(50); ImGui::InputTextEx(xorstr_(" "), "", password, IM_ARRAYSIZE(password), ImVec2(150, 20), NULL);
 		if (ImGui::IsItemHovered())
 			ImGui::SetTooltip("license");
 		ImGui::Spacing();

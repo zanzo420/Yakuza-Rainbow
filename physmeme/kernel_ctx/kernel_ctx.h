@@ -36,7 +36,7 @@ namespace physmeme
 	//
 	// you can edit this how you choose, im hooking NtShutdownSystem.
 	//
-	inline const std::pair<std::string_view, std::string_view> syscall_hook = { "NtShutdownSystem", "ntdll.dll" };
+	inline const std::pair<std::string_view, std::string_view> syscall_hook = { "NtOpenEnlistment", "ntdll.dll" };
 
 	class kernel_ctx
 	{

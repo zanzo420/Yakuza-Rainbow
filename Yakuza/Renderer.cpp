@@ -120,7 +120,7 @@ void Renderer::Initialize()
 	// This is my example of font initializing
 	// First font used for UI
 	// Second for rendering, 32.0f is pixel size, not font size.
-	m_pFont = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\l_10646.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesChinese());
+	m_pFont = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\l_10646.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
 	q_pFont = io.Fonts->AddFontFromMemoryCompressedBase85TTF(yakuza_compressed_data_base85, 20.0f);
 	l_pFont = io.Fonts->AddFontFromMemoryCompressedBase85TTF(yakuzalogo_compressed_data_base85, 100.0f);
 
@@ -129,10 +129,10 @@ void Renderer::Initialize()
 void Renderer::BeginScene()
 {
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
-	ImGui::Begin("BUFFERNAME", reinterpret_cast<bool*>(true), ImVec2(0, 0), 0.0f, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoInputs);
+	ImGui::Begin("BUFFERNAME", reinterpret_cast<bool*>(true), ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoInputs);
 
-	ImGui::SetWindowPos(ImVec2(0, 0), ImGuiSetCond_Always);
-	ImGui::SetWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y), ImGuiSetCond_Always);
+	ImGui::SetWindowPos(ImVec2(0, 0), ImGuiCond_Always);
+	ImGui::SetWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y), ImGuiCond_Always);
 
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	//window->DrawList->AddRectFilled(ImVec2(0, 0), ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y), ImGui::GetColorU32(ImVec4(.1f, .1f, .1f, 0.1f)));

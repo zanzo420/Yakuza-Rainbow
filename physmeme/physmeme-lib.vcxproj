@@ -166,8 +166,9 @@
   <ItemGroup>
     <ClInclude Include="drv_image\drv_image.h" />
     <ClInclude Include="kernel_ctx\kernel_ctx.h" />
-    <ClInclude Include="physmeme\gdrv.h" />
+    <ClInclude Include="physmeme\physmem64.h" />
     <ClInclude Include="physmeme\physmeme.hpp" />
+    <ClInclude Include="physmeme\pmdll64.h" />
     <ClInclude Include="util\hook.hpp" />
     <ClInclude Include="util\nt.hpp" />
     <ClInclude Include="util\util.hpp" />

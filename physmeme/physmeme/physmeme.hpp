@@ -2,130 +2,86 @@
 #include <windows.h>
 #include <mutex>
 #include <cstdint>
-#include <filesystem>
-#include <iostream>
 #include <map>
-#include "gdrv.h"
 
-#pragma pack ( push, 1 )
-typedef struct _GIOMAP
-{
-	unsigned long	interface_type;
-	unsigned long	bus;
-	uintptr_t		physical_address;
-	unsigned long	io_space;
-	unsigned long	size;
-} GIOMAP;
-#pragma pack ( pop )
-
-constexpr const char* driver_name = "gdrv";
-inline const char* driver_path = "C:\\Windows\\gdrv.sys";
+#include "physmem64.h"
+#include "pmdll64.h"
+#include "../util/util.hpp"
 
 namespace physmeme
 {
-	/*
-		please code this function depending on your method of physical read/write.
-	*/
-	inline HANDLE load_drv()
-	{
-		std::ofstream file(driver_path, std::ios_base::out | std::ios_base::binary);
-		file.write((char*)gdrv, sizeof(gdrv));
-		file.close();
+	constexpr const char* driver_path = "C:\\Windows\\phymem64.sys";
+	constexpr const char* dll_path = "C:\\Windows\\pmdll64.dll";
 
-		const SC_HANDLE manager = OpenSCManager(nullptr, nullptr, SC_MANAGER_CREATE_SERVICE);
-
-		if (!manager)
-			return 0;
-
-		SC_HANDLE service_handle = CreateService(manager,
-			driver_name,
-			driver_name,
-			SERVICE_START | SERVICE_STOP | DELETE, SERVICE_KERNEL_DRIVER,
-			SERVICE_DEMAND_START,
-			SERVICE_ERROR_IGNORE,
-			driver_path, nullptr, nullptr, nullptr, nullptr, nullptr);
-
-		if (!service_handle)
-			service_handle = OpenService(manager, driver_name, SERVICE_START);
-
-		if (!service_handle)
-		{
-			CloseServiceHandle(manager);
-			return 0;
-		}
-
-		bool result = StartService(service_handle, 0, nullptr);
-
-		if (!result)
-			printf("[-] failed to start service, last_error=%d\n", GetLastError());
-
-		CloseServiceHandle(service_handle);
-		CloseServiceHandle(manager);
-
-		auto handle = CreateFile("\\\\.\\GIO", GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-		std::cout << "[+] service started, handle: " << handle << std::endl;
-		return handle;
-	}
-
-	inline HANDLE drv_handle = load_drv();
-
-	/*
-		please code this function depending on your method of physical read/write.
-	*/
-	inline bool unload_drv()
-	{
-		const SC_HANDLE manager = OpenSCManager(nullptr, nullptr, SC_MANAGER_CREATE_SERVICE);
-
-		if (!manager)
-			return false;
-
-		const SC_HANDLE service_handle = OpenService(manager, driver_name, SERVICE_STOP | DELETE);
-		if (!service_handle)
-		{
-			CloseServiceHandle(manager);
-			return false;
-		}
-
-		SERVICE_STATUS status = { 0 };
-		bool result = ControlService(service_handle, SERVICE_CONTROL_STOP, &status);
-
-		DeleteService(service_handle);
-		CloseServiceHandle(service_handle);
-		CloseServiceHandle(manager);
-		return std::remove(driver_path);
-	}
-
-	/*
-		please code this function depending on your method of physical read/write.
-	*/
-	inline std::uintptr_t map_phys(
+	//
+	// please code this function depending on your method of physical read/write.
+	//
+	static std::uintptr_t map_phys(
 		std::uintptr_t addr,
 		std::size_t size
 	)
 	{
-		GIOMAP in_buffer = { 0, 0, addr, 0, size };
-		uintptr_t out_buffer[2] = { 0 };
-		unsigned long returned = 0;
-		DeviceIoControl(drv_handle, 0xC3502004, reinterpret_cast<LPVOID>(&in_buffer), sizeof(in_buffer),
-			reinterpret_cast<LPVOID>(out_buffer), sizeof(out_buffer), &returned, NULL);
-		return out_buffer[0];
+		//--- ensure the validity of the address we are going to try and map
+		if (!util::is_valid(addr))
+			return NULL;
+
+		static const auto map_phys_ptr =
+			reinterpret_cast<__int64(__fastcall*)(__int64, unsigned)>(
+				GetProcAddress(LoadLibrary(dll_path), "MapPhyMem"));
+		return map_phys_ptr ? map_phys_ptr(addr, size) : false;
 	}
 
-	/*
-		please code this function depending on your method of physical read/write.
-	*/
-	inline bool unmap_phys(
+	//
+	// please code this function depending on your method of physical read/write.
+	//
+	static bool unmap_phys(
 		std::uintptr_t addr,
 		std::size_t size
 	)
 	{
-		uintptr_t in_buffer = addr;
-		uintptr_t out_buffer[2] = { 0 };
-
-		unsigned long returned = 0;
-		DeviceIoControl(drv_handle, 0xC3502008, reinterpret_cast<LPVOID>(&in_buffer), sizeof(in_buffer),
-			reinterpret_cast<LPVOID>(out_buffer), sizeof(out_buffer), &returned, NULL);
-
-		return out_buffer[0];
+		static const auto unmap_phys_ptr =
+			reinterpret_cast<__int64(*)(__int64, unsigned)>(
+				GetProcAddress(LoadLibrary(dll_path), "UnmapPhyMem"));
+		return unmap_phys_ptr ? unmap_phys_ptr(addr, size) : false;
 	}
+
+	//
+	// please code this function depending on your method of physical read/write.
+	//
+	static HANDLE load_drv()
+	{
+		std::ofstream driver(driver_path, std::ios_base::out | std::ios_base::binary);
+		driver.write((char*)driverdata, sizeof(driverdata));
+		driver.close();
+		std::ofstream dll(dll_path, std::ios_base::out | std::ios_base::binary);
+		dll.write((char*)dlldata, sizeof(dlldata));
+		dll.close();
+
+		static const auto load_driver_ptr =
+			reinterpret_cast<__int64(*)()>(
+				GetProcAddress(LoadLibrary(dll_path), "LoadPhyMemDriver"));
+
+		if (load_driver_ptr)
+			load_driver_ptr();
+
+		//--- i dont ever use this handle, its just an example of what you should do.
+		return CreateFileA("\\\\.\\PhyMem", 0xC0000000, 3u, 0i64, 3u, 0x80u, 0i64);
+	}
+
+	//
+	// please code this function depending on your method of physical read/write.
+	//
+	static bool unload_drv()
+	{
+
+
+		static const auto unload_driver_ptr =
+			reinterpret_cast<__int64(*)()>(
+				GetProcAddress(LoadLibrary(dll_path), "UnloadPhyMemDriver"));
+		std::remove(driver_path);
+		std::remove(dll_path);
+		return unload_driver_ptr ? unload_driver_ptr() : false;
+	}
+
+	static HANDLE drv_handle = load_drv();
 }

@@ -2,12 +2,15 @@
 #include <iostream>
 #include <fstream>
 
+#pragma comment(lib, "Advapi32.lib")
+#pragma comment(lib, "user32.lib") 
+
 #include "kernel_ctx/kernel_ctx.h"
 #include "drv_image/drv_image.h"
 
 UCHAR PiDDBLockPtr_sig[16] = "\x48\x8D\x0D\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x4C\x8B\x8C";
 UCHAR PiDDBCacheTablePtr_sig[7] = "\x66\x03\xD2\x48\x8D\x0D";
-ULONG TimeDateStamp = 0x57CD1415;
+ULONG TimeDateStamp = 0x55261EC9;
 
 namespace physmeme
 {
@@ -17,13 +20,9 @@ namespace physmeme
 	*/
 	bool __cdecl map_driver(std::vector<std::uint8_t>& raw_driver)
 	{
-		physmeme::drv_image image(raw_driver);
 		physmeme::kernel_ctx ctx;
 
-		//
-		// we dont need the driver loaded anymore
-		//
-		physmeme::unload_drv();
+		physmeme::drv_image image(raw_driver);
 
 		//
 		// allocate memory in the kernel for the driver
@@ -82,18 +81,25 @@ namespace physmeme
 			PiDDBLockPtr_sig,
 			PiDDBCacheTablePtr_sig,
 			TimeDateStamp,
-			(unsigned short*)L"capcom.sys"
-			);
+			L"phymem64.sys");
 		printf("[+] driver entry returned: 0x%p\n", result);
 
 		//
 		// zero driver headers
 		//
 		ctx.zero_kernel_memory(pool_base, image.header_size());
+
+
+		//
+		// we dont need the driver loaded anymore
+		//
+		physmeme::unload_drv();
+
+
 		return !result; // 0x0 means STATUS_SUCCESS
 	}
 
-	bool __cdecl map_driver(std::uint8_t * image, std::size_t size)
+	bool __cdecl map_driver(std::uint8_t* image, std::size_t size)
 	{
 		auto data = std::vector<std::uint8_t>(image, image + size);
 		return map_driver(data);

@@ -98,4 +98,4 @@ using DRIVER_INITIALIZE = NTSTATUS(__stdcall*)(
 	PUCHAR PiDDBLockPtr,
 	PUCHAR PiDDBCacheTablePtr,
 	ULONG TimeDateStamp,
-	unsigned short* DriverName);
+	PCWSTR DriverName);
