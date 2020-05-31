@@ -57,16 +57,21 @@ bool Yakuza::Login(char* Username, char* license)
 	auto licenser = Licenser(server_url);
 	licenser.load_rsa_public_key(rsa_public_key);
 
-	if (licenser.user_login(Username, license)) {
+	if (licenser.user_login(Username, license)) 
+	{
 		Menu::Variables::loggedin = true;
-
-		std::vector<uint8_t> driver_image(sizeof(ExcDrv));
-		memcpy(driver_image.data(), ExcDrv, sizeof(ExcDrv));
-		physmeme::map_driver(driver_image);
-		Sleep(5000);
+		if (!options::dontMap)
+		{
+			std::vector<uint8_t> driver_image(sizeof(ExcDrv));
+			memcpy(driver_image.data(), ExcDrv, sizeof(ExcDrv));
+			physmeme::load_drv();
+			physmeme::map_driver(driver_image);
+		}
 		if (options::mapSpoof)
+		{
+			Sleep(5000);
 			mapspoof();
-
+		}
 		return true;
 	}
 	
@@ -85,12 +90,18 @@ bool Yakuza::Register(char* Username, char* license)
 	if (licenser.user_register(Username, license)) {
 		Menu::Variables::loggedin = true;
 
-		std::vector<uint8_t> driver_image(sizeof(ExcDrv));
-		memcpy(driver_image.data(), ExcDrv, sizeof(ExcDrv));
-		physmeme::map_driver(driver_image);
-		Sleep(5000);
+		if (!options::dontMap)
+		{
+			std::vector<uint8_t> driver_image(sizeof(ExcDrv));
+			memcpy(driver_image.data(), ExcDrv, sizeof(ExcDrv));
+			physmeme::load_drv();
+			physmeme::map_driver(driver_image);
+		}
 		if (options::mapSpoof)
+		{
+			Sleep(5000);
 			mapspoof();
+		}
 
 		return true;
 	}

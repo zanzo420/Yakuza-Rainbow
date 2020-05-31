@@ -912,7 +912,7 @@ namespace Menu
 
 	static void Login()
 	{
-		ImGui::SetNextWindowSize(ImVec2(250, 260));
+		ImGui::SetNextWindowSize(ImVec2(250, 280));
 		ImGui::Begin(xorstr_(" Login "), NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize);
 
 		ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[2]);
@@ -992,7 +992,7 @@ namespace Menu
 		ImGui::Spacing();
 		ImGui::SameLine(50);
 		ImGui::Checkbox(xorstr_("  Spoof HWID"), &options::mapSpoof);
-
+		ImGui::Checkbox(xorstr_("  Don't Map"), &options::dontMap);
 		ImGui::End();
 	}
 

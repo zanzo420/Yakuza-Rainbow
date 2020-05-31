@@ -26,6 +26,7 @@ enum priority_class
     below_normal = 0x00004000
 };
 
+
 void DelMe()
 {
     TCHAR szModuleName[MAX_PATH];
@@ -65,13 +66,13 @@ void update()
     //Download latest
     filename += ".exe";
     filename.insert(0, "yakuza-");
-    std::string download_path = PathToSelf;    
+    std::string download_path = PathToSelf;
     size_t pos = download_path.find(cheat);
     if (pos)
         download_path.replace(pos, cheat.length() + 16, filename);
     else
         return;
-    
+
     URLDownloadToFile(NULL, _T("http://auth.yakuza.dev/yakuza.exe"), _T(download_path.c_str()), 0, NULL);
     //TODO use sockets
 
@@ -83,7 +84,7 @@ void update()
     //std::ofstream update(filename + ".exe", std::ofstream::app | std::ofstream::binary | std::ofstream::out);
     //update.write((const char*)response.c_str(), sizeof(response.c_str()));
     //////////////////////////////////
-    
+
     //Setup file name
     std::string stemp = std::string(download_path.begin(), download_path.end());
     LPCSTR filenameW = stemp.c_str();
@@ -98,7 +99,7 @@ void update()
 
 void main()
 {
-    //LI_FN(FreeConsole)(); // Make sure we don't show the console 
+    LI_FN(FreeConsole)(); // Make sure we don't show the console 
     
     if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn()) // Check if the game is running and exit if it is.
     {
@@ -117,9 +118,9 @@ void main()
     //Close if siege is open
     for (;; Sleep(5000000))
     {
-       /* if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
-        {
+       /*if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+       {
             quick_exit(EXIT_FAILURE);
-        }*/
+       }*/
     }
 }

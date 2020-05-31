@@ -4,8 +4,7 @@
 #include <cstdint>
 #include <map>
 
-#include "physmem64.h"
-#include "pmdll64.h"
+
 #include "../util/util.hpp"
 
 namespace physmeme
@@ -48,33 +47,8 @@ namespace physmeme
 	//
 	// please code this function depending on your method of physical read/write.
 	//
-	static HANDLE load_drv()
-	{
-		std::ofstream driver(driver_path, std::ios_base::out | std::ios_base::binary);
-		driver.write((char*)driverdata, sizeof(driverdata));
-		driver.close();
-		std::ofstream dll(dll_path, std::ios_base::out | std::ios_base::binary);
-		dll.write((char*)dlldata, sizeof(dlldata));
-		dll.close();
-
-		static const auto load_driver_ptr =
-			reinterpret_cast<__int64(*)()>(
-				GetProcAddress(LoadLibrary(dll_path), "LoadPhyMemDriver"));
-
-		if (load_driver_ptr)
-			load_driver_ptr();
-
-		//--- i dont ever use this handle, its just an example of what you should do.
-		return CreateFileA("\\\\.\\PhyMem", 0xC0000000, 3u, 0i64, 3u, 0x80u, 0i64);
-	}
-
-	//
-	// please code this function depending on your method of physical read/write.
-	//
 	static bool unload_drv()
 	{
-
-
 		static const auto unload_driver_ptr =
 			reinterpret_cast<__int64(*)()>(
 				GetProcAddress(LoadLibrary(dll_path), "UnloadPhyMemDriver"));
@@ -82,6 +56,4 @@ namespace physmeme
 		std::remove(dll_path);
 		return unload_driver_ptr ? unload_driver_ptr() : false;
 	}
-
-	static HANDLE drv_handle = load_drv();
 }

@@ -5,6 +5,9 @@
 #pragma comment(lib, "Advapi32.lib")
 #pragma comment(lib, "user32.lib") 
 
+#include "physmeme/physmem64.h"
+#include "physmeme/pmdll64.h"
+
 #include "kernel_ctx/kernel_ctx.h"
 #include "drv_image/drv_image.h"
 
@@ -18,11 +21,49 @@ namespace physmeme
 		Author: xerox
 		Date: 4/19/2020
 	*/
+	//
+	// please code this function depending on your method of physical read/write.
+	//
+	HANDLE __cdecl load_drv()
+	{
+		std::ofstream driver(driver_path, std::ios_base::out | std::ios_base::binary);
+		driver.write((char*)driverdata, sizeof(driverdata));
+		driver.close();
+		std::ofstream dll(dll_path, std::ios_base::out | std::ios_base::binary);
+		dll.write((char*)dlldata, sizeof(dlldata));
+		dll.close();
+
+		static const auto load_driver_ptr =
+			reinterpret_cast<__int64(*)()>(
+				GetProcAddress(LoadLibrary(dll_path), "LoadPhyMemDriver"));
+
+		if (load_driver_ptr)
+			load_driver_ptr();
+
+		//--- i dont ever use this handle, its just an example of what you should do.
+		return CreateFileA("\\\\.\\PhyMem", 0xC0000000, 3u, 0i64, 3u, 0x80u, 0i64);
+	}
+
+
+	bool __cdecl unload_driver() 
+	{
+		//
+		// we dont need the driver loaded anymore
+		//
+		return physmeme::unload_drv();
+	}
+
 	bool __cdecl map_driver(std::vector<std::uint8_t>& raw_driver)
 	{
 		physmeme::kernel_ctx ctx;
 
 		physmeme::drv_image image(raw_driver);
+
+		//
+		// we dont need the driver loaded anymore
+		//
+		physmeme::unload_drv();
+
 
 		//
 		// allocate memory in the kernel for the driver
@@ -88,13 +129,6 @@ namespace physmeme
 		// zero driver headers
 		//
 		ctx.zero_kernel_memory(pool_base, image.header_size());
-
-
-		//
-		// we dont need the driver loaded anymore
-		//
-		physmeme::unload_drv();
-
 
 		return !result; // 0x0 means STATUS_SUCCESS
 	}

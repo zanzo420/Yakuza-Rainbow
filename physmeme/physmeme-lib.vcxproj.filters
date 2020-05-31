@@ -59,10 +59,10 @@
       <Filter>Header Files\physmeme</Filter>
     </ClInclude>
     <ClInclude Include="physmeme\pmdll64.h">
-      <Filter>Header Files\physmeme</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="physmeme\physmem64.h">
-      <Filter>Header Files\physmeme</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

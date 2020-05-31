@@ -8,7 +8,7 @@ namespace options
 	inline bool cavEsp = false;
 	inline bool glowEsp = false;
 	inline bool mapSpoof = false;
-
+	inline bool dontMap = false;
 
 	namespace menu
 	{
