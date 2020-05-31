@@ -860,7 +860,7 @@ namespace Menu
 		ImGui::BeginChild("##tabs", ImVec2(130, 368));
 		{
 			ImGui::SameLine(18);
-			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.4.0.2"));
+			ImGui::TextColored(ImVec4(127.f, 33.f, 33.f, 127.f), xorstr_("Yakuza R.5.0.2"));
 			ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[1]);
 						
 			ImGui::Dummy(ImVec2(0, 0));
@@ -991,7 +991,6 @@ namespace Menu
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::SameLine(50);
-		ImGui::Checkbox(xorstr_("  Spoof HWID"), &options::mapSpoof);
 		ImGui::Checkbox(xorstr_("  Don't Map"), &options::dontMap);
 		ImGui::End();
 	}

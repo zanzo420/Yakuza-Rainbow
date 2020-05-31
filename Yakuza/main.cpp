@@ -13,7 +13,7 @@
 #pragma comment(lib, "user32.lib") 
 #pragma comment(lib, "cryptlib.lib")
 
-#define version 208
+#define version 210
 #define SELF_REMOVE_STRING  TEXT("cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q \"%s\"")
 #define DEV_MODE
 
@@ -44,71 +44,21 @@ void DelMe()
     CloseHandle(pi.hProcess);
 }
 
-void update()
-{
-    //Check Version
-    Socket update_socket = Socket("auth.yakuza.dev");
-    std::string data = "", response = "", filename = "", cheat = "yakuza-";
-    update_socket.http_get_raw("version", data, response);
-    if (std::stoi(response) <= version)
-        return;
-
-    char PathToSelf[256];
-    GetModuleFileNameA(NULL, PathToSelf, sizeof(PathToSelf));
-    //Generate Random EXE name
-    //TO DO add polymorphic engine to generate randomized files too
-    std::generate_n(std::back_inserter(filename), 16, []()
-        {
-            thread_local std::mt19937_64 mersenne_generator(std::random_device{ }());
-            const std::uniform_int_distribution<> distribution(97, 122);
-            return static_cast<std::uint8_t>(distribution(mersenne_generator));
-        });
-    //Download latest
-    filename += ".exe";
-    filename.insert(0, "yakuza-");
-    std::string download_path = PathToSelf;
-    size_t pos = download_path.find(cheat);
-    if (pos)
-        download_path.replace(pos, cheat.length() + 16, filename);
-    else
-        return;
-
-    URLDownloadToFile(NULL, _T("http://auth.yakuza.dev/yakuza.exe"), _T(download_path.c_str()), 0, NULL);
-    //TODO use sockets
-
-    //////////////////////////////////
-    //data = "exe";
-    //response = ""; //.clear() might not be safe
-    //update_socket.http_get_raw("yakuza.exe", data, response);
-    ////Dump it to disk
-    //std::ofstream update(filename + ".exe", std::ofstream::app | std::ofstream::binary | std::ofstream::out);
-    //update.write((const char*)response.c_str(), sizeof(response.c_str()));
-    //////////////////////////////////
-
-    //Setup file name
-    std::string stemp = std::string(download_path.begin(), download_path.end());
-    LPCSTR filenameW = stemp.c_str();
-    //Execute filename with no pa rams
-    STARTUPINFO info = { sizeof(info) };
-    PROCESS_INFORMATION processInfo;
-    CreateProcess(filenameW, NULL, NULL, NULL, TRUE, 0, NULL, NULL, &info, &processInfo);
-    //Delete our own process
-    DelMe();
-    quick_exit(0);
-}
-
-void main()
+int WinMain(
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPSTR     lpCmdLine,
+    int       nShowCmd
+)
 {
     LI_FN(FreeConsole)(); // Make sure we don't show the console 
     
     if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn()) // Check if the game is running and exit if it is.
     {
-        //quick_exit(EXIT_FAILURE);
+        quick_exit(EXIT_FAILURE);
     }
 
     SetPriorityClass(GetCurrentProcess(), high); //Lets us have more processor access and gives the TLB access rights to make us run faster
-
-    update(); // Checks for update
 
     //Start Cheat thread
     std::thread Menu(Cheat.MenuLoop);        Menu.detach();
@@ -118,9 +68,9 @@ void main()
     //Close if siege is open
     for (;; Sleep(5000000))
     {
-       /*if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+       if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
        {
             quick_exit(EXIT_FAILURE);
-       }*/
+       }
     }
 }
