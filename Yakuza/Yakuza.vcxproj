@@ -248,17 +248,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FUNC\callresetdisks.cpp" />
-    <ClCompile Include="FUNC\callspooffunc.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
-    <ClCompile Include="KDMOD\intel_driver.cpp" />
-    <ClCompile Include="KDMOD\kdmapper.cpp" />
-    <ClCompile Include="KDMOD\portable_executable.cpp" />
-    <ClCompile Include="KDMOD\service.cpp" />
-    <ClCompile Include="KDMOD\utils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="md5.cpp" />
     <ClCompile Include="RainbowSix.cpp" />
@@ -276,7 +269,6 @@
     <ClInclude Include="..\physmeme\map_driver.hpp" />
     <ClInclude Include="bones.h" />
     <ClInclude Include="esp.h" />
-    <ClInclude Include="FUNC\callfuncs.h" />
     <ClInclude Include="hwid.hpp" />
     <ClInclude Include="ImGui\Drawer.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -289,14 +281,6 @@
     <ClInclude Include="importer.hpp" />
     <ClInclude Include="includes\DrawerSmall.h" />
     <ClInclude Include="includes\Imgui_Main.h" />
-    <ClInclude Include="KDMOD\intel_driver.hpp" />
-    <ClInclude Include="KDMOD\intel_driver_resource.hpp" />
-    <ClInclude Include="KDMOD\kdmapper.hpp" />
-    <ClInclude Include="KDMOD\nt.hpp" />
-    <ClInclude Include="KDMOD\ntdll.h" />
-    <ClInclude Include="KDMOD\portable_executable.hpp" />
-    <ClInclude Include="KDMOD\service.hpp" />
-    <ClInclude Include="KDMOD\utils.hpp" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="lists.h" />
     <ClInclude Include="map\ExcDrv.h" />

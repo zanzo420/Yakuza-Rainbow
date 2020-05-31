@@ -15,27 +15,6 @@
     <ClCompile Include="imgui_impl_dx11.cpp">
       <Filter>Menu\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="KDMOD\intel_driver.cpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClCompile>
-    <ClCompile Include="KDMOD\kdmapper.cpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClCompile>
-    <ClCompile Include="KDMOD\portable_executable.cpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClCompile>
-    <ClCompile Include="KDMOD\service.cpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClCompile>
-    <ClCompile Include="KDMOD\utils.cpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClCompile>
-    <ClCompile Include="FUNC\callresetdisks.cpp">
-      <Filter>Spoof\FUNC</Filter>
-    </ClCompile>
-    <ClCompile Include="FUNC\callspooffunc.cpp">
-      <Filter>Spoof\FUNC</Filter>
-    </ClCompile>
     <ClCompile Include="Server\server\AES.cpp">
       <Filter>Security\Server\Source</Filter>
     </ClCompile>
@@ -97,15 +76,6 @@
     </Filter>
     <Filter Include="Utils\map">
       <UniqueIdentifier>{1f6633c1-442f-4010-817a-7a8800698464}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Spoof">
-      <UniqueIdentifier>{7f4c5b93-893d-4737-bb62-8bc16ff3aefe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Spoof\KDMOD">
-      <UniqueIdentifier>{f29721e9-4d9e-42de-9b38-c33926213906}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Spoof\FUNC">
-      <UniqueIdentifier>{a5ce0c19-47f4-41fc-8fa2-24bafe63b392}</UniqueIdentifier>
     </Filter>
     <Filter Include="Security\Server">
       <UniqueIdentifier>{dbff0bc6-031f-4621-b98b-7520a0d9d9e4}</UniqueIdentifier>
@@ -184,33 +154,6 @@
     </ClInclude>
     <ClInclude Include="bones.h">
       <Filter>Game\R6s\Features</Filter>
-    </ClInclude>
-    <ClInclude Include="KDMOD\intel_driver.hpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="KDMOD\intel_driver_resource.hpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="KDMOD\kdmapper.hpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="KDMOD\nt.hpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="KDMOD\ntdll.h">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="KDMOD\portable_executable.hpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="KDMOD\service.hpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="KDMOD\utils.hpp">
-      <Filter>Spoof\KDMOD</Filter>
-    </ClInclude>
-    <ClInclude Include="FUNC\callfuncs.h">
-      <Filter>Spoof\FUNC</Filter>
     </ClInclude>
     <ClInclude Include="Server\include\Licenser.hpp">
       <Filter>Security\Server\Headers</Filter>

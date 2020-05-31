@@ -67,11 +67,6 @@ bool Yakuza::Login(char* Username, char* license)
 			physmeme::load_drv();
 			physmeme::map_driver(driver_image);
 		}
-		if (options::mapSpoof)
-		{
-			Sleep(5000);
-			mapspoof();
-		}
 		return true;
 	}
 	
@@ -97,12 +92,6 @@ bool Yakuza::Register(char* Username, char* license)
 			physmeme::load_drv();
 			physmeme::map_driver(driver_image);
 		}
-		if (options::mapSpoof)
-		{
-			Sleep(5000);
-			mapspoof();
-		}
-
 		return true;
 	}
 	return false;
