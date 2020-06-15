@@ -16,10 +16,7 @@
 // Our menu uses to place on r6s
 void Yakuza::SetGameWindow()
 {
-	Menu::Variables::PrevWindow = NULL;
-
 	Menu::Variables::PrevWindow = LI_FN(GetWindow)(FindWindowA(0, ("Rainbow Six")), GW_HWNDPREV);
-	
 }
 
 // Checks if the Game Window is found

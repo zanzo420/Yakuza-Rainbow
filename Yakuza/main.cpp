@@ -55,7 +55,7 @@ int WinMain(
     
     if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn()) // Check if the game is running and exit if it is.
     {
-        quick_exit(EXIT_FAILURE);
+     //  quick_exit(EXIT_FAILURE);
     }
 
     SetPriorityClass(GetCurrentProcess(), high); //Lets us have more processor access and gives the TLB access rights to make us run faster
@@ -68,9 +68,9 @@ int WinMain(
     //Close if siege is open
     for (;; Sleep(5000000))
     {
-       if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
+      // if (GetPID("RainbowSix.exe") && !Cheat.LoggedIn())
        {
-            quick_exit(EXIT_FAILURE);
+            //quick_exit(EXIT_FAILURE);
        }
     }
 }

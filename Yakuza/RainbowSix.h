@@ -13,6 +13,7 @@ namespace RainbowSix
 	inline uintptr_t localplayer;
 	inline uintptr_t lpEntityList;
 	inline uintptr_t lpCamera;
+	inline uintptr_t lpRenderLink;
 	inline uintptr_t lpRender;
 	inline uintptr_t lpEngineLink;
 	inline uintptr_t lpEngine;
@@ -22,7 +23,7 @@ namespace RainbowSix
 
 	static uintptr_t GetLocalPlayer()
 	{
-		uintptr_t addr1 = RPM<uintptr_t>(profilemanager + 0x68);
+		uintptr_t addr1 = RPM<uintptr_t>(profilemanager + 0x78);
 		uintptr_t addr2 = RPM<uintptr_t>(addr1 + 0x0);
 		return RPM<uintptr_t>(addr2 + 0x28);
 	};
@@ -36,9 +37,10 @@ namespace RainbowSix
 		localplayer = GetLocalPlayer();
 		lpEntityList = RPM<uintptr_t>(gamemanager + offset_entity_list);
 		lpCamera = RPM<uintptr_t>(base_address + game_profile_offset); //game_profile is also contains a ptr to camera manager
-		lpRender = RPM<uintptr_t>(lpCamera + 0x78);
-		lpEngineLink = RPM<uintptr_t>(lpRender);
-		lpEngine = RPM<uintptr_t>(lpEngineLink + 0x130);
+		lpRenderLink = RPM<uintptr_t>(lpCamera + offset_camera);
+		lpRender = RPM<uintptr_t>(lpRenderLink + offset_render);
+		lpEngine = RPM<uintptr_t>(lpRender + offset_engine_link);
+		//lpEngine = RPM<uintptr_t>(lpEngineLink + offset_engine);
 	}
 
 	static int screenX = GetSystemMetrics(SM_CXSCREEN);

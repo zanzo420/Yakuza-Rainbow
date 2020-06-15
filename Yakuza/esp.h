@@ -35,7 +35,7 @@ static void BoxEsp(std::vector<PlayerInfo> ents) {
 	}
 
 
-	if (!options::EnemyEspBox && !options::EnemyEsp && !options::TeamEspBox && !options::TeamEsp || !RainbowSix::localplayer)
+	if (!options::EnemyEspBox && !options::EnemyEsp && !options::TeamEspBox && !options::TeamEsp)
 		return;
 	
 	for (std::vector<PlayerInfo>::iterator it = ents.begin(); it != ents.end(); ++it) {
@@ -55,7 +55,6 @@ static void BoxEsp(std::vector<PlayerInfo> ents) {
 
 		DirectX::XMFLOAT4 FilledEspBox;
 		DirectX::XMFLOAT4 DoRainbowFillColor = DirectX::XMFLOAT4(options::esp::rainbowcolor[0], options::esp::rainbowcolor[1], options::esp::rainbowcolor[2],150) ;
-
 
 		if (!Player.onTeam)
 		{

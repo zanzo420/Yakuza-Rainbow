@@ -141,6 +141,7 @@ namespace RainbowSix
 			options::noSpreadDisabled = true;
 		}
 	}
+	
 	void glow()
 	{
 		if (!options::glowEsp)
@@ -295,14 +296,14 @@ namespace RainbowSix
 	}
 
 	float GetFOVX() {
-		uintptr_t fovLink = RPM<uintptr_t>(GetCamera() + 0x420);
-		return RPM<float>(fovLink + fov_x);
+		//uintptr_t fovLink = RPM<uintptr_t>(GetCamera() + 0x420);
+		return RPM<float>(GetCamera() + fov_x);
 	}
 
 	float GetFOVY() 
 	{
-		uintptr_t fovLink = RPM<uintptr_t>(GetCamera() + 0x420);
-		return RPM<float>(fovLink +  fov_y);
+		//uintptr_t fovLink = RPM<uintptr_t>(GetCamera() + 0x420);
+		return RPM<float>(GetCamera() + fov_y);
 	}
 
 	extern "C" Vector3 WorldToScreen(Vector3 position)
@@ -317,11 +318,18 @@ namespace RainbowSix
 
 		Vector3 temp = position - GetViewTranslation();
 
-		float x = temp.Dot(GetViewRight());
-		float y = temp.Dot(GetViewUp());
-		float z = temp.Dot(GetViewForward() * -1);
+		Vector3 right = GetViewRight();
+		Vector3	up = GetViewUp();
+		Vector3	forward = GetViewForward() * -1;
 
-		return Vector3((displayWidth / 2) * (1 + x / GetFOVX() / z), (displayHeight / 2) * (1 - y / GetFOVY() / z), z);
+		float x = temp.Dot(right);
+		float y = temp.Dot(up);
+		float z = temp.Dot(forward);
+
+		float fovx = -GetFOVX();
+		float fovy = -GetFOVY();
+
+		return Vector3((displayWidth / 2) * (1 + x / fovx / z), (displayHeight / 2) * (1 - y / fovy / z), z);
 	}
 
 
@@ -611,7 +619,7 @@ namespace RainbowSix
 	}
 	void Aimbot(std::vector<PlayerInfo> ents)
 	{
-		if (!options::aimbot || !localplayer)
+		if (!options::aimbot)
 			return;
 
 		Vector3 AimAngle;
