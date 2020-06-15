@@ -977,8 +977,8 @@ namespace Menu
 		}
 		ImGui::SameLine();
 
-		if (ImGui::Button(xorstr_("Debug Login")))
-			Menu::Variables::loggedin = true;
+	/*	if (ImGui::Button(xorstr_("Debug Login")))
+			Menu::Variables::loggedin = true;*/
 
 
 		if (ImGui::Button(xorstr_("Exit"))) {

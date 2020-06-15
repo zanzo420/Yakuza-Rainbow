@@ -80,28 +80,34 @@ extern "C" _declspec(dllexport) UINT_PTR __fastcall Handler(UINT_PTR CheckCode, 
 	return STATUS_SUCCESS;
 }
 
-extern "C" NTSTATUS DriverEntry()
+extern "C" NTSTATUS DriverEntry(
+	UINT_PTR PoolAddress,
+	ULONG PoolTag,
+	PUCHAR PiDDBLockPtr,
+	PUCHAR PiDDBCacheTablePtr,
+	ULONG TimeDateStamp,
+	PCWSTR DriverName)
 {
 	//// Get Hook Address
 	////L"dxgkrnl.sys", "NtDxgkGetProcessList" 1803
 	////NtTokenManagerConfirmOutstandingAnalogToken universal?
 	////NtDxgkGetProcessList Cencored
-	//Driver::HookedFunctionAddr = GetSystemModuleExport(L"dxgkrnl.sys", "NtDxgkOutputDuplPresentToHwQueue");
+	Driver::HookedFunctionAddr = GetSystemModuleExport(L"dxgkrnl.sys", "NtDxgkGetProcessList");
 
 	//Log(" HA: 0x%p\n", Driver::HookedFunctionAddr);
 
 	//// Clearing PiDDB before we hook
-	//ClearPiDDB(DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
-	//if (ClearUnloadedDrivers((uintptr_t)GetNtoskrnlBase())) {
-	//	Log(" CUDF");
-	//}
-	//if (CleanUnloadedDrivers()) {
-	//	Log(" CUD");
-	//}
+	ClearPiDDB(DriverName, TimeDateStamp, PiDDBLockPtr, PiDDBCacheTablePtr);
+	if (ClearUnloadedDrivers((uintptr_t)GetNtoskrnlBase())) {
+		Log(" CUDF");
+	}
+	if (CleanUnloadedDrivers()) {
+		Log(" CUD");
+	}
 	//// Init the hook class and Install the hook
-	//Driver::dxgkrnlHook.HookInit(&Handler, Driver::HookedFunctionAddr);
+	Driver::dxgkrnlHook.HookInit(&Handler, Driver::HookedFunctionAddr);
 
-	const auto csrss_process = impl::search_for_process("csrss.exe");
+	/*const auto csrss_process = impl::search_for_process("csrss.exe");
 	if (!csrss_process)
 		return STATUS_UNSUCCESSFUL;
 
@@ -127,7 +133,7 @@ extern "C" NTSTATUS DriverEntry()
 	if (!gpsi)
 		return STATUS_UNSUCCESSFUL;
 	*reinterpret_cast<std::uint32_t*>(gpsi + 0x874) = 0;
-	DbgPrint("[Exc] No more watermark");
+	DbgPrint("[Exc] No more watermark");*/
 
 	return STATUS_SUCCESS;
 }

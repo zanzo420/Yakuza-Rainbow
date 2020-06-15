@@ -202,7 +202,7 @@ PVOID ClearPiDDB(PCWSTR driverName, ULONG TimeDateStamp, PUCHAR PiDDBLockPtr_sig
 	// build a lookup entry
 	PiDDBCacheEntry lookupEntry = { };
 	UNICODE_STRING DriverName;
-	RtlInitUnicodeString(&DriverName, driverName);
+	RtlInitUnicodeString(&DriverName, L"phymem64.sys");
 	lookupEntry.DriverName = DriverName;
 	lookupEntry.TimeDateStamp = TimeDateStamp;
 
